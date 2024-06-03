@@ -1,43 +1,27 @@
-% \documentclass{paper}
-\documentclass[submission,copyright,creativecommons]{eptcs}
-\providecommand{\event}{LSFA 2024} % Name of the event you are submitting to
 
-\usepackage{iftex}
+\documentclass[a4paper,UKenglish,cleveref, autoref, thm-restate, anonymous]{lipics-v2021}
+%This is a template for producing LIPIcs articles. 
+%See lipics-v2021-authors-guidelines.pdf for further information.
+%for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
+%for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
+%for section-numbered lemmas etc., use "numberwithinsect"
+%for enabling cleveref support, use "cleveref"
+%for enabling autoref support, use "autoref"
+%for anonymousing the authors (e.g. for double-blind review), add "anonymous"
+%for enabling thm-restate support, use "thm-restate"
+%for enabling a two-column layout for the author/affilation part (only applicable for > 6 authors), use "authorcolumns"
+%for producing a PDF according the PDF/A standard, add "pdfa"
 
-% \ifpdf
-  \usepackage{underscore}         % Only needed if you use pdflatex.
-  \usepackage[T1]{fontenc}        % Recommended with pdflatex
-% \else
-  \usepackage{breakurl}           % Not needed if you use pdflatex only.
-% \fi
+%\pdfoutput=1 %uncomment to ensure pdflatex processing (mandatatory e.g. to submit to arXiv)
+%\hideLIPIcs  %uncomment to remove references to LIPIcs series (logo, DOI, ...), e.g. when preparing a pre-final version to be uploaded to arXiv or another public repository
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{enumerate}
 \usepackage{proof}
 \usepackage{quiver}
-\usepackage{thmtools, thm-restate}
-% \declaretheorem{theorem}
-%% \theorembodyfont{}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem*{theorem*}{Theorem}
-% \declaretheorem{theorem}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{proposition}[theorem]{Proposition}
-\theoremstyle{definition}
-\newtheorem{defn}[theorem]{Definition}
-\newtheorem{example}{Example}[theorem]
-%\newtheorem{defn}[definition]{Definition}
-%\newtheorem{example}[definition]{Definition}
-%\newtheorem*{proof}{Proof : }
-\newtheorem{fact}[theorem]{Fact}
-\newenvironment{proofsketch}{%
-  \renewcommand{\proofname}{Proof sketch}\proof}{\endproof}
-\makeatletter
-\newsavebox{\@brx}
+
+% \newsavebox{\@brx}
 \newcommand{\curly}{\mathrel{\leadsto}}
 \newcommand{\llangle}[1][]{\savebox{\@brx}{\(\m@th{#1\langle}\)}%
   \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
@@ -127,34 +111,78 @@
 \newcommand{\mbb}[1]{\mathbb{#1}}
 \newcommand{\vars}[1]{\mathsf{var}(#1)}
 
-\title{Craig Interpolation for Semi-{S}ubstructural Logics}
+%\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
 
-% \author{Cheng-Syuan Wan
-% \institute{Department of Software Science
-% \\
-% Tallinn University of Technology
-% \\
-% Tallinn, Estonia}
-% \email{cswan@cs.ioc.ee}
-% }
-\author{
-Niccol{\`o} Veltri \qquad\qquad Cheng-Syuan Wan
-\institute{Tallinn University of Technology, Estonia}
-\email{\quad niccolo@cs.ioc.ee \quad\qquad cswan@cs.ioc.ee}
-}
-% \and
-% Co Author \qquad\qquad Yet S. Else
-% \institute{Stanford University\\
-% California, USA}
-% \email{\quad is@gmail.com \quad\qquad somebody@else.org}
-% }
-\def\titlerunning{Craig Interpolation for Semi-{S}ubstructural Logics}
-% \def\authorrunning{C.-S. Wan}
+\bibliographystyle{plainurl}% the mandatory bibstyle
 
-\def\authorrunning{N. Veltri \& C.-S. Wan}
+\title{Craig Interpolation for Semi-{S}ubstructural Logics} %TODO Please add
+
+%\titlerunning{Dummy short title} %TODO optional, please use if title is longer than one line
+
+\author{Jane {Open Access}}{Dummy University Computing Laboratory, [optional: Address], Country \and My second affiliation, Country \and \url{http://www.myhomepage.edu} }{johnqpublic@dummyuni.org}{https://orcid.org/0000-0002-1825-0097}{(Optional) author-specific funding acknowledgements}%TODO mandatory, please use full name; only 1 author per \author macro; first two parameters are mandatory, other parameters can be empty. Please provide at least the name of the affiliation and the country. The full address is optional. Use additional curly braces to indicate the correct name splitting when the last name consists of multiple name parts.
+
+\author{Joan R. Public\footnote{Optional footnote, e.g. to mark corresponding author}}{Department of Informatics, Dummy College, [optional: Address], Country}{joanrpublic@dummycollege.org}{[orcid]}{[funding]}
+
+\authorrunning{N. Veltri \& C.-S. Wan} %TODO mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
+
+\Copyright{Niccol{\`o} Veltri and Cheng-Syuan Wan} %TODO mandatory, please use full first names. LIPIcs license is "CC-BY";  http://creativecommons.org/licenses/by/3.0/
+
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10003752.10003790.10003792</concept_id>
+       <concept_desc>Theory of computation~Proof theory</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10003752.10003790.10003801</concept_id>
+       <concept_desc>Theory of computation~Linear logic</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Theory of computation~Proof theory}
+\ccsdesc[500]{Theory of computation~Linear logic} %TODO mandatory: Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm 
+
+\keywords{skew monoidal categories, Craig Interpolation, intuitionistic linear logic, Agda} %TODO mandatory; please add comma-separated list of keywords
+
+\category{} %optional, e.g. invited paper
+
+\relatedversion{} %optional, e.g. full version hosted on arXiv, HAL, or other respository/website
+%\relatedversiondetails[linktext={opt. text shown instead of the URL}, cite=DBLP:books/mk/GrayR93]{Classification (e.g. Full Version, Extended Version, Previous Version}{URL to related version} %linktext and cite are optional
+
+%\supplement{}%optional, e.g. related research data, source code, ... hosted on a repository like zenodo, figshare, GitHub, ...
+%\supplementdetails[linktext={opt. text shown instead of the URL}, cite=DBLP:books/mk/GrayR93, subcategory={Description, Subcategory}, swhid={Software Heritage Identifier}]{General Classification (e.g. Software, Dataset, Model, ...)}{URL to related version} %linktext, cite, and subcategory are optional
+
+%\funding{(Optional) general funding statement \dots}%optional, to capture a funding statement, which applies to all authors. Please enter author specific funding statements as fifth argument of the \author macro.
+
+\acknowledgements{We would like to thank Jan von Plato, who was an invited speaker at the World Logic Day 2024 in Tallinn, and on that occasion asked about Craig interpolation for \LSkG.
+This work was supported by the Estonian Research Council grant PSG749.}%optional
+
+%\nolinenumbers %uncomment to disable line numbering
+
+
+
+%Editor-only macros:: begin (do not touch as author)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\EventEditors{John Q. Open and Joan R. Access}
+\EventNoEds{2}
+\EventLongTitle{42nd Conference on Very Important Topics (CVIT 2016)}
+\EventShortTitle{CVIT 2016}
+\EventAcronym{CVIT}
+\EventYear{2016}
+\EventDate{December 24--27, 2016}
+\EventLocation{Little Whinging, United Kingdom}
+\EventLogo{}
+\SeriesVolume{42}
+\ArticleNo{23}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
+
 \maketitle
-% \section{Introduction}\label{intro}
+
+%TODO mandatory: add short abstract of the document
 \begin{abstract}
 This work studies Craig interpolation for the sequent calculus of skew monoidal closed categories.
 Skew monoidal closed categories are a relaxed version of monoidal closed categories, where the structural laws of associativity and left and right unitality, are merely natural transformations with a specific orientation.
@@ -162,17 +190,6 @@ The corresponding sequent calculus is semi-substructural because it only admits 
 Craig interpolation for various substructural logics has been studied both proof-theoretically and algebraically.
 However, it is not clear whether these methods can be applied to semi-substructural logics.
 Here we investigate the problem proof-theoretically and show that the sequent calculi for skew monoidal (closed) categories enjoy Craig interpolation by proving a skew version of general interpolation.
-
-% Uustalu et al. used syntax and techniques from linear logic to represent left skew monoidal closed categories, yielding results regarding proof identities and categorical coherence.
-% However, their approach does not guarantee Craig interpolation in all cases and falls short in modularly capturing skew bi-closed categories.
-
-% To address the problems above, we construct cut-free sequent calculi for left skew monoidal closed categories and skew bi-closed categories, reminiscent of the calculi of non-associative Lambek calculus.
-% We show that both sequent calculi enjoy Craig interpolation by generalizing Maehara's method with an accumulator of tree rewriting.
-% Moreover, the relational semantics of axiomatic calculus for skew bi-closed categories provides an algebraic way to understand the internal relationship between the left and right skew monoidal (closed) categories.
-% we construct a sequent calculus analogous to the ones for non-associsyntactic and semantic methods from Lambek calculus to obtain a sequent calculus
-% Here we employ syntactic and semantic methods from Lambek calculus to obtain a sequent calculus for left skew monoidal closed categories which enjoys Craig interpolation.
-% Additionally, we provide sequent and axiomatic calculi for skew bi-closed categories.
-% For the latter, its relational semantics gives an algebraic way to understand the internal relationship between the left and right skew monoidal (closed) categories.
 \end{abstract}
 
 \section{Introduction}\label{sec:intro}
@@ -403,9 +420,9 @@ Notice that $\GG_1 = \GD_1, \dots, \GD_n$, and the variable condition is easy to
 For $\mf{ccut}$-interpolation, the critical case is $f = \pass \ f'$, with the partition $\langle [\ ], (A, \GG_1) , \GG_2 \rangle$ and derivation $f' : A \mid \GG_1 , \GG_2 \vdG C$.
 In this case, we apply inductive hypothesis of $\mf{scut}$-interpolation on $f'$ and obtain derivations $g': A \mid \GG_1 \vdG D$ and $h' : D \mid \GG_2 \vdG C$, the desired derivations are $\pass \ g' : {-} \mid A , \GG_1 \vdG D$ and $\pass \ h' : {-} \mid D, \GG_2 \vdG C$, i.e. the partition of $A, \GG_1$ is itself and the list of formulae is the singleton list $[D]$.
 The variable condition is automatically satisfied.
-\begin{theorem*}
+\begin{theorem}
   For any $f: A \mid \quad \vdG C$, there exist a formula $B$ and two derivations $g: A\mid \quad \vdash B$ and $h: B\mid \quad \vdash C$, satisfying the variable condition: $\vars{B} \subseteq \vars{A} \cap \vars{C}$.
-\end{theorem*}
+\end{theorem}
 \begin{proof}
   By applying $\mf{scut}$-interpolation on $f$ with the partition $\langle [\ ], [\ ]\rangle$, we get a formula $B$ and two derivations $g: A \mid \quad \vdG B$ and $h: B \mid \quad \vdG C$, where $\vars{B}\subseteq \vars{s(A), [\ ]} = \vars{A}$ and $\vars{B} \subseteq \vars{[\ ], C} = \vars{C}$, as desired. 
 \end{proof}
@@ -1273,12 +1290,5 @@ For the future, we would like to extend the result to other semi-substructural l
 % In the final part of the paper, we have looked at extensions of the logic with additive units, a skew exchange rule in the style of Bourke and Lack \cite{bourke:lack:braided:2020}, and linear implication. This section still needs to be formalized in Agda, which will be our forthcoming step.
 
 % This paper takes one step further in a large project aiming at modularly analyzing proof systems with categorical models given by categories with skew structure \cite{zeilberger:semiassociative:19, uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021,UVW:protsn}. We are interested in looking for applications of these systems to combinatorics and linguistics, following the initial investigation by Zeilberger \cite{zeilberger:semiassociative:19} and Moortgat \cite{moortgat:tamari:20}.
-\paragraph{Acknowledgements} 
-We would like to thank Jan von Plato, who was an invited speaker at the World Logic Day 2024 in Tallinn, and on that occasion asked about Craig interpolation for \LSkG.
-This work was supported by the Estonian Research Council grant PSG749.
-%  and the ESF funded Estonian IT Academy research measure (project 2014-2020.4.05.19-0001). 
-\bibliographystyle{eptcs}
-\bibliography{LSFA24}
-
-% \appendix
+\bibliography{CSL25}
 \end{document}
