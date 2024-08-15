@@ -1,27 +1,63 @@
+%Version 3 October 2023
+% See section 11 of the User Manual for version history
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 %%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+%%                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\documentclass[a4paper,UKenglish,cleveref, autoref, thm-restate, anonymous]{lipics-v2021}
-%This is a template for producing LIPIcs articles. 
-%See lipics-v2021-authors-guidelines.pdf for further information.
-%for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
-%for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
-%for section-numbered lemmas etc., use "numberwithinsect"
-%for enabling cleveref support, use "cleveref"
-%for enabling autoref support, use "autoref"
-%for anonymousing the authors (e.g. for double-blind review), add "anonymous"
-%for enabling thm-restate support, use "thm-restate"
-%for enabling a two-column layout for the author/affilation part (only applicable for > 6 authors), use "authorcolumns"
-%for producing a PDF according the PDF/A standard, add "pdfa"
+%%\documentclass[referee,sn-basic]{sn-jnl}% referee option is meant for double line spacing
 
-%\pdfoutput=1 %uncomment to ensure pdflatex processing (mandatatory e.g. to submit to arXiv)
-%\hideLIPIcs  %uncomment to remove references to LIPIcs series (logo, DOI, ...), e.g. when preparing a pre-final version to be uploaded to arXiv or another public repository
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+%%=======================================================%%
+%% to print line numbers in the margin use lineno option %%
+%%=======================================================%%
+
+%%\documentclass[lineno,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%======================================================%%
+%% to compile with pdflatex/xelatex use pdflatex option %%
+%%======================================================%%
+
+%%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+
+%%Note: the following reference styles support Namedate and Numbered referencing. By default the style follows the most common style. To switch between the options you can add or remove �Numbered� in the optional parenthesis. 
+%%The option is available for: sn-basic.bst, sn-vancouver.bst, sn-chicago.bst%  
+ 
+%%\documentclass[sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
+%%\documentclass[sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+\documentclass[sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style 
+%%\documentclass[sn-mathphys-ay]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
+%%\documentclass[sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
+%%\documentclass[sn-vancouver,Numbered]{sn-jnl}% Vancouver Reference Style
+%%\documentclass[sn-apa]{sn-jnl}% APA Reference Style 
+%%\documentclass[sn-chicago]{sn-jnl}% Chicago-based Humanities Reference Style
+
+%%%% Standard Packages
+%%<additional latex packages if required can be included here>
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
 \usepackage{proof}
 \usepackage{quiver}
-
-% \newsavebox{\@brx}
+%%%%
 \newcommand{\curly}{\mathrel{\leadsto}}
 \newcommand{\llangle}[1][]{\savebox{\@brx}{\(\m@th{#1\langle}\)}%
   \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
@@ -96,8 +132,8 @@
 \newcommand{\NMILL}{$\mathtt{NMILL}$}
 \newcommand{\SkNMILL}{$\mathtt{SkNMILL}$}
 \newcommand{\LSkNL}{$\mathtt{LSkNL}$}
-\newcommand{\LSkG}{$\mathtt{LSkG}$}
-\newcommand{\LSkGm}{$\mathtt{LSkG^{-}}$}
+% \newcommand{\SkNMILL}{$\mathtt{LSkG}$}
+% \newcommand{\SkNMILLm}{$\mathtt{LSkG^{-}}$}
 \newcommand{\LSkT}{$\mathtt{LSkT}$}
 \newcommand{\RSkT}{$\mathtt{RSkT}$}
 \newcommand{\LSkTm}{$\mathtt{LSkT^{-}}$}
@@ -111,86 +147,94 @@
 \newcommand{\mbb}[1]{\mathbb{#1}}
 \newcommand{\vars}[1]{\mathsf{var}(#1)}
 
-%\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
+%%%%%=============================================================================%%%%
+%%%%  Remarks: This template is provided to aid authors with the preparation
+%%%%  of original research articles intended for submission to journals published 
+%%%%  by Springer Nature. The guidance has been prepared in partnership with 
+%%%%  production teams to conform to Springer Nature technical requirements. 
+%%%%  Editorial and presentation requirements differ among journal portfolios and 
+%%%%  research disciplines. You may find sections in this template are irrelevant 
+%%%%  to your work and are empowered to omit any such section if allowed by the 
+%%%%  journal you intend to submit to. The submission guidelines and policies 
+%%%%  of the journal take precedence. A detailed User Manual is available in the 
+%%%%  template package for technical guidance.
+%%%%%=============================================================================%%%%
 
-\bibliographystyle{plainurl}% the mandatory bibstyle
+%% as per the requirement new theorem styles can be included as shown below
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}% 
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
 
-\title{Craig Interpolation for Semi-{S}ubstructural Logics} %TODO Please add
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+\newtheorem{lemma}{Lemma}
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
 
-%\titlerunning{Dummy short title} %TODO optional, please use if title is longer than one line
-
-\author{Jane {Open Access}}{Dummy University Computing Laboratory, [optional: Address], Country \and My second affiliation, Country \and \url{http://www.myhomepage.edu} }{johnqpublic@dummyuni.org}{https://orcid.org/0000-0002-1825-0097}{(Optional) author-specific funding acknowledgements}%TODO mandatory, please use full name; only 1 author per \author macro; first two parameters are mandatory, other parameters can be empty. Please provide at least the name of the affiliation and the country. The full address is optional. Use additional curly braces to indicate the correct name splitting when the last name consists of multiple name parts.
-
-\author{Joan R. Public\footnote{Optional footnote, e.g. to mark corresponding author}}{Department of Informatics, Dummy College, [optional: Address], Country}{joanrpublic@dummycollege.org}{[orcid]}{[funding]}
-
-\authorrunning{N. Veltri \& C.-S. Wan} %TODO mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
-
-\Copyright{Niccol{\`o} Veltri and Cheng-Syuan Wan} %TODO mandatory, please use full first names. LIPIcs license is "CC-BY";  http://creativecommons.org/licenses/by/3.0/
-
-\begin{CCSXML}
-<ccs2012>
-   <concept>
-       <concept_id>10003752.10003790.10003792</concept_id>
-       <concept_desc>Theory of computation~Proof theory</concept_desc>
-       <concept_significance>500</concept_significance>
-       </concept>
-   <concept>
-       <concept_id>10003752.10003790.10003801</concept_id>
-       <concept_desc>Theory of computation~Linear logic</concept_desc>
-       <concept_significance>500</concept_significance>
-       </concept>
- </ccs2012>
-\end{CCSXML}
-
-\ccsdesc[500]{Theory of computation~Proof theory}
-\ccsdesc[500]{Theory of computation~Linear logic} %TODO mandatory: Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm 
-
-\keywords{skew monoidal categories, Craig Interpolation, intuitionistic linear logic, Agda} %TODO mandatory; please add comma-separated list of keywords
-
-\category{} %optional, e.g. invited paper
-
-\relatedversion{} %optional, e.g. full version hosted on arXiv, HAL, or other respository/website
-%\relatedversiondetails[linktext={opt. text shown instead of the URL}, cite=DBLP:books/mk/GrayR93]{Classification (e.g. Full Version, Extended Version, Previous Version}{URL to related version} %linktext and cite are optional
-
-%\supplement{}%optional, e.g. related research data, source code, ... hosted on a repository like zenodo, figshare, GitHub, ...
-%\supplementdetails[linktext={opt. text shown instead of the URL}, cite=DBLP:books/mk/GrayR93, subcategory={Description, Subcategory}, swhid={Software Heritage Identifier}]{General Classification (e.g. Software, Dataset, Model, ...)}{URL to related version} %linktext, cite, and subcategory are optional
-
-%\funding{(Optional) general funding statement \dots}%optional, to capture a funding statement, which applies to all authors. Please enter author specific funding statements as fifth argument of the \author macro.
-
-\acknowledgements{We would like to thank Jan von Plato, who was an invited speaker at the World Logic Day 2024 in Tallinn, and on that occasion asked about Craig interpolation for \LSkG.
-This work was supported by the Estonian Research Council grant PSG749.}%optional
-
-%\nolinenumbers %uncomment to disable line numbering
-
-
-
-%Editor-only macros:: begin (do not touch as author)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\EventEditors{John Q. Open and Joan R. Access}
-\EventNoEds{2}
-\EventLongTitle{42nd Conference on Very Important Topics (CVIT 2016)}
-\EventShortTitle{CVIT 2016}
-\EventAcronym{CVIT}
-\EventYear{2016}
-\EventDate{December 24--27, 2016}
-\EventLocation{Little Whinging, United Kingdom}
-\EventLogo{}
-\SeriesVolume{42}
-\ArticleNo{23}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
 
 \begin{document}
 
-\maketitle
+\title[Craig Interpolation for Semi-{S}ubstructural Logics]{Craig Interpolation for Semi-{S}ubstructural Logics}
 
-%TODO mandatory: add short abstract of the document
-\begin{abstract}
-This work studies Craig interpolation for the sequent calculus of skew monoidal closed categories.
+%%=============================================================%%
+%% GivenName	-> \fnm{Joergen W.}
+%% Particle	-> \spfx{van der} -> surname prefix
+%% FamilyName	-> \sur{Ploeg}
+%% Suffix	-> \sfx{IV}
+%% \author*[1,2]{\fnm{Joergen W.} \spfx{van der} \sur{Ploeg} 
+%%  \sfx{IV}}\email{iauthor@gmail.com}
+%%=============================================================%%
+
+\author{\fnm{Niccol{\`o}} \sur{Veltri}}\email{niccolo@cs.ioc.ee}
+
+\author{\fnm{Cheng-Syuan} \sur{Wan}}\email{cswan@cs.ioc.ee}
+% \equalcont{These authors contributed equally to this work.}
+
+% \author[1,2]{\fnm{Third} \sur{Author}}\email{iiiauthor@gmail.com}
+% \equalcont{These authors contributed equally to this work.}
+
+\affil{\orgdiv{Department of Software Science}, \orgname{Tallinn University of Technology}, \country{Estonia}}
+
+% \affil[2]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{10587}, \state{State}, \country{Country}}}
+
+% \affil[3]{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \city{City}, \postcode{610101}, \state{State}, \country{Country}}}
+
+%%==================================%%
+%% Sample for unstructured abstract %%
+%%==================================%%
+
+\abstract{This work studies Craig interpolation for the sequent calculus of skew monoidal closed categories.
 Skew monoidal closed categories are a relaxed version of monoidal closed categories, where the structural laws of associativity and left and right unitality, are merely natural transformations with a specific orientation.
 The corresponding sequent calculus is semi-substructural because it only admits semi-associativity and semi-unitality, i.e. it is an intermediate logic between non-associative and associative linear logic.
 Craig interpolation for various substructural logics has been studied both proof-theoretically and algebraically.
 However, it is not clear whether these methods can be applied to semi-substructural logics.
-Here we investigate the problem proof-theoretically and show that the sequent calculi for skew monoidal (closed) categories enjoy Craig interpolation by proving a skew version of general interpolation.
-\end{abstract}
+Here we investigate the problem proof-theoretically and show that the sequent calculi for skew monoidal (closed) categories enjoy Craig interpolation by proving a skew version of general interpolation.}
+
+%%================================%%
+%% Sample for structured abstract %%
+%%================================%%
+
+% \abstract{\textbf{Purpose:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Methods:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Results:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
+
+\keywords{skew monoidal categories, Craig Interpolation, intuitionistic linear logic, Agda}
+
+%%\pacs[JEL Classification]{D8, H51}
+
+%%\pacs[MSC Classification]{35A01, 65L10, 65L12, 65L20, 65L70}
+
+\maketitle
 
 \section{Introduction}\label{sec:intro}
 Substructural logics are logic systems that lack at least one of the structural rules, weakening, contraction, and exchange.
@@ -219,7 +263,7 @@ Moreover, they all admit sound and complete subcalculi inspired by Andreoli's fo
 rules are restricted to be applied in a specific order.
 A focused calculus provides an algorithm to solve both the proof identity problems for its non-focused calculus and coherence problems for its corresponding variant of left skew monoidal category.
 
-We say a consequence relation $\vdash$ has Craig interpolation if for any $f: A \vdash C$, there exist a formula $B$ and two derivations $g: A \vdash B$ and $h: B \vdash C$, satisfying the variable condition: $\vars{B} \subseteq \vars{A} \cap \vars{C}$ ($\vars{A}$ is the set of atomic formulae appearing in $A$) \cite{craig:interpolation:1957}.
+We say a logic $\mc{L}$ has Craig interpolation property if for any formula $A \to C$ provable in $\mc{L}$, there exists a formula $B$ such that $A \to B$ and $B \to C$ are provable in $\mc{L}$, satisfying the variable condition: $\vars{B} \subseteq \vars{A} \cap \vars{C}$ ($\vars{A}$ is the set of atomic formulae appearing in $A$) ($\to$ is the implication connective in $\mc{L}$).\cite{craig:interpolation:1957}.
 % The variation of Craig interpolation is defined by replacing the variable condition with that given a set of formulae $\GT$, and given a derivation $f:A \vd^{\GT} C$, if all formulae appearing in $f$ are in $\GT$, then there exists a formula $B \in \GT$ and two derivations $f_0: A\vd^{\GT} B$ and $f_1: B \vd^{\GT} C$. 
 % In this paper, we call the former Craig interpolation and the latter weak interpolation.
 
@@ -234,11 +278,11 @@ In this work, we show that sequent calculi for left skew monoidal (closed) categ
 % While the antecedent $S \mid \GG$ is defined similarly to an ordered list, it is actually a tree associating to the left.
 
 % In this work, we analyze and solve these two problems with ideas and methods from non-associative Lambek calculus.
-% We start in Section \ref{sec:syntax}, by introducing the sequent calculus {\` a} la Girard (\LSkG) for left skew monoidal closed categories from \cite{UVW:protsn} and elaborating its limitation on having interpolation.
+% We start in Section \ref{sec:syntax}, by introducing the sequent calculus {\` a} la Girard (\SkNMILL) for left skew monoidal closed categories from \cite{UVW:protsn} and elaborating its limitation on having interpolation.
 % By generalizing the method in \cite{ono:proof:nonclassical:1998}, we prove interpolation for a cut-free sequent calculus \LSkT, which is inspired by sequent calculus 
-% for non-associative Lambek calculus \cite{bulinska:2009,moot:categorial:2012} and equivalent to \LSkG.
+% for non-associative Lambek calculus \cite{bulinska:2009,moot:categorial:2012} and equivalent to \SkNMILL.
 % The antecedents of sequents in \LSkT~are trees, which save us from discussing impossible cases when proving interpolation.
-% Moreover, by the equivalence between \LSkG~and \LSkT, we can prove a special form of interpolation for \LSkG~via \LSkT.
+% Moreover, by the equivalence between \SkNMILL~and \LSkT, we can prove a special form of interpolation for \SkNMILL~via \LSkT.
 
 % In Section \ref{sec:skew:categories}, we introduce definitions of left (right) skew monoidal closed categories and skew bi-closed categories, and normality conditions for skew categories.
 % In Section \ref{sec:calculi:skbic}, we describe two calculi for skew bi-closed categories: one is an axiomatic calculus (\SkBiCA), while the other is a sequent calculus (\SkBiCT) similar to the multimodal non-associative Lambek calculus \cite{moortgat:multimodl:1996}.
@@ -246,17 +290,17 @@ In this work, we show that sequent calculi for left skew monoidal (closed) categ
 % We define the relational semantics via a Kripke frame with two ternary relations and show that the partially ordered set which consists of subsets of possible worlds with appropriate operations is a thin skew bi-closed category.
 % Furthermore, by theorem (\ref{thm:main}), we can prove a thin version of main theorems in \cite{uustalu:eilenberg-kelly:2020}.
 
-\section{Sequent Calculus and Interpolation}\label{sec:syntax}
-Recall the sequent calculus (\LSkG) for left skew monoidal closed categories from \cite{UVW:protsn}, which is a skew variant of non-commutative multiplicative intuitionistic linear logic.
+\section{Sequent Calculus}\label{sec:syntax}
+Recall the sequent calculus (\SkNMILL) for left skew monoidal closed categories from \cite{UVW:protsn}, which is a skew variant of non-commutative multiplicative intuitionistic linear logic.
 
-Formulae ($\mf{Fma}$) are inductively generated by the grammar $A, B::= X \ | \ \I \ | \ A \ot B \ | \ A \lolli B$, where $X$ comes from a countably infinite set $\mathsf{At}$ of atoms, $\I$ is a multiplicative unit, $\ot$ is multiplicative conjunction and $\lolli$ is a linear implication.
+Formulae ($\mf{Fma}$) are inductively generated by the grammar $A, B::= X \ | \ \I \ | \ A \ot B \ | \ A \lolli B$, where $X$ comes from a set $\mathsf{At}$ of atoms, $\I$ is a multiplicative unit, $\ot$ is multiplicative conjunction and $\lolli$ is a linear implication.
 
 A sequent is a triple of the form $S \mid \Gamma \vdG A$, where the antecedent splits into: an optional formula $S$, called \emph{stoup} \cite{girard:constructive:91}, and an ordered list of formulae $\Gamma$ and succedent $A$ is a single formula.
 The symbol $S$ consistently denotes a stoup, meaning $S$ can either be a single formula or empty, indicated as $S = {-}$; furthermore, $X$, $Y$, and $Z$ always represent atomic formulae.
 % The design of sequents is from previous work on syntactic characterizations for skew structures \cite{uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021}.
 % The peculiar design of sequents, involving the presence of the stoup in the antecedent, comes from previous work on deductive systems with skew structure by Uustalu, Veltri and Zeilberger \cite{uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021}.
 
-Derivations in are generated recursively by the following rules:
+Derivations are generated recursively by the following rules:
 \begin{equation}\label{eq:seqcalc:skmc:Gir}
 	  % \def\arraystretch{2.5}
 	  \begin{array}{c}
@@ -284,11 +328,36 @@ Derivations in are generated recursively by the following rules:
 		  {-} \mid \Delta \vdG B
 		}
 	  \end{array}
+    % \begin{array}{c}
+		% \infer[\ax]{A \mid \quad \vdG A}{}
+		% \quad
+    %         \infer[\pass]{{-} \mid A , \Gamma \vdG C}{A \mid \Gamma \vdG C}
+		% \quad
+    %         \infer[\unitr]{{-} \mid \quad \vdG \I}{}
+    %         \quad
+		% \infer[\unitl]{\I \mid \Gamma \vdG C}{{-} \mid \Gamma \vdG C}
+		% \\[5pt]
+    %         \infer[\tl]{A \ot B \mid \Gamma \vdG C}{A \mid B , \Gamma \vdG C}
+		% \quad
+		% \infer[\tr]{S \mid \Gamma , \Delta \vdG A \ot B}{
+		%   S \mid \Gamma \vdG A
+		%   &
+		%   {-} \mid \Delta \vdG B
+		% }
+		% \\[5pt]
+		% \infer[\lleft]{A \lolli B \mid \Gamma , \Delta \vdG C}{
+		%   {-} \mid \Gamma \vdG A
+		%   &
+		%   B \mid \Delta \vdG C
+		% }
+		% \quad
+		% \infer[\lright]{S \mid \Gamma \vdG A \lolli B}{S \mid \Gamma , A \vdG B}
+	  % \end{array}
 	\end{equation}
 The inference rules in (\ref{eq:seqcalc:skmc:Gir}) are similar to the ones in the sequent calculus for non-commutative multiplicative intuitionistic linear logic (\NMILL) \cite{abrusci:noncommutative:1990}, but with some crucial differences: 
 % $(i)$ The left logical rules $\unitl$, $\tl$ and $\lleft$, read bottom-up, are only allowed to be applied on the formula in the stoup position. $(ii)$ The right tensor rule $\tr$, read bottom-up, splits the antecedent of a sequent $S \mid \Gamma, \Delta \vdG A \ot B$ and in the case where $S$ is a formula, $S$ is always moved to the stoup of the left premise, even if $\Gamma$ is empty.
 % $(iii)$ The presence of the stoup distinguishes two types of antecedents, $A \mid \Gamma$ and ${-} \mid A, \Gamma$. The structural rule $\pass$ (for `passivation'), read bottom-up, allows the moving of the leftmost formula in the context to the stoup position whenever the stoup is empty.
-% $(iv)$ The logical connectives of \NMILL\ (and associative Lambek calculus) typically include two ordered implications $\lolli$ and $\illol$, which are two variants of linear implication arising from the removal of the exchange rule from intuitionistic linear logic. In \LSkG~only the left implication $\lolli$ (right residuation in Lambek calculus) is present. 
+% $(iv)$ The logical connectives of \NMILL\ (and associative Lambek calculus) typically include two ordered implications $\lolli$ and $\illol$, which are two variants of linear implication arising from the removal of the exchange rule from intuitionistic linear logic. In \SkNMILL~only the left implication $\lolli$ (right residuation in Lambek calculus) is present. 
 \begin{enumerate}
 \item The left logical rules $\unitl$, $\tl$ and $\lleft$, read bottom-up, are only allowed to be applied on the formula in the stoup position.
 % In particular, there is no general way to remove a unit $\I$ nor decompose a tensor $A \ot B$ if these formulae are located in the context and not in the stoup
@@ -318,7 +387,7 @@ This calculus is sound and complete wrt. left skew monoidal closed categories an
         \deduce{S \mid \Delta_0 , A , \Delta_1 \vdG C}{}
       }
     \end{displaymath}
-% By soundness and completeness, similar to the result in \cite{uustalu:sequent:2021} for skew monoidal categories, we mean that \LSkG~is syntactically equivalent to the axiomatic characterization of the free left skew monoidal closed category.
+% By soundness and completeness, similar to the result in \cite{uustalu:sequent:2021} for skew monoidal categories, we mean that \SkNMILL~is syntactically equivalent to the axiomatic characterization of the free left skew monoidal closed category.
 % % This axiomatic calculus (\LSkNL) is reminiscent of Lambek's syntactic calculus \cite{lambek:deductive:68,lambek:deductive:69}:
 % \begin{equation*}\label{eq:seqcalc:skmc:Lam}
 %   % \def\arraystretch{1.5}
@@ -364,31 +433,168 @@ This calculus is sound and complete wrt. left skew monoidal closed categories an
 % We only care about provability in this paper, therefore the congruence relations on sets of derivations $A \vdL B$ and $S \mid \Gamma \vdG A$ similar to ones in \cite{uustalu:sequent:2021} are omitted.
 % However, the congruence relations are essential for these calculi being correct characterizations of the free left skew monoidal closed category.
 
-% The calculus \LSkG, being an equivalent presentation of a skew version of \NL,\  provides an effective procedure to determine formulae derivability in \LSkNL.
+% The calculus \SkNMILL, being an equivalent presentation of a skew version of \NL,\  provides an effective procedure to determine formulae derivability in \LSkNL.
 % In other words, for any formula $A$, $ \vdL A$ if and only if ${-} \mid \quad \vdG A$.
-% Proof search in \LSkG~always terminates, so for any $A$, either there is a proof in \LSkG~or the proof search terminates without finding any proof.
-
-We are interested in if \LSkG~enjoys Craig interpolation.
-For substructural logic (especially non-commutative logic), we have a general version of interpolation \cite{ono:proof:nonclassical:1998}:
+% Proof search in \SkNMILL~always terminates, so for any $A$, either there is a proof in \SkNMILL~or the proof search terminates without finding any proof.
+\section{Interpolation}
+In this section, we adapt Maehara's method to prove \SkNMILL~enjoys Craig interpolation.
+Maehara's method is based on cut-free sequent calculi, and the process is that we prove a general version of interpolation, and then Craig interpolation would become a corollary.
+For instance, given a cut-free sequent calculus for associative Lambek calculus, the general version of interpolation is \cite{ono:proof:nonclassical:1998}:
 \begin{itemize}
   \item[\ ] Given $f : \Gamma \vdash C$ and any partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_1 \vdash C$, and $\vars{D} \subseteq \vars{\Gamma_0} \cap \vars{\Gamma_0, \Gamma_1, C}$ ($\vars{A}$ is the set of atomic formulae appearing in $A$ and $\vars{\Gamma}$ means $\bigcup \vars{A_i}$ for $A_i \in \Gamma$).
 \end{itemize}
+The proof proceeds by induction on the height of derivations and we should exhaust all cases of any partition.
 
-Due to two cut rules in \LSkG, we should consider two versions of general interpolation:
-\begin{itemize}
-  \item[\ ] ($\mf{scut}$-interpolation) Given $f: S \mid \Gamma \vdG C$ and any partition $\langle \GG_0,\GG_1 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : S \mid \GG_0 \vdG D$ and $h : D \mid \GG_1 \vdG C$, and $\vars{D} \subseteq \vars{s(S), \GG_0} \cap \vars{\GG_1, C}$, where $s(S) = I$ if $S = {-}$ or $s(S) = B$ if $S = B$.
-  \item[\ ] ($\mf{ccut}$-interpolation) Given $f: S \mid \Gamma \vdG C$ and any partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist a partition of $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$, a list of formulae $D_1, \dots, D_n$ and derivations $g: S \mid \GG_0, D_1, \dots, D_n, \GG_2 \vdG C$ and $h_i : {-} \mid \GD_i \vdG D_i$ for $i \in [1\dots n]$ such that $\vars{D_1, \dots, D_n} \subseteq \vars{\GD_1, \dots, \GD_n} \cap \vars{s(S), \GG_0, \GG_2, C}$.
+In the case of \SkNMILL, we should consider the following two statements of general interpolation:
+\begin{lemma}
+  \begin{itemize}
+  \item[\ ] ($\mf{scut}$-interpolation) Given $f: S \mid \Gamma \vdG C$ and any partition $\langle \GG_0,\GG_1 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : S \mid \GG_0 \vdG D$ and $h : D \mid \GG_1 \vdG C$, and $\vars{D} \subseteq \vars{S, \GG_0} \cap \vars{\GG_1, C}$.
+%   , where $s(S) = I$ if $S = {-}$ or $s(S) = B$ if $S = B$.
+  \item[\ ] ($\mf{ccut}$-interpolation) Given $f: S \mid \Gamma \vdG C$ and any partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist a partition of $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$, a list of formulae $D_1, \dots, D_n$ and derivations $g: S \mid \GG_0, D_1, \dots, D_n, \GG_2 \vdG C$ and $h_i : {-} \mid \GD_i \vdG D_i$ for $i \in [1\dots n]$ such that $\vars{D_1, \dots, D_n} \subseteq \vars{\GD_1, \dots, \GD_n} \cap \vars{S, \GG_0, \GG_2, C}$.
 \end{itemize}
-These two statements are proved by mutual induction on derivations.
+\end{lemma}
+\begin{proof}
+  These two statements are proved by mutual induction on derivations.
 \\
-For $\mf{scut}$-interpolation, the critical case is $f = \lleft (f',f'')$, with the partition $\langle \GG_0, (\GG_1, \GG_2) \rangle$ for $\GG$, and two derivations $f' : {-} \mid \GG_0, \GG_1 \vdG A$ and $f'': B \mid \GG_2 \vdG C$.
-Our goals is to find a formula $D$ and derivations $g : A\lolli B \mid \GG_0 \vdG D$ and $h: D \mid \GG_1, \GG_2 \vdG C$.
-We first apply inductive hypothesis of $\mf{ccut}$-interpolation on $f'$ and then get $g': {-} \mid \GG_0 , D_1, \dots, D_n \vdG A$, $h'_i : {-} \mid \GD_i \vdG D_i$, $i \in [1\dots n]$.
-By applying inductive hypothesis of $\mf{scut}$-interpolation on $f''$, we obtain derivations $g'' : B \mid \quad \vdG E$ and $h'': E \mid \GG_2 \vdG C$.
-Then we construct desired derivations as follows:
+We start by proving $\mf{scut}$-interpolation.
+The first base case is $f = \ax : A \mid \quad \vd A$, which enforces $\GG_0 = \GG_1 = [\ ]$.
+In this case, the interpolant formula is $A$ and $g = h = f = \ax : A \mid \quad \vd A$, where the variable condition is automatically satisfied.
+Another base case is $f = \unitr : {-} \mid \quad \vd A$.
+Similarly, $\GG_0$ and $\GG_1$ are enforced to be empty lists.
+In this case, the interpolant formulae is $\I$ and $g = f = \unitr : {-} \mid \quad \vd \I$ and $h = \unitl (\unitr) : \I \mid \quad \vd \I$, where the variable condition is vacuously satisfied.
+
+For inductive cases, we first deal with one-premise rules.
+The first group of one-premise rules are $\unitl, \tl$, and $\lright$.
+We show the case of $f = \unitl \ f'$, while the other two are similar.
+Given a derivation $\unitl \ f' : \I \mid \GG \vd C$ and a partition $\langle \GG_0, \GG_1 \rangle$ of $\GG$, we apply induction on $f'$ with the same partition of $\GG$ and then obtain a formula $D$ and two derivations $g' : {-} \mid \GG_0 \vd D$ and $h' : D \mid \GG_1 \vd C$, where $\vars{D} \subseteq \vars{\GG_0} \cap \vars{\GG_1, C}$.
+In this case, the interpolant formula for $f$ is $D$, and two desired derivations are $g = \unitl \ g'$ and $h = h'$.
+The variable condition is satisfied because $\vars{\I} = \emptyset$.
+
+The last case of one-premise rules is $ f = \pass \ f'$.
+There are two subcases determined by the partition of $\GG$, specifically, $\GG_0$ is an empty list or not. 
+If $\GG_0 = [\ ]$, then the interpolant is $\I$ and two desired derivations are $\unitr$ and $\unitl (\pass \ f')$.
+The variable condition is vacuously satisfied.
+If $\GG_0 = A, \GG'_0$, then we apply induction on $f'$ with the partition $\langle \GG'_0, \GG_1 \rangle$ and then obtain a formula $D$ and two derivations $g' : A \mid \GG'_0 \vd D$ and $h' : D \mid \GG_1 \vd C$, where $\vars{D} \subseteq \vars{A, \GG'_0} \cap \vars{\GG_1, C}$.
+In this case, the interpolant formula for $f$ is $D$, and two desired derivations are $g = \pass \ g'$ and $h = h'$.
+The variable condition is satisfied by the inductive hypothesis.
+
+For two-premises rules, we first check $f = \tr (f',f'')$.
+The first case of $\tr$ is the partition $\langle (\GG_0, \GG_1), \GG_2 \rangle$ ($\GG_1$ is a non-empty list) with $f' : S \mid \GG_0 \vd A$ and $f'': {-} \mid \GG_1, \GG_2 \vd B$.
+In this case, we apply induction on $f'$ with the partition $\langle \GG_0 , [\ ] \rangle $and $f''$ with the partition $\langle \GG_1 , \GG_2 \rangle$ respectively to obtain
+\begin{itemize}
+  \item[--] a formula $E$ and two derivations $g' : S \mid \GG_0 \vd E$, $h' : E \mid \quad \vd A$ such that $\vars{E} \subseteq \vars{S, \GG_0} \cap \vars{A}$, and
+  \item[--] a formula $F$ and two derivations $g'' : {-} \mid \GG_1 \vd F$ and $h'' : F \mid \GG_2 \vd B$ such that $\vars{F} \subseteq \vars{\GG_1} \cap \vars{\GG_2, B}$.
+\end{itemize}
+Then the interpolant formula is $E \ot F$ and the desired derivations are
 \begin{displaymath}
-  \small\begin{array}{c}
-    \infer[\lright]{A\lolli B \mid \GG_0 \vdG D_1 \lolli (\dots (D_n \lolli E)\dots)}{
+  \begin{array}{c}
+  \begin{array}{c}
+    g
+  \end{array}
+  \quad
+  =
+  \quad
+  \begin{array}{c}
+    \infer[\tr]{S \mid \GG_0 , \GG_1 \vd E \ot F}{
+      \deduce{S \mid \GG_0 \vd E}{g'}
+      &
+      \deduce{{-} \mid \GG_1 \vd F}{g''}
+    }
+  \end{array}
+    \quad
+    \begin{array}{c}
+      h
+    \end{array}
+    \quad
+    =
+    \quad
+    \begin{array}{c}
+      \infer[\tl]{E \ot F \mid \GG_2 \vd A \ot B}{
+      \infer[\tr]{E \mid F , \GG_2 \vd A \ot B}{
+        \deduce{E \mid \quad \vd A}{h'}
+        &
+        \infer[\pass]{{-} \mid F , \GG_2 \vd B}{
+          \deduce{F \mid \GG_2 \vd B}{h''}
+        }
+      }
+    }
+    \end{array}
+  \end{array}
+\end{displaymath}
+The variable condition is satisfied because $\vars{E \ot F} = \vars{E} \cup \vars{F} \subseteq \vars{S , \GG_0} \cup \vars{\GG_1} = \vars{S, \GG_0 , \GG_1}$ and $\vars{E \ot F} = \vars{E} \cup \vars{F} \subseteq \vars{A} \cup \vars{\GG_2 , B} = \vars{A, \GG_2 , B} = \vars{\GG_2, A \ot B}$.
+
+The second case of $\tr$ is the partition $\langle \GG_0, (\GG_1 , \GG_2)$ ($\GG_1$ is possibly empty) with $f' : S \mid \GG_0 , \GG_1 \vd A$ and $f'' : {-} \mid \GG_2 \vd B$.
+In this case, we apply induction on $f'$ with the partition $\langle \GG_0 , \GG_1 \rangle$ and then obtain a formula $D$ and two derivations $g' : S \mid \GG_0 \vd D$ and $h' : D \mid \GG_1 \vd A$ such that $\vars{D} \subseteq \vars{S, \GG_0} \cap \vars{\GG_1 , A}$.
+The interpolant formula is $D$ and the desired derivations are $g = g'$ and $h = \tr (h' , f'') : D \mid \GG_1 , \GG_2 \vd A \ot B$.
+The variable condition is satisfied because $\vars{D} \subseteq \vars{S, \GG_0} \cap \vars{\GG_1 , A} \subseteq \vars{S, \GG_0} \cap \vars{\GG_1 , \GG_2 , A \ot B}$.
+
+The first case of $\lleft$ is the partition $\langle \GG_0, (\GG_1, \GG_2) \rangle$ ($\GG_1$ is non-empty) for $\GG$ with $f' : {-} \mid \GG_0, \GG_1 \vdG A$ and $f'': B \mid \GG_2 \vdG C$.
+Our goal is to find a formula $D$ and derivations $g : A\lolli B \mid \GG_0 \vdG D$ and $h: D \mid \GG_1, \GG_2 \vdG C$.
+We first apply inductive hypothesis of $\mf{ccut}$-interpolation on $f'$ with the partition $\langle \GG_0 , \GG_1 , [\ ]\rangle$ and obtain 
+\begin{itemize}
+  \item[--] a partition $\langle \GD_1, \dots , \GD_n \rangle$ of $\GG_1$,
+  \item[--] a list of formulae $D_1 , \dots , D_n$, and 
+  \item[--] derivations $g': {-} \mid \GG_0 , D_1, \dots, D_n \vdG A$ and $h'_i : {-} \mid \GD_i \vdG D_i$, for $i \in [1\dots n]$
+\end{itemize}
+such that $\vars{D_1 , \dots , D_n} \subseteq \vars{\GD_1 , \dots , \GD_n} \cap \vars{\GG_0 , A}$.
+\\
+By applying inductive hypothesis of $\mf{scut}$-interpolation on $f''$ with the partition $\langle [\ ] , \GG_2 \rangle$, we obtain a formula $E$ and derivations $g'' : B \mid \quad \vdG E$ and $h'': E \mid \GG_2 \vdG C$ such that $\vars{E} \subseteq \vars{B} \cap \vars{\GG_2 , C}$.
+Then we construct the desired derivations as follows:
+% \begin{displaymath}
+% \begin{array}{c}
+%   \begin{array}{c}
+%     g
+%   \end{array}
+%   \quad 
+%   =
+%   \quad
+%     \begin{array}{c}
+%       \infer[\lright]{A\lolli B \mid \GG_0 \vdG D_1 \lolli (\dots (D_n \lolli E)\dots)}{
+%       \deduce{\vdots}{
+%         \infer[\lright]{A \lolli B \mid \GG_0 , D_1, \dots ,D_{n-1} \vdG D_n \lolli E}{
+%         \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots, D_n \vdG E}{
+%           \deduce{{-} \mid \GG_0 , D_1, \dots, D_n \vdG A}{g'}
+%           &
+%           \deduce{B \mid \quad \vdG E}{g''}
+%         }
+%       }
+%       }
+%     }
+%     \end{array}
+%     \\[10pt]
+%     \begin{array}{c}
+%       h
+%     \end{array}
+%     \quad
+%     =
+%     \quad
+%     \begin{array}{c}
+%       \infer[\lleft]{D_1 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_1, \dots, \GD_n, \GG_2 \vdG C}{
+%       \deduce{{-} \mid \GD_1 \vdG D_1}{h'_1}
+%       &
+%       \deduce{D_2 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_2, \dots, \GD_n, \GG_2 \vdG C}{
+%         \deduce{\vdots}{
+%           \infer[\lleft]{D_n \lolli E \mid \GD_n, \GG_2 \vdG C}{
+%             \deduce{{-} \mid \GD_n, \GG_2 \vdG D_n}{h'_n}
+%             &
+%             \deduce{E \mid \GG_2 \vdG C}{h''}
+%           }
+%         }
+%       }
+%     }
+%     \end{array}
+%   \end{array}
+% \end{displaymath}
+\begin{displaymath}
+\begin{array}{c}
+  \begin{array}{c}
+    g
+  \end{array}
+  \quad 
+  =
+  \quad
+    \begin{array}{c}
+      \infer[\lright]{A\lolli B \mid \GG_0 \vdG D_1 \lolli (\dots (D_n \lolli E)\dots)}{
       \deduce{\vdots}{
         \infer[\lright]{A \lolli B \mid \GG_0 , D_1, \dots ,D_{n-1} \vdG D_n \lolli E}{
         \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots, D_n \vdG E}{
@@ -399,8 +605,18 @@ Then we construct desired derivations as follows:
       }
       }
     }
+    \end{array}
+  \end{array}
+\end{displaymath}
+\begin{displaymath}
+    \begin{array}{c}
+      h
+    \end{array}
     \quad
-    \infer[\lleft]{D_1 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_1, \dots, \GD_n, \GG_2 \vdG C}{
+    =
+    \quad
+    \begin{array}{c}
+      \infer[\lleft]{D_1 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_1, \dots, \GD_n, \GG_2 \vdG C}{
       \deduce{{-} \mid \GD_1 \vdG D_1}{h'_1}
       &
       \deduce{D_2 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_2, \dots, \GD_n, \GG_2 \vdG C}{
@@ -413,29 +629,40 @@ Then we construct desired derivations as follows:
         }
       }
     }
-  \end{array}
+    \end{array}
 \end{displaymath}
-Notice that $\GG_1 = \GD_1, \dots, \GD_n$, and the variable condition is easy to check.
+Notice that $\GG_1 = \GD_1, \dots, \GD_n$, so the variable condition is easy to check.
+
+The second case of $\lleft$ is the partition $\langle (\GG_0 , \GG_1) , \GG_2$ ($\GG_1$ is possibly empty) with derivations $f' : {-} \mid \GG_0 \vd A$ and $f'' : B \mid \GG_1 , \GG_2 \vd C$.
+In this case, we apply the inductive hypothesis of $\mf{scut}$-interpolation on $f''$ with the partition $\langle \GG_1 , \GG_2 \rangle$ and then obtain a formula $D$, and two derivations $g'' : B \mid \GG_1 \vd D$ and $h'' : D \mid \GG_2 \vd C$ such that $\vars{D} \subseteq \vars{B , \GG_1} \cap \vars{\GG_2 , C}$.
+The interpolant formula is $D$ and the desired derivations are $g = \lleft (f' , g'') : A \lolli B \mid \GG_0 , \GG_1 \vd D$ and $h = h''$.
+The variable condition is satisfied because $\vars{D} \subseteq \vars{B , \GG_1} \cap \vars{\GG_2 , C} \subseteq \vars{A \lolli B , \GG_0 , \GG_1} \cap \vars{\GG_2 , C}$.
 
 For $\mf{ccut}$-interpolation, the critical case is $f = \pass \ f'$, with the partition $\langle [\ ], (A, \GG_1) , \GG_2 \rangle$ and derivation $f' : A \mid \GG_1 , \GG_2 \vdG C$.
-In this case, we apply inductive hypothesis of $\mf{scut}$-interpolation on $f'$ and obtain derivations $g': A \mid \GG_1 \vdG D$ and $h' : D \mid \GG_2 \vdG C$, the desired derivations are $\pass \ g' : {-} \mid A , \GG_1 \vdG D$ and $\pass \ h' : {-} \mid D, \GG_2 \vdG C$, i.e. the partition of $A, \GG_1$ is itself and the list of formulae is the singleton list $[D]$.
+In this case, we apply the inductive hypothesis of $\mf{scut}$-interpolation on $f'$ and obtain derivations $g': A \mid \GG_1 \vdG D$ and $h' : D \mid \GG_2 \vdG C$, the desired derivations are $\pass \ g' : {-} \mid A , \GG_1 \vdG D$ and $\pass \ h' : {-} \mid D, \GG_2 \vdG C$, i.e. the partition of $A, \GG_1$ is itself and the list of formulae is the singleton list $[D]$.
 The variable condition is automatically satisfied.
+\end{proof}
 \begin{theorem}
-  For any $f: A \mid \quad \vdG C$, there exist a formula $B$ and two derivations $g: A\mid \quad \vdash B$ and $h: B\mid \quad \vdash C$, satisfying the variable condition: $\vars{B} \subseteq \vars{A} \cap \vars{C}$.
+  For any formulae $A$ and $C$, if $A \lolli C$ is provable, then there exists a formula $B$ such that both $A \lolli B$ and $B \lolli C$ are provable, and $\vars{B} \subseteq \vars{A} \cap \vars{C}$.
 \end{theorem}
 \begin{proof}
-  By applying $\mf{scut}$-interpolation on $f$ with the partition $\langle [\ ], [\ ]\rangle$, we get a formula $B$ and two derivations $g: A \mid \quad \vdG B$ and $h: B \mid \quad \vdG C$, where $\vars{B}\subseteq \vars{s(A), [\ ]} = \vars{A}$ and $\vars{B} \subseteq \vars{[\ ], C} = \vars{C}$, as desired. 
-\end{proof}
+$A \lolli C$ being provable means that there is a derivation $f : {-} \mid \quad \vd A \lolli C$. 
+If we attempt to prove by induction on $f$, then the base case is that $f = \lright \ f'$, where $f' : {-} \mid A \vd B$, which is not well-formed for the inductive hypothesis.
+
+Then by applying $\mf{scut}$-interpolation on the $f'$ above with the partition $\langle [A ], [\ ]\rangle$, we get a formula $B$ and two derivations $g': {-} \mid A \vdG B$ and $h': B \mid \quad \vdG C$, where $\vars{B}\subseteq \vars{A}$ and $\vars{B} \subseteq \vars{[\ ], C} = \vars{C}$.
+The formulae $A \lolli B$ and $B \lolli C$ are proved by the derivations $\lright \ g' : {-} \mid \quad \vd A \lolli B$ and $\lright (\pass \ h') : {-} \mid \quad \vd B \lolli C$, respectively. 
+
 The arguments above also apply to the sequent calculus for left skew monoidal categories in \cite{uustalu:sequent:2021}.
 %  however, it is impossible to find such $D$, $f'_0$, and $f'_1$ by induction without $\mf{ccut}$ interpolation.
 % then $D$ is the correct interpolant because we have $\lleft \ f'_0 \ f'' : A \lolli B \mid \GG_0, D, \GG_2 \vdG C$ and the variable condition is satisfied.
 % However, it is impossible to find $D$, $f'_0$, and $f'_1$ by induction without $\mf{ccut}$ interpolation.
 % \paragraph*{Remark}
+\end{proof}
 
-The statement of $\mf{ccut}$-interpolation does not align with the general structure of interpolation in non-commutative substructural logic, because the general form of the statement is unprovable in \LSkG.
+The statement of $\mf{ccut}$-interpolation does not align with the general structure of interpolation in non-commutative substructural logic, because the general form of the statement is unprovable in \SkNMILL.
 To illustrate this, consider the following statement:
 \begin{itemize}
-  \item[\ ] ($\mf{ccut'}$-interpolation) Given $f: S \mid \Gamma \vdG C$ and any partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations  $g : {-} \mid \GG_1 \vdG D$ and $h : S \mid \GG_0, D, \GG_2 \vdG C$, and $\vars{D} \subseteq \vars{\GG_1} \cap \vars{s(S), \GG_0, \GG_2, C}$.
+  \item[\ ] ($\mf{ccut'}$-interpolation) Given $f: S \mid \Gamma \vdG C$ and any partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations  $g : {-} \mid \GG_1 \vdG D$ and $h : S \mid \GG_0, D, \GG_2 \vdG C$, and $\vars{D} \subseteq \vars{\GG_1} \cap \vars{S, \GG_0, \GG_2, C}$.
 \end{itemize}
 The critical case is $f = \tr (f',f'')$ with the partition $\langle \GG_0, (\GG'_1, \GG''_1), \GG_2\rangle$ and two derivations $f' : S \mid \GG_0 , \GG'_1 \vdG A$ and $f'' : {-} \mid \GG''_1 , \GG_2 \vdG B$.
 By induction on $f'$ and the partition $\langle \GG_0 , \GG'_1, [\ ] \rangle$, and on $f''$ and the partition $\langle [\ ], \GG''_1, \GG_2\rangle$ respectively, we have a formula $D$, $g' : {-} \mid \GG'_1 \vdG D$, and $h': S \mid \GG_0 , D \vdG A$ and a formula $E$, $g'' : {-} \mid \GG''_1 \vdG E$ and $h'': {-} \mid E, \GG_2 \vdG B$.
@@ -443,7 +670,7 @@ We obtain $\tr (g',g'') : {-} \mid \GG'_1, \GG''_1 \vdG D \ot E$ and $\tr (h', h
 But we get stuck because $\tl$ cannot be applied on formulae in context.
 
 For example, suppose $f = \tr (f',f''): X \mid Y, Z \vdG (X\ot Y)\ot Z$ where $f':X \mid Y \vdG X\ot Y$ and $f'': {-} \mid Z \vdG Z$, then given the partition $\langle [\ ], (Y,Z), [\ ]\rangle$, our goal is to find a formula $D$ and two derivations $g: {-} \mid Y, Z \vdG D$ and $X \mid D \vdG (X\ot Y)\ot Z$.
-Because $Y$ and $Z$ are atomic, the only possibility is that $D = Y \ot Z$, however, the sequent $X \mid Y \ot Z \vdG (X \ot Y) \ot Z$ does not have a proof in \LSkG.
+Because $Y$ and $Z$ are atomic, the only possibility is that $D = Y \ot Z$, however, the sequent $X \mid Y \ot Z \vdG (X \ot Y) \ot Z$ does not have a proof in \SkNMILL.
 \begin{equation*}\label{example:ccut:failure}
   \small\begin{array}{c}
     \infer[\tr]{X \mid Y \ot Z \vdG (X \ot Y) \ot Z}{
@@ -469,13 +696,15 @@ Because $Y$ and $Z$ are atomic, the only possibility is that $D = Y \ot Z$, howe
 \end{equation*}
 In general, the rule
 \begin{displaymath}
+\begin{array}{c}
   \infer[\ot\mf{C}]{S \mid \GG , A \ot B , \GD \vdG C}{
     \deduce{S \mid \GG, A , B , \GD \vdG C}{}
   }
+\end{array}
 \end{displaymath}
-is not admissible in \LSkG.
+is not admissible in \SkNMILL.
 
-% This unsatisfying result motivates us to consider another calculus equivalent to \LSkG.
+% This unsatisfying result motivates us to consider another calculus equivalent to \SkNMILL.
 % A good candidate is \LSkT, a cut-free sequent calculus analogous to \NL, where antecedents are defined as trees.
 
 % Adapted from \cite{moot:categorial:2012}, trees are inductively defined by the grammar $T::= \mf{Fma} \mid {-} \mid(T , T)$, where ${-}$ is an empty tree.
@@ -714,7 +943,7 @@ is not admissible in \LSkG.
 % %   The cases other than $\mf{unitL}$ are proved by modifying arguments from \cite{bulinska:2009,buszkowski:2010}.
 % %   For the case $f = \mf{unitL} \ f': T[{-}, A] \vdT C$, there are three possibilities for $U$, $(i)$ if $U = {-}$ in any place of $T$, then the interpolant is $\I$ and two derivations are $\unitr$ and $\unitl \ (\mf{unitL} \ f')$ ($\unitl$ should be applied on the correct place), $(ii)$ if $U = {-} , A$, then the interpolant is $A$ and two derivations are $\mf{unitL}\ \ax$ and $f'$, and $(iii)$ for any non-empty tree $U$ in any other place of $T$, we apply inductive hypothesis on $f'$ and proceed inductively.
 % % \end{proof}
-% We have confirmed that \LSkT~enjoys interpolation, so the next step is to check whether it is equivalent to \LSkG.
+% We have confirmed that \LSkT~enjoys interpolation, so the next step is to check whether it is equivalent to \SkNMILL.
 % The proof of equivalence relies on the following admissible rules, lemma and definition.
 % \begin{displaymath}
 %   \begin{array}{c}
@@ -728,7 +957,7 @@ is not admissible in \LSkG.
 %   \end{array}
 % \end{displaymath}
 % \begin{lemma}
-%   The rule $\tl$ is invertible in \LSkG, i.e. this rule
+%   The rule $\tl$ is invertible in \SkNMILL, i.e. this rule
 %   \begin{displaymath}
 %     \infer[\tl^{-1}]{A \mid B , \GG \vdG C}{
 %       \deduce{A \ot B \mid \GG \vdG C}{f}
@@ -746,7 +975,7 @@ is not admissible in \LSkG.
 %   By structural induction on $T[A]^*$ to construct $T[A]^* \mid \quad \vdG T[B]^*$ from $g$.
 % \end{proof}
 % \begin{proof}
-%   Notice that $\mf{scut}$ is admissible in \LSkG, so we only have to check whether $T[A]^* \mid \quad \vdG T[B]^*$ is derivable from $g$.
+%   Notice that $\mf{scut}$ is admissible in \SkNMILL, so we only have to check whether $T[A]^* \mid \quad \vdG T[B]^*$ is derivable from $g$.
 %   Proof proceeds by induction on the structure of $T[A]$.
 %   If $T[A] = A$, then we have $T[A]^* = A$ and $T[B]^* = B$, and we already have $g : A \mid \quad \vdG B$.
 %   \\
@@ -774,9 +1003,9 @@ is not admissible in \LSkG.
 % \end{array}
 % \end{displaymath}
 % \end{defn}
-% With the above lemmata, definition, and functions $s(S)$ that maps a stoup to a formula and $T^*$ that transforms trees into formulae, we can state and prove the equivalence between \LSkG~and \LSkT.
+% With the above lemmata, definition, and functions $s(S)$ that maps a stoup to a formula and $T^*$ that transforms trees into formulae, we can state and prove the equivalence between \SkNMILL~and \LSkT.
 % \begin{theorem}\label{thm:equiv:LSkGLSKT}
-% The calculi \LSkG~and \LSkT~are equivalent, meaning that the two statements below are true:
+% The calculi \SkNMILL~and \LSkT~are equivalent, meaning that the two statements below are true:
 %   \begin{itemize}
 %     \item For any derivation $f: S \mid \Gamma \vdG C$, there exists a derivation ${\mf{G2T}} f : \ldbc s(S) \mid \GG \rdbc \vdT C$.
 %     \item For any derivation $f: T \vdT C$, there exists a derivation $\mf{T2G} f: T^* \mid \quad \vdG C$.
@@ -785,8 +1014,8 @@ is not admissible in \LSkG.
 % \begin{proof}
 %   Both $\mf{G2T}$ and $\mf{T2G}$ are proved by structural induction on $f$.
 % \end{proof}
-% By the equivalence of \LSkG~and \LSkT, we can prove $\mf{scut}$ interpolation.
-% % We define $\GT$-sequents and $\GT$-derivations of \LSkG~analogously to the \LSkT~case.
+% By the equivalence of \SkNMILL~and \LSkT, we can prove $\mf{scut}$ interpolation.
+% % We define $\GT$-sequents and $\GT$-derivations of \SkNMILL~analogously to the \LSkT~case.
 % % Notice that $\GT$ is closed under $\ot$, therefore theorem (\ref{thm:equiv:LSkGLSKT}) can be lifted to $\GT$-sequents and $\GT$-derivations.
 % Given any $f: S \mid \GG \vdG C$ and any partition $\langle \GG_0,\GG_1\rangle$ of $\GG$, we have $\mf{G2T}f: (s (S), \GG_0), \GG_1 \vdT C$.
 % $(s (S), \GG_0), \GG_1$ is an abbreviation of $((((\dots (s (S) , A_1), \dots), A_n), B_1), \dots),B_m$, where $\GG_0 = A_1, \dots , A_n$ and $\GG_1 = B_1 , \dots , B_m$ if $\GG_0$ and $\GG_1$ are non-empty.
@@ -794,15 +1023,15 @@ is not admissible in \LSkG.
 % The next step is to apply $\mf{T2G}$ on $g$ and $h$ respectively, then we have a formula $D$ and derivations $\mf{T2G} g$ and $\mf{T2G} h$.
 % By applying $\tl^{-1}$ finitely many times on $\mf{T2G} g$ and $\mf{T2G} h$ respectively, and possibly $\unitl^{-1}$ once on $\mf{T2G} g$ if $S = {-}$, we obtain two derivations $g': S \mid \GG_0 \vdG D$ and $h':D \mid \GG_1\vdG C$ as desired and the variable condition is satisfied automatically.
 
-% Although we can prove $\mf{scut}$ interpolation for \LSkG~via \LSkT, we are still not able to prove it directly in \LSkG.
+% Although we can prove $\mf{scut}$ interpolation for \SkNMILL~via \LSkT, we are still not able to prove it directly in \SkNMILL.
 % The same problem of $\mf{scut}$ interpolation still applies.
 
 % When we adapt this argument to the $\mf{ccut}$ interpolation case, we need to re-associate the tree \linebreak$((s (S), \GG_0), \GG_1),\GG_2$ to isolate $\GG_1$.
 % However, the re-association is impossible because we can only move brackets from right to left via $\mf{assoc}$ in \LSkT.
-% The reason why \LSkT~enjoys interpolation but \LSkG~does not is that although the antecedent looks flat in \LSkG~, they are trees associating to the left.
+% The reason why \LSkT~enjoys interpolation but \SkNMILL~does not is that although the antecedent looks flat in \SkNMILL~, they are trees associating to the left.
 % We can see this from the encoding $\ldbc s(S) \mid \GG\rdbc$ of $S \mid \GG$.
 % For instance, if $S = A$ and $\GG = B, C, D$, then $\ldbc s(S) \mid \GG\rdbc$ = $(((A, B), C), D)$.
-% Intuitively, we can think of \LSkG~as a variation of \LSkT~in which, from the top-down perspective, antecedents are always normalized after each rule application.
+% Intuitively, we can think of \SkNMILL~as a variation of \LSkT~in which, from the top-down perspective, antecedents are always normalized after each rule application.
 
 % Recall the counterexample $f = \tr f'f''$, where $f':X \mid Y \vdG X \ot Y$ and $f'': {-} \mid Z \vdG Z$ and the partition $\langle [\ ],(Y,Z),[\ ]\rangle$.
 % By theorem (\ref{thm:equiv:LSkGLSKT}), we have a derivation:
@@ -836,14 +1065,14 @@ is not admissible in \LSkG.
 % \end{displaymath}
 
 % The partition $\langle [\ ],(Y,Z),[\ ]\rangle$ condition is transformed into $T[(Y,Z)] \vdT (X \ot Y) \ot Z$ for some $T[\cdot]$, which is impossible.
-% Therefore, the flat antecedents in \LSkG~lead to impossible cases when proving $\mf{ccut}$ interpolation.
+% Therefore, the flat antecedents in \SkNMILL~lead to impossible cases when proving $\mf{ccut}$ interpolation.
 
 % interpolation theorem: given a partition $\langle \GG_0, (\GG'_1, \GG''_1), \GG_2\rangle$ and a formula $f = \tr f' f''$, where $f' : S \mid \GG_0 , \GG'_1 \vdG A$ and $f'' : {-} \mid \GG''_1 , \GG_2 \vdG B$.
 % The interpolant formula demands resources from both $f'$ and $f''$, which is reasonable in associative Lambek calculus and other associative substructural logics.
 % \textcolor{red}{we can revisit the simple counterexample and explain the difference}
-% However, in \LSkG, this causes a problem because $\ot\mf{C}$ is inadmissible.
+% However, in \SkNMILL, this causes a problem because $\ot\mf{C}$ is inadmissible.
 % In contrast, in \LSkT, the situation is straightforward because the interpolant can only comprise formulae from one of the premises of any two-premises rule.
-% Consequently, the flat context conceals the left-associative structure of antecedents in \LSkG, leading to impossible cases when proving interpolation.
+% Consequently, the flat context conceals the left-associative structure of antecedents in \SkNMILL, leading to impossible cases when proving interpolation.
 
 % \paragraph{Remark}
 % \LSkT, unfortunately, does not enjoy Craig interpolation because it has a similar problem as in $\mf{scut}$ Craig interpolation.
@@ -866,11 +1095,11 @@ is not admissible in \LSkG.
 % Our goal is to find a formula $D$ and two derivations $g: Y \lolli Z, X \lolli Y \vdT D$ and $h: D, X \vdT Z$.
 % A good candidate of $D$ is $X \lolli Z$, which, however, cannot be obtained from induction.
 % By induction, we can only find a formula $(Y \lolli Z) \ot (X \lolli Y)$ and two derivations $g: Y \lolli Z, X \lolli Y \vdT (Y \lolli Z) \ot (X \lolli Y)$ and $h: (Y \lolli Z) \ot (X \lolli Y) \vdT Z$, but the variable condition is not satisfied.
-% The sequent calculus for left skew monoidal categories (\LSkGm) has sequents of the form $S \mid \GG \vdG A$, but formulae are generated by the grammar $A,B::= X \mid \I \mid A \ot B$ and rules are those in (\ref{eq:seqcalc:skmc:Gir}) without $\lleft$ and $\lright$ \cite{uustalu:sequent:2021}.
+% The sequent calculus for left skew monoidal categories (\SkNMILLm) has sequents of the form $S \mid \GG \vdG A$, but formulae are generated by the grammar $A,B::= X \mid \I \mid A \ot B$ and rules are those in (\ref{eq:seqcalc:skmc:Gir}) without $\lleft$ and $\lright$ \cite{uustalu:sequent:2021}.
 % We call its equivalent sequent calculus with trees as antecedents \LSkTm.
-% As mentioned in Section \ref{sec:intro}, \LSkGm~has a special form of Craig interpolation, i.e. it has $\mf{scut}$ Craig interpolation.
+% As mentioned in Section \ref{sec:intro}, \SkNMILLm~has a special form of Craig interpolation, i.e. it has $\mf{scut}$ Craig interpolation.
 % Moreover, we can prove that \LSkTm~has Craig interpolation as well because the counterexample does not hold in \LSkTm.
-% In general, \LSkGm~lacks both Craig and weak $\mf{ccut}$ interpolation due to the inadmissibility of $\ot\mf{C}$.
+% In general, \SkNMILLm~lacks both Craig and weak $\mf{ccut}$ interpolation due to the inadmissibility of $\ot\mf{C}$.
 
 
 
@@ -1260,14 +1489,14 @@ The code is available at
   \url{https://github.com/niccoloveltri/code-skewmonclosed/tree/interpolation}.
 \end{center}
 For the future, we would like to extend the result to other semi-substructural logics in \cite{veltri:coherence:2021,VW:2023}.
-% This paper addresses two limitations of the sequent calculus \LSkG~in the previous work on proof theoretical analysis of skew monoidal closed category \cite{UVW:protsn}, i.e. lacking of Craig interpolation and being unable to modularly characterize skew bi-closed categories.
+% This paper addresses two limitations of the sequent calculus \SkNMILL~in the previous work on proof theoretical analysis of skew monoidal closed category \cite{UVW:protsn}, i.e. lacking of Craig interpolation and being unable to modularly characterize skew bi-closed categories.
 
 % To overcome the problems, we adapt sequent calculus for non-associative Lambek calculus to the left skew monoidal closed setting.
 % The resulting calculus \LSkT~only admits, from a bottom-up perspective, one specific rule $\mf{assoc}$ that moves brackets from left to right and $\mf{unitL}$ ($\mf{unitR}$) that adds (removes) an empty tree from the left (right).
 
 % The proof of interpolation for \LSkT~is more intricate than expected due to the semi-associativity.
 % We strengthen the inductive hypothesis by introducing arrows $\curly$ being an accumulator of tree rewriting by which we can rebuild derivations as desired.
-% \LSkT~is equivalent to \LSkG~and enjoys Craig interpolation, and by the equivalence of \LSkT~and \LSkG, we prove $\mf{scut}$ interpolation for \LSkG~via \LSkT. 
+% \LSkT~is equivalent to \SkNMILL~and enjoys Craig interpolation, and by the equivalence of \LSkT~and \SkNMILL, we prove $\mf{scut}$ interpolation for \SkNMILL~via \LSkT. 
 % Moreover, we extend \LSkT~to \SkBiCT~for modularly capturing \SkBiC~by incorporating rules for right skew monoidal closed categories and a rule $\comm$ that connects left and right skew structures.
 
 % In the last section, we focus on the relational semantics of \SkBiCA~via the Kripke frame $\langle W, \I, \mbb{L}, \mbb{R} \rangle$ where $\mbb{L}$ and $\mbb{R}$  satisfy structural conditions characterizing left and right skew monoidal closed structures respectively and are connected with $\mbb{LR}$ equality.
@@ -1290,5 +1519,29 @@ For the future, we would like to extend the result to other semi-substructural l
 % In the final part of the paper, we have looked at extensions of the logic with additive units, a skew exchange rule in the style of Bourke and Lack \cite{bourke:lack:braided:2020}, and linear implication. This section still needs to be formalized in Agda, which will be our forthcoming step.
 
 % This paper takes one step further in a large project aiming at modularly analyzing proof systems with categorical models given by categories with skew structure \cite{zeilberger:semiassociative:19, uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021,UVW:protsn}. We are interested in looking for applications of these systems to combinatorics and linguistics, following the initial investigation by Zeilberger \cite{zeilberger:semiassociative:19} and Moortgat \cite{moortgat:tamari:20}.
-\bibliography{CSL25}
+\bibliography{StudiaLogica}
+
+
+%%=============================================%%
+%% For submissions to Nature Portfolio Journals %%
+%% please use the heading ``Extended Data''.   %%
+%%=============================================%%
+
+%%=============================================================%%
+%% Sample for another appendix section			       %%
+%%=============================================================%%
+
+%% \section{Example of another appendix section}\label{secA2}%
+%% Appendices may be used for helpful, supporting or essential material that would otherwise 
+%% clutter, break up or be distracting to the text. Appendices can consist of sections, figures, 
+%% tables and equations etc.
+
+%%===========================================================================================%%
+%% If you are submitting to one of the Nature Portfolio journals, using the eJP submission   %%
+%% system, please include the references within the manuscript file itself. You may do this  %%
+%% by copying the reference list from your .bbl file, paste it into the main manuscript .tex %%
+%% file, and delete the associated \verb+\bibliography+ commands.                            %%
+%%===========================================================================================%%
+
+
 \end{document}
