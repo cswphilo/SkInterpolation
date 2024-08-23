@@ -143,6 +143,7 @@
 \newcommand{\mf}[1]{\mathsf{#1}}
 \newcommand{\mbb}[1]{\mathbb{#1}}
 \newcommand{\gs}[1]{\sigma_{X} (#1)}
+\newcommand{\vars}[1]{\mf{var} (#1)}
 
 %%%%%=============================================================================%%%%
 %%%%  Remarks: This template is provided to aid authors with the preparation
@@ -260,7 +261,7 @@ Moreover, they all admit sound and complete subcalculi inspired by Andreoli's fo
 rules are restricted to be applied in a specific order.
 A focused calculus provides an algorithm to solve both the proof identity problems for its non-focused calculus and coherence problems for its corresponding variant of left skew monoidal category.
 
-We say a logic $\mc{L}$ has Craig interpolation property if for any formula $A \to C$ provable in $\mc{L}$, there exists a formula $B$ such that $A \to B$ and $B \to C$ are provable in $\mc{L}$, satisfying the multiplicity condition: $\gs{B} \subseteq \gs{A} \cap \gs{C}$ ($\gs{A}$ is the set of atomic formulae appearing in $A$) ($\to$ is the implication connective in $\mc{L}$).\cite{craig:interpolation:1957}.
+We say a logic $\mc{L}$ has Craig interpolation property if for any formula $A \to C$ provable in $\mc{L}$, there exists a formula $B$ such that $A \to B$ and $B \to C$ are provable in $\mc{L}$, satisfying the multiplicity condition: $\vars{B} \subseteq \vars{A} \cap \vars{C}$ ($\vars{A}$ is the set of atomic formulae appearing in $A$) ($\to$ is the implication connective in $\mc{L}$).\cite{craig:interpolation:1957}.
 % The variation of Craig interpolation is defined by replacing the multiplicity condition with that given a set of formulae $\GT$, and given a derivation $f:A \vd^{\GT} C$, if all formulae appearing in $f$ are in $\GT$, then there exists a formula $B \in \GT$ and two derivations $f_0: A\vd^{\GT} B$ and $f_1: B \vd^{\GT} C$. 
 % In this paper, we call the former Craig interpolation and the latter weak interpolation.
 
@@ -842,8 +843,21 @@ Given a derivation $\tr (f' , f'')$, where $f' : S \mid \GL \vd A$ and $f'' : {-
     \end{array}
   \end{displaymath}
 \end{example}
+\begin{lemma}\label{lem:gs:vars:equiv}
+  For any formula $A$ and an atomic formula $X$, $X \in \vars{A}$ if and only if $1 \leq \gs{A}$.
+\end{lemma}
+\begin{proof}
+  This true by definition.
+\end{proof}
+\begin{lemma}\label{lem:gs2vars}
+  For any formulae $A$ and $B$, if $\gs{A} \leq \gs{B}$ for every $X$, then $\vars{A} \subseteq \vars{B}$.
+\end{lemma}
+\begin{proof}
+  For any $X \in \vars{A}$, by the assumption $\gs{A} \leq \gs{B}$ and Lemma \ref{lem:gs:vars:equiv}, we know that $X \in \vars{B}$ as well.
+  Therefore we can conclude that $\vars{A} \subseteq \vars{B}$.
+\end{proof}
 \begin{theorem}\label{thm:craig:intrp}
-  For any formulae $A$ and $C$, if $A \lolli C$ is provable, then there exists a formula $B$ such that both $A \lolli B$ and $B \lolli C$ are provable, and $\gs{B} \leq \gs{A} $ and $ \gs{B} \leq \gs{C}$ for every $X$.
+  For any formulae $A$ and $C$, if $A \lolli C$ is provable, then there exists a formula $B$ such that both $A \lolli B$ and $B \lolli C$ are provable, and $\vars{B} \subseteq \vars{A} \cap \vars{C}$.
 \end{theorem}
 \begin{proof}
 $A \lolli C$ being provable means that there is a derivation $f : {-} \mid \quad \vd A \lolli C$. 
@@ -855,16 +869,12 @@ Then by applying $\mf{scut}$-interpolation on $f'$ with the partition $\langle [
   \item[--] $\gs{B} \leq \gs{A} $ and $ \gs{B} \leq \gs{C}$ for every $X$.
 \end{itemize}
 The formulae $A \lolli B$ and $B \lolli C$ are proved by the derivations $\lright \ g' : {-} \mid \quad \vd A \lolli B$ and $\lright (\pass \ h') : {-} \mid \quad \vd B \lolli C$, respectively.
-The multiplicity condition is satisfied by hypothesis.
+By Lemma \ref{lem:gs2vars}, we know that $\vars{B} \subseteq \vars{A}$ and $\vars{B} \subseteq \vars{C}$, which means that $\vars{B} \subseteq \vars{A} \cap \vars{C}$.
 %  however, it is impossible to find such $D$, $f'_0$, and $f'_1$ by induction without $\mf{ccut}$ interpolation.
 % then $D$ is the correct interpolant because we have $\lleft \ f'_0 \ f'' : A \lolli B \mid \GG_0, D, \GG_2 \vd C$ and the multiplicity condition is satisfied.
 % However, it is impossible to find $D$, $f'_0$, and $f'_1$ by induction without $\mf{ccut}$ interpolation.
 % \paragraph*{Remark}
 \end{proof}
-\begin{remark}
-  We state Craig interpolation with multiplicity condition instead of variable condition.
-  However, the arguments above also applies to the proof of Craig interpolation with variable condition.
-\end{remark}
 The procedure in the proofs of Lemmata \ref{lem:scut:intrp} and \ref{lem:ccut:intrp} also provides a proof-relevant content of interpolation.
 % In particular, we can prove the following two theorems.
 \begin{theorem}
