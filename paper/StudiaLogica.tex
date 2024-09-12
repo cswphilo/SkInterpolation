@@ -145,6 +145,10 @@
 \newcommand{\gs}[1]{\sigma_{X} (#1)}
 \newcommand{\vars}[1]{\mf{var} (#1)}
 
+\newcommand{\niccolo}[1]{\textcolor{red}{#1}}
+\newcommand{\cheng}[1]{\textcolor{green}{#1}}
+
+
 %%%%%=============================================================================%%%%
 %%%%  Remarks: This template is provided to aid authors with the preparation
 %%%%  of original research articles intended for submission to journals published 
@@ -175,6 +179,8 @@
 
 \raggedbottom
 %%\unnumbered% uncomment this for unnumbered level heads
+
+
 
 \begin{document}
 
@@ -226,7 +232,7 @@ Here we investigate the problem proof-theoretically and show that the sequent ca
 % 
 % \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
 
-\keywords{skew monoidal categories, Craig Interpolation, intuitionistic linear logic, Agda}
+\keywords{skew monoidal closed categories, Craig Interpolation, intuitionistic linear logic, Agda}
 
 %%\pacs[JEL Classification]{D8, H51}
 
@@ -235,10 +241,27 @@ Here we investigate the problem proof-theoretically and show that the sequent ca
 \maketitle
 
 \section{Introduction}\label{sec:intro}
+\niccolo{Here is how I would structure the introduction for a paper in Studia Logica:
+  \begin{itemize}
+  \item Craig interpolation: what is it and why is it useful, or what are some of its main applications.
+  \item Small description of substructural logics (like the 1st paragraph we currently have). I would also say here that associativity and unitality may are also appear in the list of structural rules, and nonassociative variants of (extensions of) Lambek calculus are very well studied.
+  \item Craig interpolation for substructural logics: which of them enjoy it, which methods have been used to prove it.
+  \item Also mention that other form of interpolation have been investigated in the substructural setting, like deductive interpolation and Maehara interpolation (is this how Ono called them?). Also that the implicational fragment of intuitionistic logic, and its substructural fragments, enjoy yet another form of interpolation. Cite the papers of Kanazawa and Pentus.
+  \item Now we can state that our work is on Craig interpolation for semi-substructural logics. Explain what semi-substructural means, e.g. by describing the shape of sequents and stating that certain (directions of) structural rules do not admit a proof. Also what connectives we consider. Similar to what is currently the 4th paragraph. 
+  \item A small paragraph saying that our initial interest in these logic comes from category theory. Here we can mention the connection to skew monoidal closed categories and the coherence problem, and how we solved it through a calculus of focused proofs. Similar to what is currently the 2nd paragraph.
+  \item Here we should give some details on our proof of Craig interpolation. We use syntactic techniques to prove it. But we cannot directly use Maehara's method since, similarly to the implication fragment of Lambek calculus, Maehara interpolation fails. Instead, our sequent calculus satisfies yet another form of interpolation, scut/ccut-interpolation (we can write the statement here). Scut-interpolation is similar to Maheara interpolation, while ccut-interpolation is similar to Pebtus/Kanazawa interpolation
+  \item In our endeavour we are not only interested in provability, but also in proofs and their equality. This is again motivated by our categorical, as opposed to algebraic, interpretation. We introduce an equivalence of derivations capturing eta- and permutative conversions, which is sound and complete with respect to the categorical semantics.
+  \item In particular, we are also interested in proof-relevant interpolation in the sense of Cubric and recently Saurin. Instantiating the general categorical framework of Cubric to our setting, this means that our scut/ccut-interpolation procedures are in a way inverses of the admissible scut/ccut rules. Give the statement of what is currently Thm 7.
+  \item Finally, we have formalized everything in the Agda proof assistant.
+  \end{itemize}
+}
+
+
 Substructural logics are logic systems that lack at least one of the structural rules, weakening, contraction, and exchange.
 Joachim Lambek's syntactic calculus \cite{lambek:mathematics:58} is a well-known example that disallows weakening, contraction, and exchange.
 Another example, linear logic, proposed by Jean-Yves Girard \cite{girard:linear:87}, is a substructural logic in which weakening and contraction are in general disallowed but can be recovered for some formulae via modalities.
 Substructural logics have been found in numerous applications from computational analysis of natural languages to the development of resource-sensitive programming languages.
+
 
 \emph{Left skew monoidal categories} \cite{szlachanyi:skew-monoidal:2012} are a weaker variant of MacLane's monoidal categories where the structural morphisms of associativity and unitality are not required to be bidirectional, they are natural transformations with a particular orientation.
 Therefore, they can be seen as \emph{semi-associative} and \emph{semi-unital} variants of monoidal categories. 
@@ -254,7 +277,7 @@ We restrict the application of introduction rules in an appropriate way to allow
 % the one in the definition of skew monoidal category. For example, left-introduction rules are allowed to act only on the formula in stoup position, not on formulae in $\Gamma$.
 
 This approach has successfully captured internal languages for a variety of categories, including  $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23}, and $(v)$ left distributive skew monoidal categories with finite products and coproducts \cite{VW:2023} through skew variants of the fragments of non-commutative intuitionistic linear logic consisting of combinations of connectives $(\I,\ot,\lolli,\land,\lor)$.
-Additionally, discussions have covered partial normality conditions, in which one or more structural morphisms are allowed to have an inverse \cite{uustalu:proof:nodate}, as well as extensions with skew exchange à la Bourke and Lack \cite{veltri:coherence:2021,VW:2023}.
+Additionally, discussions have covered partial normality conditions, in which one or more structural morphisms are allowed to have an inverse \cite{uustalu:proof:nodate}, as well as extensions with skew exchange \`a la Bourke and Lack \cite{veltri:coherence:2021,VW:2023}.
 
 All of the aforementioned calculi with sequents of the form $S \mid \GG \vd A$ are cut-free and therefore, by their rule design, they are decidable.
 Moreover, they all admit sound and complete subcalculi inspired by Andreoli's focusing \cite{andreoli:logic:1992} in which
