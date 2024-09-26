@@ -45,6 +45,7 @@
 \usepackage{multirow}%
 \usepackage{amsmath,amssymb,amsfonts}%
 \usepackage{amsthm}%
+\usepackage{enumitem}%
 \usepackage{mathrsfs}%
 \usepackage[title]{appendix}%
 \usepackage{xcolor}%
@@ -259,93 +260,110 @@ Here we investigate the problem proof-theoretically and show that the sequent ca
 % }
 
 Craig interpolation is a fundamental result in first-order logic, named after the logician William Craig \cite{craig:interpolation:1957}.
-We say a logic $\mc{L}$ has Craig interpolation property if for any formula $A \to C$ provable in $\mc{L}$, there exists a formula $B$ such that $A \to B$ and $B \to C$ are provable in $\mc{L}$, satisfying the variable condition: $\vars{B} \subseteq \vars{A} \cap \vars{C}$ ($\vars{A}$ is the set of atomic formulae appearing in $A$ and $\to$ is the implication connective in $\mc{L}$).
-Craig interpolation has been employed to prove model-theoretical results, including Beth's definability theorem \cite{Beth1953}, and has also found applications in model checking \cite{Henzinger2004}.
+A logic $\mc{L}$ has the \emph{Craig interpolation property} if, for any formula $A \to C$ provable in $\mc{L}$ (where $\to$ is the implication connective in $\mc{L}$), there exists a formula $B$ such that $A \to B$ and $B \to C$ are provable in $\mc{L}$, satisfying the variable condition: $\vars{B} \subseteq \vars{A} \cap \vars{C}$, where $\vars{A}$ is the set of atomic formulae appearing in $A$.
+Craig interpolation has been moslty employed to prove model-theoretical results, including Beth's definability theorem \cite{Beth1953}, but more recently it has found applications in other areas, e.g. in model checking \cite{Henzinger2004}.
 
 From the viewpoint of sequent calculus, substructural logics are defined by the absence of at least one structural rule.
-A notable instance is Joachim Lambek's syntactic calculus \cite{lambek:mathematics:58}, which forbids weakening, contraction, exchange, and unitality.
-Its non-associative variant, which has been extensively studied, also disallows associativity. Another significant example is linear logic, introduced by Jean-Yves Girard \cite{girard:linear:87}, where weakening and contraction are disallowed but can be recovered for specific formulas through modalities.
-Substructural logics have proven useful in many areas, from analyzing natural language syntax computationally to creating programming languages sensitive to resource management.
+A notable instance is Joachim Lambek's syntactic calculus \cite{lambek:mathematics:58}, which forbids weakening, contraction, exchange, and unitality \niccolo{(I'd remove unitality here, as the original Lambek calculus doesn't have units)}.
+Its non-associative variant, which has been extensively studied \niccolo{(Cite Moot Retore book)}, also disallows associativity. Another significant example is linear logic, introduced by Jean-Yves Girard \cite{girard:linear:87}, where weakening and contraction are disallowed but can be recovered for specific formulas through modalities.
+Substructural logics have proven useful for modelling various phenomena in different research areas, from the computational analysis of natural language syntax to the development of programming languages sensitive to resource management.
 
-Craig interpolation for substructural logics has been studied extensively, both from algebraic and proof-theoretic perspectives. 
+Craig interpolation for substructural logics has been extensively studied, using either algebraic or proof-theoretic techniques. 
 
-For substructural logics that lack a cut-free sequent calculus, such as arbitrary extensions of the full Lambek calculus with exchange ($\FL_{\textbf{e}}$), Craig interpolation is established using algebraic methods.
+For substructural logics that lack a cut-free sequent calculus, such as arbitrary extensions of the full Lambek calculus with exchange ($\FL_{\textbf{e}}$), Craig interpolation is established using algebraic methods such as amalgamation.
 For further details on this approach, see \cite{Kihara2009}.
 
-For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven using Maehara's method. 
+For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven using Maehara's method \niccolo{(cite Maehara)}. 
 This includes the full Lambek calculus (\FL) and its extensions that incorporate various combinations of weakening, exchange, and contraction.
-In the case of \FL, for instance, the approach begins by establishing a stronger form of interpolation which we call Maehara interpolation property \cite{ono:proof:nonclassical:1998}. 
-The property states:
+In the case of \FL, for instance, the proof starts by establishing a stronger form of interpolation which we call \emph{Maehara interpolation property} \cite{ono:proof:nonclassical:1998}. 
+The latter property states:
 \begin{itemize}
-  \item[\ ] Given $f : \Gamma \vdash C$ and any partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_1 \vdash C$, and $\vars{D} \subseteq \vars{\Gamma_0} \cap \vars{\Gamma_0, \Gamma_1, C}$
+  \item[\ ] Given $f : \Gamma \vdash C$ and a partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_1 \vdash C$, and $\vars{D} \subseteq \vars{\Gamma_0} \cap \vars{\Gamma_0, \Gamma_1, C}$
 \end{itemize}
-It is a stronger form of the so-called deductive interpolation property. A logic $\mc{L}$ is said to have the deductive interpolation property if, for any formulae $A$ and $C$, whenever $A \vd C$ (where $\vd$ is the consequence relation of $\mc{L}$), then there exists a formula $B$ such that $A \vd B$ and $B \vd C$ while also satisfying the variable condition. Furthermore, if the sequent calculus of $\mc{L}$ admits the invertibility of implication right rules, Craig interpolation follows as a consequence of the deductive interpolation property.
+Being a partition simply means that the ordered list of formulae $\Gamma$ is equal to the concatenation of $\Gamma_0, \Gamma_1$ and $\Gamma_2$, i.e. $\Gamma = \Gamma_0, \Gamma_1, \Gamma_2$. Maehara interpolation also holds for the non-associative variant of \FL, for an appropriate reformulation of the principle in which antecedents are trees of formulae instead of lists.
+Notice that Craig interpolation is a property of a logic (with a notion of implication), while Maehara interpolation is a property of a deductive system in which it is possible to appropriately partition antecedents.
 
-A variant of Maehara interpolation is necessary for proving Craig interpolation in logics that lack multiplicative (additive) conjunction.
-This includes sequent calculi such as the product-free Lambek calculus \cite{Pentus1997} and the implicational fragment of intuitionistic logic \cite{Kanazawa2006}. 
-The property described in \cite{Pentus1997} is particularly relevant. We have modified it to align with our discussion.
+Maehara interpolation is a stronger form of the so-called \emph{deductive interpolation property}. A logic $\mc{L}$ has the deductive interpolation property if, for any formulae $A$ and $C$, whenever $A \vd C$ (where $\vd$ is the consequence relation of $\mc{L}$), then there exists a formula $B$ such that $A \vd B$ and $B \vd C$ while also satisfying the usual variable condition. Furthermore, if the sequent calculus of $\mc{L}$ admits the invertibility of implication-right rules (as is the case in \FL\ for both left- and right-implication), Craig interpolation follows immediately as a consequence of deductive interpolation.
+
+While Maheara's method is often applicable to extensions of \FL, it does not work for some of its fragment, which therefore do not enjoy Maehara interpolation. This is the case for fragments lacking multiplicative and/or additive conjunction, such as the product-free Lambek calculus \cite{Pentus1997} (with only left- and right-implications as connectives) and the implicational fragment of intuitionistic logic \cite{Kanazawa2006}. 
+The variant of Maehara interpolation satisfied by the product-free Lambek calculus, which we dub \emph{Maehara multi-interpolation}, is particularly relevant for our work. Here is its statement, which we have slightly modified to better align with our forthcoming discussion:
 \begin{itemize}
-  \item[\ ]  Given $f: S \mid \Gamma \vd C$ and any partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist a partition of $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$ and a list of interpolant formulae $D_1, \dots, D_n$ such that
-  \begin{itemize}
-    \item[--] $g: \GG_0, D_1, \dots, D_n, \GG_2 \vd C$,
-    \item[--] $h_i : \GD_i \vd D_i$ for $i \in [1\dots n]$,
-    \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1 \dots n]$ and $\gs{D_1, \dots, D_n} \leq \gs{S, \GG_0, \GG_2, C}$ for every $X$ ($\gs{A}$ counts the number of occurrences of the atomic formula $X$ in $A$.).
+  \item[\ ]  Given $f: S \mid \Gamma \vd C$ and a partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist 
+    \begin{itemize}
+    \item[--] a partition $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$,
+    \item[--] a list of interpolant formulae $D_1, \dots, D_n$,
+    \item[--] a derivation $g: \GG_0, D_1, \dots, D_n, \GG_2 \vd C$,
+    \item[--] a derivation $h_i : \GD_i \vd D_i$ for all $i \in [1\dots n]$, such that
+    \item[--] $\gs{D_i} \leq \gs{\GD_i}$ and $\gs{D_1, \dots, D_n} \leq \gs{S, \GG_0, \GG_2, C}$ for all $i \in [1 \dots n]$ and atomic formulae $X$.
   \end{itemize}
 \end{itemize}
-Instead of finding just one formula as an interpolant, we look for a list of formulas.
-This adjustment allows us to overcome the difficulty caused by the absence of conjunction.
+Above $\gs{A}$ is equal to the number of occurrences of the atomic formula $X$ in $A$.
+%% \niccolo{(I forgot, the use of $\sigma$ instead of $\vars$ was already in Ono?)
+Differently from Maehara interpolation, in the above property we look for a  list of interpolants instead of a single formula.
+This adjustment allows to overcome the difficulty caused by the absence of conjunction.
+%\niccolo{(Are all difficulties actually overcome? Does this property still imply deductive/Craig interpolation?)}.
 
-In this paper, we aim at proving Craig interpolation for the \emph{semi-substructural} logic \SkNMILL~in \cite{UVW:protsn}.
-A logic is semi-substructural if it is an intermediate logic in between (certain fragments of) non-associative and associative intuitionistic linear logic (or Lambek calculus).
+
+In this paper, we aim at proving Craig interpolation for the \emph{semi-substructural} logic \SkNMILL\ which we recently introduced in collaboration with Tarmo Uustalu \cite{UVW:protsn}.
+In our terminology, a logic is semi-substructural if it is an intermediate logic inbetween (certain fragments of) non-associative and associative intuitionistic linear logic (or the Lambek calculus).
 Semi-associativity and semi-unitality are encoded as follows.
 Sequents are in the form $S \mid \Gamma \vdash A$, where the antecedent consists of an optional formula $S$, called stoup, adapted from Girard \cite{girard:constructive:91}, and an ordered list of formulae $\Gamma$.
 The succedent is a single formula $A$.
 We restrict the application of introduction rules in an appropriate way to allow only one of the directions of associativity and unitality, e.g. only $(A \ot B)\ot C \mid \quad \vd A \ot (B \ot C)$ is provable in \SkNMILL, while its inverse $A \ot (B \ot C) \mid \quad \vd (A \ot B) \ot C$ is not.
+In other words, only directed variants of the structural rules of associativity and unitality are included, while their inverses are generally disallowed.
 
-Semi-substructural logics are motivated by \emph{left skew monoidal categories} \cite{szlachanyi:skew-monoidal:2012}.
+The introduction of semi-substructural logics was originally motivated by the study of cobinatorial properties of certain categorical structures, called \emph{left skew monoidal categories} \cite{szlachanyi:skew-monoidal:2012}.
 These categories are a weaker variant of MacLane's monoidal categories.
-In left skew monoidal categories, the structural morphisms for associativity and unitality are not required to be bidirectional. Instead, they are natural transformations with a specific orientation.
-Therefore, they can be seen as \emph{semi-associative} and \emph{semi-unital} variants of monoidal categories. 
+In left skew monoidal categories, the structural morphisms of associativity and unitality (which are natural transformations typically called `associator' and `unitors') are not required to have an inverse. Instead, they are natural family of morphisms with a specific orientation.
+For this reason, left skew monoidal categories can be seen as \emph{semi-associative} and \emph{semi-unital} variants of monoidal categories. 
 
-Different variants of left skew monoidal categories have led to the development of corresponding semi-substructural logics.
-These include $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23}, and $(v)$ left distributive skew monoidal categories with finite products and coproducts \cite{VW:2023}.
-Each of these logics admits a cut-free sequent calculus and a subcalculus inspired by Jean-Marc Andreoli's focusing method \cite{andreoli:logic:1992}.
-The focusing method helps solve the coherence problems for the corresponding variants of left skew monoidal categories.
+Different variants of left skew monoidal categories have led to the development of their corresponding semi-substructural logic.
+These include $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23} \niccolo{(Cite your NCL'24 as well)}, and $(v)$ left distributive skew monoidal categories with finite products and coproducts \cite{VW:2023}.
+Each of these logics admits a cut-free sequent calculus. Moreover, they admit a subcalculus of ``proofs in normal form'', which is inspired by Jean-Marc Andreoli's focusing method \cite{andreoli:logic:1992} and as such provides a way to make root-first proof search more deterministic.
+Practically, the focusing method is employed for solving the coherence problem for the corresponding variants of left skew monoidal categories. In the case of left skew monoidal closed categories, a solution to the coherence (or word) problem consists of a procedure for deciding equality of parallel morphisms in the free left skew monoidal closed category on a given set $\mathsf{At}$.
+In previous work, we showed that the focused subcalculus of \SkNMILL\ is a concrete presentation of such free category, so a solution to the coherence problem is obtained by checking whether two morphisms are represented by the same derivation in the focused subcalculus.
+
 
 To prove Craig interpolation for \SkNMILL, we need to modify the statement of Maehara interpolation.
-This modification is required due to the issue similar to those encountered in the product-free Lambek calculus \cite{Pentus1997} and the implicational fragment of intuitionistic logic
+This modification is required due to issues similar to those encountered in the product-free Lambek calculus \cite{Pentus1997} and the implicational fragment of intuitionistic logic \cite{Kanazawa2006}, where Maehara interpolation fails. The main result of the paper is the following:
 \begin{restatable*}{theorem}{genIntrp}\label{genIntrp}
-~
+In the sequent calculus for \SkNMILL, the two following interpolation properties hold:
 \\
-($\mf{scut}$-interpolation) Given $f: S \mid \Gamma \vd C$ and any partition $\langle \GG_0,\GG_1 \rangle$ of $\GG$, there exists a formula $D$ 
-such that
+($\mf{scut}$-interpolation) Given $f: S \mid \Gamma \vd C$ and a partition $\langle \GG_0,\GG_1 \rangle$ of $\GG$, there exists  
 \begin{itemize}
-  \item[--] $g : S \mid \GG_0 \vd D$,
-  \item[--] $h : D \mid \GG_1 \vd C$, and 
-  \item[--] $\gs{D} \leq \gs{S , \GG_0}$ and $\gs{D} \leq \gs{\GG_1 , C}$ for every $X$.
+  \item[--] an interpolant formula $D$,
+  \item[--] a derivation $g : S \mid \GG_0 \vd D$,
+  \item[--] a derivation $h : D \mid \GG_1 \vd C$, such that
+  \item[--] $\gs{D} \leq \gs{S , \GG_0}$ and $\gs{D} \leq \gs{\GG_1 , C}$ for all atomic formulae $X$.
 \end{itemize}
 %   , where $s(S) = I$ if $S = {-}$ or $s(S) = B$ if $S = B$.
-  ($\mf{ccut}$-interpolation) Given $f: S \mid \Gamma \vd C$ and any partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist a partition of $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$ and a list of interpolant formulae $D_1, \dots, D_n$ such that
+  ($\mf{ccut}$-interpolation) Given $f: S \mid \Gamma \vd C$ and a partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist  
   \begin{itemize}
+    \item[--] a partition $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$,
+    \item[--] a list of interpolant formulae $D_1, \dots, D_n$,
     \item[--] $g: S \mid \GG_0, D_1, \dots, D_n, \GG_2 \vd C$,
-    \item[--] $h_i : {-} \mid \GD_i \vd D_i$ for $i \in [1\dots n]$,
-    \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1 \dots n]$ and $\gs{D_1, \dots, D_n} \leq \gs{S, \GG_0, \GG_2, C}$ for every $X$.
+    \item[--] $h_i : {-} \mid \GD_i \vd D_i$ for  all $i \in [1\dots n]$,
+    \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for all $i \in [1 \dots n]$, and
+    \item[--] $\gs{D_1, \dots, D_n} \leq \gs{S, \GG_0, \GG_2, C}$ for all $i \in [1 \dots n]$ and atomic formulae $X$.
   \end{itemize}
 \end{restatable*}
-In \SkNMILL, $\mf{scut}$-interpolation resembles Maehara interpolation, whereas $\mf{ccut}$-interpolation is similar to the interpolation discussed by Pentus and Kanazawa.
+In \SkNMILL, $\mf{scut}$-interpolation resembles Maehara interpolation, whereas $\mf{ccut}$-interpolation is similar to Maehara multi-interpolation property. %discussed by Pentus and Kanazawa.
 
-Motivated by the categorical interpretation of \SkNMILL, we investigate how proofs and their equivalences behave under the interpolation procedure. 
-We introduce an equivalence relation on derivations ($\circeq$) that captures eta and permutative conversions, and is both sound and complete with respect to the categorical semantics.
-Specifically, we focus on proof-relevant interpolation in the sense of {\v{C}}ubri{\'c} \cite{Cubric1994} and as recently discussed by Saurin \cite{Saurin2024}. 
-In our framework, this entails that $\mf{scut}$/$\mf{ccut}$-interpolation serve as a left inverse of the admissible rules $\mf{scut}$ and $\mf{ccut}$, respectively.
-The statements are
+
+Motivated by the categorical interpretation of \SkNMILL, we take one more step and investigate the interplay between the admissible cut rules (called $\mf{scut}$ and $\mf{ccut}$) and the derivations produced by the interpolation algorithm of Theorem \ref{genIntrp}.
+%how proofs and their equivalences behave under the interpolation procedure. 
+In previous work \cite{UVW:protsn}, we introduced an equivalence relation on derivations ($\circeq$) that captures eta- and permutative conversions, and is both sound and complete with respect to the categorical semantics.
+We show that the $\mf{scut}$/$\mf{ccut}$-interpolation procedures of Theorem \ref{genIntrp} are left inverses of the admissible rules $\mf{scut}$ and $\mf{ccut}$, respectively. Formally, we prove the following theorem:
 \begin{restatable*}{theorem}{intrpCut}\label{intrpCut}
-~
-\\
-  If $g : S \mid \GG_0 \vd D$ and $h : D \mid \GG_1 \vd C$ are derivations obtained by applying $\mf{scut}$-interpolation on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 \rangle$, then $\mf{scut}(g, h) \circeq f$.
-  \\
-  If $g : S \mid \GG_0 , D_1 , \dots, D_n, \GG_2 \vd C$ and $h_i : {-} \mid \GD_i \vd D_i$ for $i \in [1 \dots n]$ are derivations obtained by applying $\mf{ccut}$-interpolation on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 , \GG_2 \rangle$, then $\mf{ccut}^*([h_i] , g) \circeq f$.
+  \begin{enumerate}[label=(\roman*)]
+  \item Let $g : S \mid \GG_0 \vd D$ and $h : D \mid \GG_1 \vd C$ be the derivations obtained by applying $\mf{scut}$-interpolation on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 \rangle$. Then $\mf{scut}(g, h) \circeq f$.
+  \item Let $g : S \mid \GG_0 , D_1 , \dots, D_n, \GG_2 \vd C$ and $h_i : {-} \mid \GD_i \vd D_i$ for $i \in [1 \dots n]$ be derivations obtained by applying $\mf{ccut}$-interpolation on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 , \GG_2 \rangle$. Then $\mf{ccut}^*([h_i] , g) \circeq f$.
+  \end{enumerate}
 \end{restatable*}
+
+In the above statement, $\mf{ccut}^*$ denotes multiple applications of the admissible $\mf{ccut}$ rule, one for each derivation $h_i$.
+Theorems \ref{genIntrp} and \ref{intrpCut} together show that \SkNMILL\ satisfies a \emph{proof-relevant} form of Craig interpolation, in the sense  formulated in the early 90s by {\v{C}}ubri{\'c} \cite{Cubric1994} in the setting of intuitionistic propositional logic and recently discussed also by Saurin \cite{Saurin2024} for (extensions of) classical linear logic.
+
 % For example, consider the sequent $W, W\bsls Y, W , W \bsls X , X \bsls (Y \bsls Z) \longrightarrow Z $ with the partition $\langle [\ ] , [W, W\bsls Y, W , W \bsls X], [X \bsls (Y \bsls Z)] \rangle$ in the product-free Lambek calculus.
 % By Maehara's method, the interpolant formula should be $X \cdot Y$, but the calculus does not include $\cdot$ as a connective.
 
@@ -377,8 +395,7 @@ The statements are
 
 % In this work, we show that sequent calculi for left skew monoidal (closed) categories enjoy Craig interpolation.
 
-The proofs of Maehara interpolation and Craig interpolation are formalized in the proof assistant Agda.
-The code is available at
+All the proofs presented in this paper have been formalized in the proof assistant Agda. The full formalization is freely available at the following website:
 \begin{center}
   \url{https://github.com/niccoloveltri/code-skewmonclosed/tree/interpolation}.
 \end{center}
