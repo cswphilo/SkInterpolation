@@ -1286,14 +1286,27 @@ The formulae $A \lolli B$ and $B \lolli C$ are proved by the derivations $\lrigh
 By Lemma \ref{lem:gs2vars}, we know that $\vars{B} \subseteq \vars{A}$ and $\vars{B} \subseteq \vars{C}$, which means that $\vars{B} \subseteq \vars{A} \cap \vars{C}$.
 \end{proof}
 Moreover, we can show that the $\mf{scut}\sls \mf{ccut}$-interpolation procedures of Theorem \ref{genIntrp} are right inverses of $\mf{scut}$ and $\mf{ccut}$.
-We first define a iterated form of $\mf{ccut}$:
-\begin{definition}[iterated $\mf{ccut}$]
-  Suppose that there are $f : S \mid \GG_0 , D_1 , \dots, D_n , \GG_2 \vd C$, and a list of derivations $\phi$ where for any $g_i \in \phi$, $\mf{ccut}(g_i , f)$ is a derivation. 
+We first define iterated forms of $\mf{ccut}$, $\lright$, and $\lleft$.
+\begin{definition}
+~
+\begin{itemize}
+  \item  Given a derivation $f : S \mid \GG_0 , D_1 , \dots, D_n , \GG_2 \vd C$ and a list of derivations $\phi$ where for any $g_i \in \phi$, $\mf{ccut}(g_i , f)$ is a derivation. 
   We define $\mf{ccut}^* (\phi , f)$ recursively:
   \begin{itemize}
     \item[--] If $\phi = [\ ]$, then $\mf{ccut}^* (\phi , f) = f$.
     \item[--] If $\phi = (g_1 , \phi')$, then $\mf{ccut}^* (\phi , f) = \mf{ccut} (g_1 , (\mf{ccut}^* (\phi' , f)))$.
   \end{itemize}
+  \item Given a derivation $f : S \mid \GG , \GD \vd B$, we define $\lright^* (\GD , f)$ recursively:
+  \begin{itemize}
+    \item If $\GD = [\ ]$, then $\lright^* (\GD, f) = f$.
+    \item If $\GD = (A_1 , \GD')$, then $\lright^* (\GD , f) = \lright (\lright^* (\GD' , f))$.
+  \end{itemize}
+  \item Given a derivation $f : B \mid \GD \vd C$ and a list of derivations $\phi$ that consists of $g_i : {-} \mid \GG_i \vd A_i$ for $i \in [1 \dots n]$, we define $\lleft^* (\phi , f)$ recursively:
+  \begin{itemize}
+    \item If $\phi = [\ ]$, then $\lleft^* (\phi , f) = f$.
+    \item If $\phi = (g_1 , \phi')$, then $\lleft^* (\phi , f) = \lleft (g_1 , \lleft^* (\phi' , f))$.
+  \end{itemize}
+\end{itemize}
 \end{definition}
 \begin{proposition}\label{eq:cut}
   Following equations of derivations hold in \SkNMILL\textnormal{:}
@@ -1324,7 +1337,10 @@ We first define a iterated form of $\mf{ccut}$:
           }
         }
         \end{array}
-        \\[20pt]
+      \end{array}
+      \end{displaymath}
+      \begin{displaymath}
+      \begin{array}{l}
       % ccut-hass
       \begin{array}{c}
         \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
@@ -1380,7 +1396,10 @@ We first define a iterated form of $\mf{ccut}$:
           \deduce{B \mid \GG_2 \vd C}{h}
         }
       \end{array}
-      \\[30pt]
+      \end{array}
+      \end{displaymath}
+      \begin{displaymath}
+      \begin{array}{l}
       %  ccutscut-vass
       \begin{array}{c}
         \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 \vd C}{
@@ -1406,7 +1425,10 @@ We first define a iterated form of $\mf{ccut}$:
           \deduce{B \mid \GG_3 \vd C}{h}
         }
       \end{array}
-      \\[30pt]
+      \end{array}
+      \end{displaymath}
+      \begin{displaymath}
+      \begin{array}{l}
       % ccutccut-vass
       \begin{array}{c}
         \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
@@ -1438,71 +1460,103 @@ We first define a iterated form of $\mf{ccut}$:
 \begin{proof}
   Equations are proved by mutual induction on derivations.
 \end{proof}
-The following equation is derivable from the five equations in Lemma \ref{eq:cut}.
-For simplicity, we denote $A_1 \lolli (\dots (A_n \lolli B) \dots)$ and $A_2 \lolli (\dots (A_n \lolli B) \dots)$ as $A^*$ and $A'^{*}$, respectively.
-The list of contexts $\GD_1, \dots, \GD_n$ always rewrites to $\GD$.
-\cheng{I divide the equation into two parts, which I am not sure if it is the right thing to do.}
-  \begin{equation*}
+Given a derivation $f : S \mid \GG_0 , A_1, \dots , A_n \vd B$ and a list of derivations $\phi$ that consists of $g_i : {-} \mid \GD_i \vd A_i$ for $i \in [1 \dots n]$, the following equation is derivable from the five equations in Lemma \ref{eq:cut}.
+For simplicity, we denote $A_1 \lolli (\dots (A_n \lolli B) \dots)$, $(A_1 , \dots , A_n)$, and $(\GD_1 , \dots , \GD_n)$ as $A^*$, $\GD$, and $\GD^*$, respectively.
+   \begin{equation}\label{scut-or-ols}
    \begin{array}{l}
-      %scut⊸r⋆⊸ls
-      \begin{array}{c}
-        \infer[\mf{scut}]{S \mid \GG_0 , \GD , \GG_2 \vd C}{
-      \infer[\lright]{S \mid \GG_0 \vd A^*}{
-      \deduce{S \mid \GG_0 , A_1 \vd A'^*}{
-        \deduce{\vdots}{
-        \infer[\lright]{S \mid \GG_0 , A_1, \dots ,A_{n-1} \vd A_n \lolli B}{
-        \deduce{S \mid \GG_0 , A_1, \dots, A_n \vd B}{f}
+    \begin{array}{c}
+    \infer[\mf{scut}]{S \mid \GG_0, \GD^*, \GG_1 \vd C}{
+      \infer[\lright^*]{S \mid \GG_0 \vd A^*}{
+        \GD
+        &
+        \deduce{S \mid \GG_0 , \GD \vd B}{f}
       }
-      }
-      }
-    }
       &
-      \infer[\lleft]{A^* \mid \GD, \GG_2 \vd C}{
-      \deduce{{-} \mid \GD_1 \vd A_1}{g_1}
-      &
-      \deduce{A'^* \mid \GD_2, \dots, \GD_n, \GG_2 \vd C}{
-        \deduce{\vdots}{
-          \infer[\lleft]{A_n \lolli B \mid \GD_n, \GG_2 \vd C}{
-            \deduce{{-} \mid \GD_n \vd A_n}{g_n}
-            &
-            \deduce{B \mid \GG_2 \vd C}{h}
-          }
-        }
+      \infer[\lleft^*]{A^* \mid \GD^* , \GG_1 \vd C}{
+        \phi
+        &
+        \deduce{B \mid \GG_1 \vd C}{h}
       }
     }
-    }
-      \end{array}
-      \end{array}
-      \end{equation*}
-      \begin{equation}\label{scut-or-ols}
-      \begin{array}{l}
-      \qquad  =
-      \begin{array}{c}
-        \infer[\mf{scut}]{S \mid \GG_0 , \GD , \GG_2 \vd C}{
-          \infer[\mf{ccut}]{S \mid \GG_0 , \GD \vd B}{
-            \deduce{{-} \mid \GD_1 \vd A_1}{g_1}
-            &
-            \deduce{S \mid \GG_0 , A_1 , \GD_2 , \dots , \GD_n \vd B}{
-              \deduce{\vdots}{
-              \infer[\mf{ccut}]{S \mid \GG_0 , A_1 , \dots , \GD_n \vd B}{
-                \deduce{{-} \mid \GD_n \vd A_n}{g_n}
-                &
-                \deduce{S \mid \GG_0 , A_1 , \dots , A_n \vd B}{f}
-              }
-            }
-          }
-          }
+   \end{array}
+   \\[10pt]
+   \qquad \qquad \qquad \qquad \qquad
+   = 
+   \quad
+    \begin{array}{c}
+      \infer[\mf{scut}]{S \mid \GG_0 , \GD^* , \GG_1 \vd C}{
+        \infer[\mf{ccut}^*]{S \mid \GG_0 , \GD^* \vd B}{
+          \phi
           &
-          \deduce{B \mid \GG_2 \vd C}{h}
+          \deduce{S \mid \GG_0 , \GD \vd B}{f}
         }
-      \end{array}
-      %scut⊸r⋆⊸ls : {S : Stp} {Γ Δ Δ' Λ : Cxt} {B C : Fma}
-  % → (hs : Ders Δ Λ)
-  % → (f : S ∣ Γ ++ Λ ⊢ B)
-  % → (g : just B ∣ Δ' ⊢ C)
-  % → scut (⊸r⋆ Λ f) (⊸ls hs g) ≡ scut (ccut⋆ Γ [] hs f) g
+        &
+        \deduce{B \mid \GG_1 \vd C}{h}
+      }
+    \end{array}
    \end{array}
    \end{equation}
+  % \begin{equation*}
+  %  \begin{array}{l}
+  %     %scut⊸r⋆⊸ls
+  %     \begin{array}{c}
+  %       \infer[\mf{scut}]{S \mid \GG_0 , \GD , \GG_2 \vd C}{
+  %     \infer[\lright]{S \mid \GG_0 \vd A^*}{
+  %     \deduce{S \mid \GG_0 , A_1 \vd A'^*}{
+  %       \deduce{\vdots}{
+  %       \infer[\lright]{S \mid \GG_0 , A_1, \dots ,A_{n-1} \vd A_n \lolli B}{
+  %       \deduce{S \mid \GG_0 , A_1, \dots, A_n \vd B}{f}
+  %     }
+  %     }
+  %     }
+  %   }
+  %     &
+  %     \infer[\lleft]{A^* \mid \GD, \GG_2 \vd C}{
+  %     \deduce{{-} \mid \GD_1 \vd A_1}{g_1}
+  %     &
+  %     \deduce{A'^* \mid \GD_2, \dots, \GD_n, \GG_2 \vd C}{
+  %       \deduce{\vdots}{
+  %         \infer[\lleft]{A_n \lolli B \mid \GD_n, \GG_2 \vd C}{
+  %           \deduce{{-} \mid \GD_n \vd A_n}{g_n}
+  %           &
+  %           \deduce{B \mid \GG_2 \vd C}{h}
+  %         }
+  %       }
+  %     }
+  %   }
+  %   }
+  %     \end{array}
+  %     \end{array}
+  %     \end{equation*}
+  %     \begin{equation}\label{scut-or-ols}
+  %     \begin{array}{l}
+  %     \qquad  =
+  %     \begin{array}{c}
+  %       \infer[\mf{scut}]{S \mid \GG_0 , \GD , \GG_2 \vd C}{
+  %         \infer[\mf{ccut}]{S \mid \GG_0 , \GD \vd B}{
+  %           \deduce{{-} \mid \GD_1 \vd A_1}{g_1}
+  %           &
+  %           \deduce{S \mid \GG_0 , A_1 , \GD_2 , \dots , \GD_n \vd B}{
+  %             \deduce{\vdots}{
+  %             \infer[\mf{ccut}]{S \mid \GG_0 , A_1 , \dots , \GD_n \vd B}{
+  %               \deduce{{-} \mid \GD_n \vd A_n}{g_n}
+  %               &
+  %               \deduce{S \mid \GG_0 , A_1 , \dots , A_n \vd B}{f}
+  %             }
+  %           }
+  %         }
+  %         }
+  %         &
+  %         \deduce{B \mid \GG_2 \vd C}{h}
+  %       }
+  %     \end{array}
+  %     %scut⊸r⋆⊸ls : {S : Stp} {Γ Δ Δ' Λ : Cxt} {B C : Fma}
+  % % → (hs : Ders Δ Λ)
+  % % → (f : S ∣ Γ ++ Λ ⊢ B)
+  % % → (g : just B ∣ Δ' ⊢ C)
+  % % → scut (⊸r⋆ Λ f) (⊸ls hs g) ≡ scut (ccut⋆ Γ [] hs f) g
+  %  \end{array}
+  %  \end{equation}
 With the definition and the equations above, we can state and prove the following:
 % In particular, we can prove the following two theorems.
 \cutIntrp
@@ -1684,9 +1738,11 @@ Our goal is to find a formula $D$ and derivations $g : A\lolli B \mid \GG_0 \vd 
 We first apply inductive hypothesis of $\mf{ccut}$-interpolation on $f'$ with the partition $\langle \GG_0 , \GG_1 , [\ ]\rangle$ and obtain a partition $\langle \GD_1, \dots , \GD_n \rangle$ of $\GG_1$ and a list of formulae $D_1 , \dots , D_n$ and derivations
 \begin{itemize}
   \item[--] $g': {-} \mid \GG_0 , D_1, \dots, D_n \vd A$ and
-  \item[--] $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1\dots n]$, which is abbreviated as $\phi$.
+  \item[--] $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1\dots n]$.
 \end{itemize}
 By applying inductive hypothesis of $\mf{scut}$-interpolation on $f''$ with the partition $\langle [\ ] , \GG_2 \rangle$, we obtain a formula $E$ and derivations $g'' : B \mid \quad \vd E$ and $h'': E \mid \GG_2 \vd C$.
+For simplicity, we denote $D_1 \lolli (\dots (D_n \lolli E)\dots)$, $(D_1 , \dots , D_n)$, and $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1\dots n]$ as $D^*$, $\GD$, and $\phi$, respectively.
+The list of contexts $\GD_1, \dots, \GD_n$ always rewrites to $\GG_1$.
 The desired derivations are constructed as follows:
 \begin{displaymath}
 \begin{array}{lcc}
@@ -1697,20 +1753,17 @@ The desired derivations are constructed as follows:
   &=&
   \quad
     \begin{array}{c}
-      \infer[\lright]{A\lolli B \mid \GG_0 \vd D_1 \lolli (\dots (D_n \lolli E)\dots)}{
-      \deduce{A \lolli B \mid \GG_0 , D_1 \vd D_2 \lolli (\dots (D_n \lolli E)\dots)}{\deduce{\vdots}{
-        \infer[\lright]{A \lolli B \mid \GG_0 , D_1, \dots ,D_{n-1} \vd D_n \lolli E}{
-        \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots, D_n \vd E}{
-          \deduce{{-} \mid \GG_0 , D_1, \dots, D_n \vd A}{g'}
+      \infer[\lright^*]{A\lolli B \mid \GG_0 \vd D^*}{
+        \GD
+        &
+        \infer[\lleft]{A \lolli B \mid \GG_0 , \GD \vd E}{
+          \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
           &
           \deduce{B \mid \quad \vd E}{g''}
         }
       }
-      }
-      }
-    }
     \end{array}
-    \\[1.5cm]
+    \\[20pt]
     \begin{array}{c}
       h
     \end{array}
@@ -1718,149 +1771,237 @@ The desired derivations are constructed as follows:
     &=&
     \quad
     \begin{array}{c}
-      \infer[\lleft]{D_1 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_1, \dots, \GD_n, \GG_2 \vd C}{
-      \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
-      &
-      \deduce{D_2 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_2, \dots, \GD_n, \GG_2 \vd C}{
-        \deduce{\vdots}{
-          \infer[\lleft]{D_n \lolli E \mid \GD_n, \GG_2 \vd C}{
-            \deduce{{-} \mid \GD_n, \GG_2 \vd D_n}{h'_n}
+      \infer[\lleft^*]{D^* \mid \GG_1 \GG_2 \vd C}{
+            \phi
             &
             \deduce{E \mid \GG_2 \vd C}{h''}
           }
-        }
-      }
-    }
     \end{array}
   \end{array}
 \end{displaymath}
 Our goal is to show that $\scut{g}{h} \circeq \lleft(\iccut{\phi}{g'} , \scut{g''}{h''})$.
-For simplicity, we denote $D_1 \lolli (\dots (D_n \lolli E)\dots)$ and $D_2 \lolli (\dots (D_n \lolli E)\dots)$ as $D^*$ and $D'^{*}$, respectively.
-The list of contexts $\GD_1, \dots, \GD_n$ always rewrites to $\GG_1$.
 We rewrite $\scut{g}{h}$ by the following path
 \begin{displaymath}
   \begin{array}{lr}
-    &
+  \begin{array}{c}
     \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
-      \infer[\lright]{A\lolli B \mid \GG_0 \vd D^*}{
-      \deduce{A \lolli B \mid \GG_0 , D_1 \vd D'^*}{
-        \deduce{\vdots}{
-        \infer[\lright]{A \lolli B \mid \GG_0 , D_1, \dots ,D_{n-1} \vd D_n \lolli E}{
-        \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots, D_n \vd E}{
-          \deduce{{-} \mid \GG_0 , D_1, \dots, D_n \vd A}{g'}
+      \infer[\lright^*]{A\lolli B \mid \GG_0 \vd D^*}{
+        \GD
+        &
+        \infer[\lleft]{A \lolli B \mid \GG_0 , \GD \vd E}{
+          \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
           &
           \deduce{B \mid \quad \vd E}{g''}
         }
       }
-      }
-      }
-    }
       &
-      \infer[\lleft]{D^* \mid \GG_1, \GG_2 \vd C}{
-      \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
-      &
-      \deduce{D'^{*} \mid \GD_2, \dots, \GD_n, \GG_2 \vd C}{
-        \deduce{\vdots}{
-          \infer[\lleft]{D_n \lolli E \mid \GD_n, \GG_2 \vd C}{
-            \deduce{{-} \mid \GD_n, \GG_2 \vd D_n}{h'_n}
+      \infer[\lleft^*]{D^* \mid \GG_1 \GG_2 \vd C}{
+            \phi
             &
             \deduce{E \mid \GG_2 \vd C}{h''}
           }
-        }
-      }
-    }
     }
   \end{array}
-  \end{displaymath}
-  \begin{displaymath}
+    &
+    \qquad
+    \qquad
+    \qquad
+  \end{array}
+\end{displaymath}
+\begin{displaymath}
   \begin{array}{lr}
-   \begin{array}{l}
+    \begin{array}{c}
     (\text{Eq} \ \ref{scut-or-ols})
     \\
     \mapsto
   \end{array}
+  \qquad
+  \qquad
   &
   \begin{array}{c}
     \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
-    \infer[\mf{ccut}]{A \lolli B \mid \GG_0 , \GG_1 \vd E}{
-      \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
+    \infer[\mf{ccut}^*]{A \lolli B \mid \GG_0 , \GG_1 \vd E}{
+      \phi
       &
-      \deduce{A \lolli B \mid \GG_0 , D_1 , \GD_2 , \dots , \GD_n \vd E}{
-        \deduce{\vdots}{
-        \infer[\mf{ccut}]{A \lolli B \mid \GG_0 , D_1, D_2 ,\dots , \GD_n \vd E}{
-          \deduce{{-} \mid \GD_n \vd D_n}{h'_n}
-          &
-          \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots , D_n \vd E}{
-            \deduce{{-} \mid \GG_0 , D_1 , \dots , D_n \vd A}{g'}
-            &
-            \deduce{B \mid \quad \vd E}{g''}
-          }
-        }
+      \infer[\lleft]{A \lolli B \mid \GG_0 , \GD \vd E}{
+        \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
+        &
+        \deduce{B \mid \quad \vd E}{g''}
       }
-    }
     }
     &
     \deduce{E \mid \GG_2 \vd C}{h''}
-   }
+  }
   \end{array}
-\end{array}
+  \end{array}
 \end{displaymath}
 \begin{displaymath}
-\begin{array}{lr}
-  \mapsto&
-  \begin{array}{c}
-    \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
-    \infer[\lleft]{A \lolli B \mid \GG_0 , \GG_1 \vd E}{
-      \infer[\mf{ccut}]{{-} \mid \GG_0 , \GG_1 \vd A}{
-        \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
-        &
-        \deduce{{-} \mid \GG_0 , D_1 , \GD_2 , \dots , \GD_n \vd A}{
-          \deduce{\vdots}{
-        \infer[\mf{ccut}]{{-} \mid \GG_0 , D_1, D_2 , \dots , \GD_n \vd A}{
-          \deduce{{-} \mid \GD_n \vd D_n}{h'_n}
-          &
-          \deduce{{-} \mid \GG_0 , D_1 , \dots , D_n \vd A}{g'}
-        }
-        }
-      }
-      }
-      &
-      \deduce{B \mid \quad \vd E}{g''}
-    }
-    &
-    \deduce{E \mid \GG_2 \vd C}{h''}
-   }
-  \end{array}
-  \end{array}
-  \end{displaymath}
-  \begin{displaymath}
   \begin{array}{lr}
-  \mapsto&
-  \begin{array}{c}
-    \infer[\lleft]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
-      \infer[\mf{ccut}]{{-} \mid \GG_0 , \GG_1 \vd A}{
-        \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
-        &
-        \deduce{{-} \mid \GG_0 , D_1 , \GD_2 , \dots , \GD_n \vd A}{
-          \deduce{\vdots}{
-        \infer[\mf{ccut}]{{-} \mid \GG_0 , D_1, D_2 , \dots , \GD_n \vd A}{
-          \deduce{{-} \mid \GD_n \vd D_n}{h'_n}
+% \\[10 pt]
+    \mapsto&
+    \qquad \qquad
+    \begin{array}{c}
+      \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+      \infer[\lleft]{A \lolli B \mid \GG_0 , \GG_1 \vd E}{
+        \infer[\mf{ccut}^*]{{-} \mid \GG_0 , \GG_1 \vd A}{
+          \phi
           &
-          \deduce{{-} \mid \GG_0 , D_1 , \dots , D_n \vd A}{g'}
+          \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
         }
-        }
+        &
+        \deduce{B \mid \quad \vd E}{g''}
       }
-      }
-      &
-     \infer[\mf{scut}]{B \mid \GG_2 \vd C}{
-      \deduce{B \mid \quad \vd E}{g''}
       &
       \deduce{E \mid \GG_2 \vd C}{h''}
     }
-   }
-  \end{array}
+    \end{array}
+%   \end{array}
+% \end{displaymath}
+% \begin{displaymath}
+%   \begin{array}{lr}
+\\[1.5cm]
+    \mapsto&
+    \qquad \qquad
+    \begin{array}{c}
+      \infer[\lleft]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+        \infer[\mf{ccut}^*]{{-} \mid \GG_0 , \GG_1 \vd A}{
+          \phi
+          &
+          \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
+        }
+        &
+        \infer[\mf{scut}]{B \mid \GG_2 \vd C}{
+          \deduce{B \mid \quad E}{g''}
+          &
+          \deduce{E \mid \GG_2 \vd C}{h''}
+        }
+      }
+    \end{array}
   \end{array}
 \end{displaymath}
+% \begin{displaymath}
+%   \begin{array}{lr}
+%     &
+%     \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+%       \infer[\lright]{A\lolli B \mid \GG_0 \vd D^*}{
+%       \deduce{A \lolli B \mid \GG_0 , D_1 \vd D'^*}{
+%         \deduce{\vdots}{
+%         \infer[\lright]{A \lolli B \mid \GG_0 , D_1, \dots ,D_{n-1} \vd D_n \lolli E}{
+%         \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots, D_n \vd E}{
+%           \deduce{{-} \mid \GG_0 , D_1, \dots, D_n \vd A}{g'}
+%           &
+%           \deduce{B \mid \quad \vd E}{g''}
+%         }
+%       }
+%       }
+%       }
+%     }
+%       &
+%       \infer[\lleft]{D^* \mid \GG_1, \GG_2 \vd C}{
+%       \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
+%       &
+%       \deduce{D'^{*} \mid \GD_2, \dots, \GD_n, \GG_2 \vd C}{
+%         \deduce{\vdots}{
+%           \infer[\lleft]{D_n \lolli E \mid \GD_n, \GG_2 \vd C}{
+%             \deduce{{-} \mid \GD_n, \GG_2 \vd D_n}{h'_n}
+%             &
+%             \deduce{E \mid \GG_2 \vd C}{h''}
+%           }
+%         }
+%       }
+%     }
+%     }
+%   \end{array}
+%   \end{displaymath}
+%   \begin{displaymath}
+%   \begin{array}{lr}
+%    \begin{array}{l}
+%     (\text{Eq} \ \ref{scut-or-ols})
+%     \\
+%     \mapsto
+%   \end{array}
+%   &
+%   \begin{array}{c}
+%     \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+%     \infer[\mf{ccut}]{A \lolli B \mid \GG_0 , \GG_1 \vd E}{
+%       \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
+%       &
+%       \deduce{A \lolli B \mid \GG_0 , D_1 , \GD_2 , \dots , \GD_n \vd E}{
+%         \deduce{\vdots}{
+%         \infer[\mf{ccut}]{A \lolli B \mid \GG_0 , D_1, D_2 ,\dots , \GD_n \vd E}{
+%           \deduce{{-} \mid \GD_n \vd D_n}{h'_n}
+%           &
+%           \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots , D_n \vd E}{
+%             \deduce{{-} \mid \GG_0 , D_1 , \dots , D_n \vd A}{g'}
+%             &
+%             \deduce{B \mid \quad \vd E}{g''}
+%           }
+%         }
+%       }
+%     }
+%     }
+%     &
+%     \deduce{E \mid \GG_2 \vd C}{h''}
+%    }
+%   \end{array}
+% \end{array}
+% \end{displaymath}
+% \begin{displaymath}
+% \begin{array}{lr}
+%   \mapsto&
+%   \begin{array}{c}
+%     \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+%     \infer[\lleft]{A \lolli B \mid \GG_0 , \GG_1 \vd E}{
+%       \infer[\mf{ccut}]{{-} \mid \GG_0 , \GG_1 \vd A}{
+%         \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
+%         &
+%         \deduce{{-} \mid \GG_0 , D_1 , \GD_2 , \dots , \GD_n \vd A}{
+%           \deduce{\vdots}{
+%         \infer[\mf{ccut}]{{-} \mid \GG_0 , D_1, D_2 , \dots , \GD_n \vd A}{
+%           \deduce{{-} \mid \GD_n \vd D_n}{h'_n}
+%           &
+%           \deduce{{-} \mid \GG_0 , D_1 , \dots , D_n \vd A}{g'}
+%         }
+%         }
+%       }
+%       }
+%       &
+%       \deduce{B \mid \quad \vd E}{g''}
+%     }
+%     &
+%     \deduce{E \mid \GG_2 \vd C}{h''}
+%    }
+%   \end{array}
+%   \end{array}
+%   \end{displaymath}
+%   \begin{displaymath}
+%   \begin{array}{lr}
+%   \mapsto&
+%   \begin{array}{c}
+%     \infer[\lleft]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+%       \infer[\mf{ccut}]{{-} \mid \GG_0 , \GG_1 \vd A}{
+%         \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
+%         &
+%         \deduce{{-} \mid \GG_0 , D_1 , \GD_2 , \dots , \GD_n \vd A}{
+%           \deduce{\vdots}{
+%         \infer[\mf{ccut}]{{-} \mid \GG_0 , D_1, D_2 , \dots , \GD_n \vd A}{
+%           \deduce{{-} \mid \GD_n \vd D_n}{h'_n}
+%           &
+%           \deduce{{-} \mid \GG_0 , D_1 , \dots , D_n \vd A}{g'}
+%         }
+%         }
+%       }
+%       }
+%       &
+%      \infer[\mf{scut}]{B \mid \GG_2 \vd C}{
+%       \deduce{B \mid \quad \vd E}{g''}
+%       &
+%       \deduce{E \mid \GG_2 \vd C}{h''}
+%     }
+%    }
+%   \end{array}
+%   \end{array}
+% \end{displaymath}
 The derivation $\lleft (\iccut{\phi}{g'} , \scut{g''}{h''})$ is equivalent to $\lleft (f' , f'')$ by inductive hypothesis and congruence.
 
 The second case of $\lleft$ is the partition $\langle (\GG_0 , \GG_1) , \GG_2 \rangle$ with derivations $f' : {-} \mid \GG_0 \vd A$ and $f'' : B \mid \GG_1 , \GG_2 \vd C$.
