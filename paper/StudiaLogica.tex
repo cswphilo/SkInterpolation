@@ -269,7 +269,7 @@ A logic $\mc{L}$ has the \emph{Craig interpolation property} if, for any formula
 Craig interpolation has been moslty employed to prove model-theoretical results, including Beth's definability theorem \cite{Beth1953}, but more recently it has found applications in other areas, e.g. in model checking \cite{Henzinger2004}.
 
 From the viewpoint of sequent calculus, substructural logics are defined by the absence of at least one structural rule.
-A notable instance is Joachim Lambek's syntactic calculus \cite{lambek:mathematics:58}, which forbids weakening, contraction, exchange.
+A notable instance is Joachim Lambek's syntactic calculus \cite{lambek:mathematics:58}, which forbids weakening, contraction and exchange.
 Its non-associative variant, which has been extensively studied \cite{moot:categorial:2012}, also disallows associativity. Another significant example is linear logic, introduced by Jean-Yves Girard \cite{girard:linear:87}, where weakening and contraction are disallowed but can be recovered for specific formulas through modalities.
 Substructural logics have proven useful for modelling various phenomena in different research areas, from the computational analysis of natural language syntax to the development of programming languages sensitive to resource management.
 
@@ -278,7 +278,7 @@ Craig interpolation for substructural logics has been extensively studied, using
 For substructural logics that lack a cut-free sequent calculus, such as arbitrary extensions of the full Lambek calculus with exchange ($\FL_{\textbf{e}}$), Craig interpolation is established using algebraic methods such as amalgamation.
 For further details on this approach, see \cite{Kihara2009}.
 
-For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven by adapting Maehara's method \cite{maehara1961}, which originally aimed to prove interpolation for $\mathbf{LK}$, sequent calculus of classical logic.
+For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven by adapting Maehara's method \cite{maehara1961}, which originally aimed to prove interpolation for $\mathbf{LK}$, a sequent calculus for classical logic.
 This includes the full Lambek calculus (\FL) and its extensions that incorporate various combinations of weakening, exchange, and contraction.
 In the case of \FL, for instance, the proof starts by establishing a stronger form of interpolation which we call \emph{Maehara interpolation property} \cite{ono:proof:nonclassical:1998}. 
 The latter property states:
@@ -286,7 +286,7 @@ The latter property states:
   \item[\ ] Given $f : \Gamma \vdash C$ and a partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_2 \vdash C$, and $\vars{D} \subseteq \vars{\Gamma_0} \cap \vars{\Gamma_0, \Gamma_1, C}$
 \end{itemize}
 Being a partition simply means that the ordered list of formulae $\Gamma$ is equal to the concatenation of $\Gamma_0, \Gamma_1$ and $\Gamma_2$, i.e. $\Gamma = \Gamma_0, \Gamma_1, \Gamma_2$. 
-\FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by multiplicity condition \cite{roorda1991,moot:categorial:2012}.
+\FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by a  multiplicity condition \cite{roorda1991,moot:categorial:2012}.
 The property states:
 \begin{itemize}
   \item[\ ] Given $f : \Gamma \vdash C$ and a partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_2 \vdash C$, and $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{\GG_0, \GG_2 , C}$ for all atomic formulae $X$.
