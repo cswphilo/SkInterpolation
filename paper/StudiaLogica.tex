@@ -1563,9 +1563,11 @@ With the definition and the equations above, we can state and prove the followin
 \begin{proof}
 Similar to the proof of Theorem \ref{genIntrp}, we prove the theorem by mutual induction on derivations.
 We show the proof of the statement $(i)$, while $(ii)$ is proved in a similar manner.
+This proof relies on definitional equality of derivations where $\mf{scut}$ and $\mf{ccut}$ are defined according to the cut-elimination procedures described in \cite{uustalu:sequent:2021,wan2024}.
 
-The first bases case if $f = \ax : A \mid \quad \vd A$, where the interpolant formula is $A$ and $g = h = f = \ax$. By the cut-elimination procedures given in \cite{UVW:protsn,wan2024}, $\mf{scut} (\ax , \ax) = \ax$ which is equivalent to $\ax$.
-Another base case is $f = \unitr$, where the interpolant formula is $\unit$ and $\mf{scut} (\unitr , \unitl (\unitr)) = \unitr$ which is equivalent to $\unitr$.
+The first bases case if $f = \ax : A \mid \quad \vd A$, where the interpolant formula is $A$ and $g = h = f = \ax$. 
+By definition, $\mf{scut} (\ax , \ax)$ is equal to $\ax$ which is equivalent to itself.
+Another base case is $f = \unitr$, where the interpolant formula is $\unit$ and $\mf{scut} (\unitr , \unitl (\unitr)) = \unitr$ which is equivalent to itself.
 
 For inductive cases, we first deal with one-premise rules.
 The first group of one-premise rules are $\unitl, \tl$, and $\lright$.
