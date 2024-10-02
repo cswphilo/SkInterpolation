@@ -59,6 +59,8 @@
 \usepackage{proof}
 \usepackage{quiver}
 \usepackage{thm-restate}
+
+\usepackage{CJKutf8} % Japanese fonts
 %%%%
 \newcommand{\curly}{\mathrel{\leadsto}}
 \newcommand{\llangle}[1][]{\savebox{\@brx}{\(\m@th{#1\langle}\)}%
@@ -104,7 +106,7 @@
 \newcommand{\llright}{{\llolli}\mathsf{R}}
 \newcommand{\rlright}{{\rlolli}\mathsf{R}}
 \newcommand{\illol}{\rotatebox[origin=c]{180}{$\multimap$}}
-\newcommand{\I}{\mathsf{I}}
+\newcommand{\unit}{\mathsf{I}}
 \newcommand{\msfL}{\mathsf{L}}
 \newcommand{\defeq}{=_{\mathsf{df}}}
 \newcommand{\comp}{\mathsf{comp}}
@@ -147,9 +149,11 @@
 \newcommand{\gs}[1]{\sigma_{X} (#1)}
 \newcommand{\vars}[1]{\mf{var} (#1)}
 \newcommand{\FL}{\textbf{FL}}
+\newcommand{\scut}[2]{\mf{scut} (#1 , #2)}
+\newcommand{\iccut}[2]{\mf{ccut}^* (#1 , #2)}
 
 \newcommand{\niccolo}[1]{\textcolor{red}{#1}}
-\newcommand{\cheng}[1]{\textcolor{green}{#1}}
+\newcommand{\cheng}[1]{\textcolor{blue}{#1}}
 
 
 %%%%%=============================================================================%%%%
@@ -176,6 +180,7 @@
 \theoremstyle{thmstyletwo}%
 \newtheorem{example}[theorem]{Example}%
 \newtheorem{remark}[theorem]{Remark}%
+\newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
 \theoremstyle{thmstylethree}%
 \newtheorem{definition}[theorem]{Definition}%
@@ -264,8 +269,8 @@ A logic $\mc{L}$ has the \emph{Craig interpolation property} if, for any formula
 Craig interpolation has been moslty employed to prove model-theoretical results, including Beth's definability theorem \cite{Beth1953}, but more recently it has found applications in other areas, e.g. in model checking \cite{Henzinger2004}.
 
 From the viewpoint of sequent calculus, substructural logics are defined by the absence of at least one structural rule.
-A notable instance is Joachim Lambek's syntactic calculus \cite{lambek:mathematics:58}, which forbids weakening, contraction, exchange, and unitality \niccolo{(I'd remove unitality here, as the original Lambek calculus doesn't have units)}.
-Its non-associative variant, which has been extensively studied \niccolo{(Cite Moot Retore book)}, also disallows associativity. Another significant example is linear logic, introduced by Jean-Yves Girard \cite{girard:linear:87}, where weakening and contraction are disallowed but can be recovered for specific formulas through modalities.
+A notable instance is Joachim Lambek's syntactic calculus \cite{lambek:mathematics:58}, which forbids weakening, contraction and exchange.
+Its non-associative variant, which has been extensively studied \cite{moot:categorial:2012}, also disallows associativity. Another significant example is linear logic, introduced by Jean-Yves Girard \cite{girard:linear:87}, where weakening and contraction are disallowed but can be recovered for specific formulas through modalities.
 Substructural logics have proven useful for modelling various phenomena in different research areas, from the computational analysis of natural language syntax to the development of programming languages sensitive to resource management.
 
 Craig interpolation for substructural logics has been extensively studied, using either algebraic or proof-theoretic techniques. 
@@ -273,14 +278,21 @@ Craig interpolation for substructural logics has been extensively studied, using
 For substructural logics that lack a cut-free sequent calculus, such as arbitrary extensions of the full Lambek calculus with exchange ($\FL_{\textbf{e}}$), Craig interpolation is established using algebraic methods such as amalgamation.
 For further details on this approach, see \cite{Kihara2009}.
 
-For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven using Maehara's method \niccolo{(cite Maehara)}. 
+For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven by adapting Maehara's method \cite{maehara1961}, which originally aimed to prove interpolation for $\mathbf{LK}$, a sequent calculus for classical logic.
 This includes the full Lambek calculus (\FL) and its extensions that incorporate various combinations of weakening, exchange, and contraction.
 In the case of \FL, for instance, the proof starts by establishing a stronger form of interpolation which we call \emph{Maehara interpolation property} \cite{ono:proof:nonclassical:1998}. 
 The latter property states:
 \begin{itemize}
-  \item[\ ] Given $f : \Gamma \vdash C$ and a partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_1 \vdash C$, and $\vars{D} \subseteq \vars{\Gamma_0} \cap \vars{\Gamma_0, \Gamma_1, C}$
+  \item[\ ] Given $f : \Gamma \vdash C$ and a partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_2 \vdash C$, and $\vars{D} \subseteq \vars{\Gamma_0} \cap \vars{\Gamma_0, \Gamma_1, C}$
 \end{itemize}
-Being a partition simply means that the ordered list of formulae $\Gamma$ is equal to the concatenation of $\Gamma_0, \Gamma_1$ and $\Gamma_2$, i.e. $\Gamma = \Gamma_0, \Gamma_1, \Gamma_2$. Maehara interpolation also holds for the non-associative variant of \FL, for an appropriate reformulation of the principle in which antecedents are trees of formulae instead of lists.
+Being a partition simply means that the ordered list of formulae $\Gamma$ is equal to the concatenation of $\Gamma_0, \Gamma_1$ and $\Gamma_2$, i.e. $\Gamma = \Gamma_0, \Gamma_1, \Gamma_2$. 
+\FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by a  multiplicity condition \cite{roorda1991,moot:categorial:2012}.
+The property states:
+\begin{itemize}
+  \item[\ ] Given $f : \Gamma \vdash C$ and a partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_2 \vdash C$, and $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{\GG_0, \GG_2 , C}$ for all atomic formulae $X$.
+\end{itemize}
+Above $\gs{A}$ is equal to the number of occurrences of the atomic formula $X$ in $A$.
+Maehara interpolation also holds for the non-associative variant of \FL, for an appropriate reformulation of the principle in which antecedents are trees of formulae instead of lists.
 Notice that Craig interpolation is a property of a logic (with a notion of implication), while Maehara interpolation is a property of a deductive system in which it is possible to appropriately partition antecedents.
 
 Maehara interpolation is a stronger form of the so-called \emph{deductive interpolation property}. A logic $\mc{L}$ has the deductive interpolation property if, for any formulae $A$ and $C$, whenever $A \vd C$ (where $\vd$ is the consequence relation of $\mc{L}$), then there exists a formula $B$ such that $A \vd B$ and $B \vd C$ while also satisfying the usual variable condition. Furthermore, if the sequent calculus of $\mc{L}$ admits the invertibility of implication-right rules (as is the case in \FL\ for both left- and right-implication), Craig interpolation follows immediately as a consequence of deductive interpolation.
@@ -297,7 +309,6 @@ The variant of Maehara interpolation satisfied by the product-free Lambek calcul
     \item[--] $\gs{D_i} \leq \gs{\GD_i}$ and $\gs{D_1, \dots, D_n} \leq \gs{S, \GG_0, \GG_2, C}$ for all $i \in [1 \dots n]$ and atomic formulae $X$.
   \end{itemize}
 \end{itemize}
-Above $\gs{A}$ is equal to the number of occurrences of the atomic formula $X$ in $A$.
 %% \niccolo{(I forgot, the use of $\sigma$ instead of $\vars$ was already in Ono?)
 Differently from Maehara interpolation, in the above property we look for a  list of interpolants instead of a single formula.
 This adjustment allows to overcome the difficulty caused by the absence of conjunction.
@@ -318,7 +329,7 @@ In left skew monoidal categories, the structural morphisms of associativity and 
 For this reason, left skew monoidal categories can be seen as \emph{semi-associative} and \emph{semi-unital} variants of monoidal categories. 
 
 Different variants of left skew monoidal categories have led to the development of their corresponding semi-substructural logic.
-These include $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23} \niccolo{(Cite your NCL'24 as well)}, and $(v)$ left distributive skew monoidal categories with finite products and coproducts \cite{VW:2023}.
+These include $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23,wan2024}, and $(v)$ left distributive skew monoidal categories with finite products and coproducts \cite{VW:2023}.
 Each of these logics admits a cut-free sequent calculus. Moreover, they admit a subcalculus of ``proofs in normal form'', which is inspired by Jean-Marc Andreoli's focusing method \cite{andreoli:logic:1992} and as such provides a way to make root-first proof search more deterministic.
 Practically, the focusing method is employed for solving the coherence problem for the corresponding variants of left skew monoidal categories. In the case of left skew monoidal closed categories, a solution to the coherence (or word) problem consists of a procedure for deciding equality of parallel morphisms in the free left skew monoidal closed category on a given set $\mathsf{At}$.
 In previous work, we showed that the focused subcalculus of \SkNMILL\ is a concrete presentation of such free category, so a solution to the coherence problem is obtained by checking whether two morphisms are represented by the same derivation in the focused subcalculus.
@@ -352,9 +363,9 @@ In \SkNMILL, $\mf{scut}$-interpolation resembles Maehara interpolation, whereas 
 
 Motivated by the categorical interpretation of \SkNMILL, we take one more step and investigate the interplay between the admissible cut rules (called $\mf{scut}$ and $\mf{ccut}$) and the derivations produced by the interpolation algorithm of Theorem \ref{genIntrp}.
 %how proofs and their equivalences behave under the interpolation procedure. 
-In previous work \cite{UVW:protsn}, we introduced an equivalence relation on derivations ($\circeq$) that captures $\eta$-conversions and permutative conversions, and is both sound and complete with respect to the categorical semantics.
-We show that the $\mf{scut}$/$\mf{ccut}$-interpolation procedures of Theorem \ref{genIntrp} are left inverses of the admissible rules $\mf{scut}$ and $\mf{ccut}$, respectively. Formally, we prove the following theorem:
-\begin{restatable*}{theorem}{intrpCut}\label{intrpCut}
+In previous work \cite{UVW:protsn}, we introduced an equivalence relation on derivations ($\circeq$) that captures $eta$-conversions and permutative conversions, and is both sound and complete with respect to the categorical semantics.
+We show that the $\mf{scut}$/$\mf{ccut}$-interpolation procedures of Theorem \ref{genIntrp} are right inverses of the admissible rules $\mf{scut}$ and $\mf{ccut}$, respectively. Formally, we prove the following theorem:
+\begin{restatable*}{theorem}{cutIntrp}\label{cutIntrp}
   \begin{enumerate}[label=(\roman*)]
   \item Let $g : S \mid \GG_0 \vd D$ and $h : D \mid \GG_1 \vd C$ be the derivations obtained by applying $\mf{scut}$-interpolation on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 \rangle$. Then $\mf{scut}(g, h) \circeq f$.
   \item Let $g : S \mid \GG_0 , D_1 , \dots, D_n, \GG_2 \vd C$ and $h_i : {-} \mid \GD_i \vd D_i$ for $i \in [1 \dots n]$ be derivations obtained by applying $\mf{ccut}$-interpolation on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 , \GG_2 \rangle$. Then $\mf{ccut}^*([h_i] , g) \circeq f$.
@@ -362,7 +373,7 @@ We show that the $\mf{scut}$/$\mf{ccut}$-interpolation procedures of Theorem \re
 \end{restatable*}
 
 In the above statement, $\mf{ccut}^*$ denotes multiple applications of the admissible $\mf{ccut}$ rule, one for each derivation $h_i$.
-Theorems \ref{genIntrp} and \ref{intrpCut} together show that \SkNMILL\ satisfies a \emph{proof-relevant} form of Craig interpolation, in the sense  formulated in the early 90s by {\v{C}}ubri{\'c} \cite{Cubric1994} in the setting of intuitionistic propositional logic and recently discussed also by Saurin \cite{Saurin2024} for (extensions of) classical linear logic.
+Theorems \ref{genIntrp} and \ref{cutIntrp} together show that \SkNMILL\ satisfies a \emph{proof-relevant} form of Craig interpolation, in the sense  formulated in the early 90s by {\v{C}}ubri{\'c} \cite{Cubric1994} in the setting of intuitionistic propositional logic and recently discussed also by Saurin \cite{Saurin2024} for (extensions of) classical linear logic.
 
 % For example, consider the sequent $W, W\bsls Y, W , W \bsls X , X \bsls (Y \bsls Z) \longrightarrow Z $ with the partition $\langle [\ ] , [W, W\bsls Y, W , W \bsls X], [X \bsls (Y \bsls Z)] \rangle$ in the product-free Lambek calculus.
 % By Maehara's method, the interpolant formula should be $X \cdot Y$, but the calculus does not include $\cdot$ as a connective.
@@ -382,7 +393,7 @@ Theorems \ref{genIntrp} and \ref{intrpCut} together show that \SkNMILL\ satisfie
 % We restrict the application of introduction rules in an appropriate way to allow only one of the directions of associativity and unitality.
 % % the one in the definition of skew monoidal category. For example, left-introduction rules are allowed to act only on the formula in stoup position, not on formulae in $\Gamma$.
 
-% This approach has successfully captured internal languages for a variety of categories, including  $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23}, and $(v)$ left distributive skew monoidal categories with finite products and coproducts \cite{VW:2023} through skew variants of the fragments of non-commutative intuitionistic linear logic consisting of combinations of connectives $(\I,\ot,\lolli,\land,\lor)$.
+% This approach has successfully captured internal languages for a variety of categories, including  $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23}, and $(v)$ left distributive skew monoidal categories with finite products and coproducts \cite{VW:2023} through skew variants of the fragments of non-commutative intuitionistic linear logic consisting of combinations of connectives $(\unit,\ot,\lolli,\land,\lor)$.
 % Additionally, discussions have covered partial normality conditions, in which one or more structural morphisms are allowed to have an inverse \cite{uustalu:proof:nodate}, as well as extensions with skew exchange \`a la Bourke and Lack \cite{veltri:coherence:2021,VW:2023}.
 
 % All of the aforementioned calculi with sequents of the form $S \mid \GG \vd A$ are cut-free and therefore, by their rule design, they are decidable.
@@ -423,7 +434,7 @@ All the proofs presented in this paper have been formalized in the proof assista
 \section{Sequent Calculus}\label{sec:syntax}
 Recall the sequent calculus (\SkNMILL) for left skew monoidal closed categories from \cite{UVW:protsn}, which is a skew variant of non-commutative multiplicative intuitionistic linear logic.
 
-Formulae ($\mf{Fma}$) are inductively generated by the grammar $A, B::= X \ | \ \I \ | \ A \ot B \ | \ A \lolli B$, where $X$ comes from a set $\mathsf{At}$ of atoms, $\I$ is a multiplicative unit, $\ot$ is multiplicative conjunction and $\lolli$ is a linear implication.
+Formulae ($\mf{Fma}$) are inductively generated by the grammar $A, B::= X \ | \ \unit \ | \ A \ot B \ | \ A \lolli B$, where $X$ comes from a set $\mathsf{At}$ of atoms, $\unit$ is a multiplicative unit, $\ot$ is multiplicative conjunction and $\lolli$ is a linear implication.
 
 A sequent is a triple of the form $S \mid \Gamma \vd A$, where the antecedent splits into: an optional formula $S$, called \emph{stoup} \cite{girard:constructive:91}, and an ordered list of formulae $\Gamma$ and succedent $A$ is a single formula.
 The symbol $S$ consistently denotes a stoup, meaning $S$ can either be a single formula or empty, indicated as $S = {-}$; furthermore, $X$, $Y$, and $Z$ always represent atomic formulae.
@@ -446,9 +457,9 @@ Derivations are generated recursively by the following rules:
 		&
 		\infer[\lright]{S \mid \Gamma \vd A \lolli B}{S \mid \Gamma , A \vd B}
                 \\[5pt]
-		\infer[\unitl]{\I \mid \Gamma \vd C}{{-} \mid \Gamma \vd C}
+		\infer[\unitl]{\unit \mid \Gamma \vd C}{{-} \mid \Gamma \vd C}
 		&
-		\infer[\unitr]{{-} \mid \quad \vd \I}{}
+		\infer[\unitr]{{-} \mid \quad \vd \unit}{}
                 \\[5pt]
 		\infer[\tl]{A \ot B \mid \Gamma \vd C}{A \mid B , \Gamma \vd C}
 		&
@@ -463,9 +474,9 @@ Derivations are generated recursively by the following rules:
 		% \quad
     %         \infer[\pass]{{-} \mid A , \Gamma \vd C}{A \mid \Gamma \vd C}
 		% \quad
-    %         \infer[\unitr]{{-} \mid \quad \vd \I}{}
+    %         \infer[\unitr]{{-} \mid \quad \vd \unit}{}
     %         \quad
-		% \infer[\unitl]{\I \mid \Gamma \vd C}{{-} \mid \Gamma \vd C}
+		% \infer[\unitl]{\unit \mid \Gamma \vd C}{{-} \mid \Gamma \vd C}
 		% \\[5pt]
     %         \infer[\tl]{A \ot B \mid \Gamma \vd C}{A \mid B , \Gamma \vd C}
 		% \quad
@@ -490,7 +501,7 @@ The inference rules in (\ref{eq:seqcalc:skmc:Gir}) are similar to the ones in th
 % $(iv)$ The logical connectives of \NMILL\ (and associative Lambek calculus) typically include two ordered implications $\lolli$ and $\illol$, which are two variants of linear implication arising from the removal of the exchange rule from intuitionistic linear logic. In \SkNMILL~only the left implication $\lolli$ (right residuation in Lambek calculus) is present. 
 \begin{enumerate}
 \item The left logical rules $\unitl$, $\tl$ and $\lleft$, read bottom-up, are only allowed to be applied on the formula in the stoup position.
-% In particular, there is no general way to remove a unit $\I$ nor decompose a tensor $A \ot B$ if these formulae are located in the context and not in the stoup
+% In particular, there is no general way to remove a unit $\unit$ nor decompose a tensor $A \ot B$ if these formulae are located in the context and not in the stoup
 %  (we will see in (\ref{eq:lleft:gen}) that something can actually be done to deal with implications $A \lolli B$ in the context).
 \item The right tensor rule $\tr$, read bottom-up, splits the antecedent of a sequent $S \mid \Gamma, \Delta \vd A \ot B$ and in the case where $S$ is a formula, $S$ is always moved to the stoup of the left premise, even if $\Gamma$ is empty.
 % whereby the formula in the stoup, in case such a formula is present, has to be moved to the stoup of the first premise. In particular, the stoup formula of the conclusion cannot be moved to the antecedent of the second premise even if $\Gamma$ is chosen to be empty.
@@ -521,14 +532,14 @@ Sets of derivations are quotiented by a congruence relation $\circeq$, generated
 \begin{figure}
 \begin{displaymath}
 \begin{array}{rcl}
-  % \ax_{\I} &\circeq \unitl \text{ } (\unitr)
+\label{fig:circeq}
     \proofbox{
-      \infer[\ax]{\I \mid \quad \vd \I}{}
+      \infer[\ax]{\unit \mid \quad \vd \unit}{}
     }
   &\circeq&
   \proofbox{
-     \infer[\unitl]{\I \mid \quad \vd \I}{
-    \infer[\unitr]{{-} \mid \quad \vd \I}{}
+     \infer[\unitl]{\unit \mid \quad \vd \unit}{
+    \infer[\unitr]{{-} \mid \quad \vd \unit}{}
    }
   }
   \\[20pt]
@@ -596,8 +607,8 @@ Sets of derivations are quotiented by a congruence relation $\circeq$, generated
   }
   \\[30pt]
   \proofbox{
-    \infer[\tr]{\I \mid \GG , \GD \vd A \ot B}{
-      \infer[\unitl]{\I \mid \GG \vd A}{
+    \infer[\tr]{\unit \mid \GG , \GD \vd A \ot B}{
+      \infer[\unitl]{\unit \mid \GG \vd A}{
         \deduce{{-} \mid \GG \vd A}{f}
       }
       &
@@ -608,7 +619,7 @@ Sets of derivations are quotiented by a congruence relation $\circeq$, generated
   &\circeq&
   
   \proofbox{
-    \infer[\unitl]{\I \mid \GG , \GD \vd A \ot B}{
+    \infer[\unitl]{\unit \mid \GG , \GD \vd A \ot B}{
       \infer[\tr]{{-} \mid \GG , \GD \vd A \ot B}{
         \deduce{{-} \mid \GG \vd A}{f}
         &
@@ -684,7 +695,7 @@ Sets of derivations are quotiented by a congruence relation $\circeq$, generated
   }
   \\[30pt]
   \proofbox{
-    \infer[\unitl]{\I \mid \GG \vd A \lolli B}{
+    \infer[\unitl]{\unit \mid \GG \vd A \lolli B}{
       \infer[\lright]{{-} \mid \GG \vd A \lolli B}{
         \deduce{{-} \mid \GG , A \vd B}{f}
       }
@@ -694,8 +705,8 @@ Sets of derivations are quotiented by a congruence relation $\circeq$, generated
   &\circeq&
   
   \proofbox{
-    \infer[\lright]{\I \mid \GG \vd A \lolli B}{
-      \infer[\unitl]{\I \mid \GG , A \vd B}{
+    \infer[\lright]{\unit \mid \GG \vd A \lolli B}{
+      \infer[\unitl]{\unit \mid \GG , A \vd B}{
         \deduce{{-} \mid \GG , A \vd B}{f}
       }
     }
@@ -749,7 +760,7 @@ Sets of derivations are quotiented by a congruence relation $\circeq$, generated
 % \begin{displaymath}
 % \label{fig:circeq}
 % \small\begin{array}{rlll}
-%   \ax_{\I} &\circeq \unitl \text{ } (\unitr)
+%   \ax_{\unit} &\circeq \unitl \text{ } (\unitr)
 %   \\[2pt]
 %   \ax_{A \ot B} &\circeq \tl \text{ } (\tr \text{ } (\ax_{A} , \pass \text{ } \ax_{B}))
 %   \\[2pt]
@@ -880,12 +891,12 @@ The first base case is $f = \ax : A \mid \quad \vd A$, which enforces $\GG_0 = \
 In this case, the interpolant formula is $A$ and $g = h = f = \ax : A \mid \quad \vd A$, where the multiplicity condition is automatically satisfied.
 Another base case is $f = \unitr : {-} \mid \quad \vd A$.
 Similarly, $\GG_0$ and $\GG_1$ are enforced to be empty lists.
-In this case, the interpolant formulae is $\I$ and $g = f = \unitr : {-} \mid \quad \vd \I$ and $h = \unitl (\unitr) : \I \mid \quad \vd \I$, where the multiplicity condition is vacuously satisfied.
+In this case, the interpolant formula is $\unit$ and $g = f = \unitr : {-} \mid \quad \vd \unit$ and $h = \unitl (\unitr) : \unit \mid \quad \vd \unit$, where the multiplicity condition is vacuously satisfied.
 
 For inductive cases, we first deal with one-premise rules.
 The first group of one-premise rules are $\unitl, \tl$, and $\lright$.
 We show the case of $f = \unitl \ f'$, while the other two are similar.
-Given a derivation $\unitl \ f' : \I \mid \GG \vd C$ and a partition $\langle \GG_0, \GG_1 \rangle$ of $\GG$, we apply induction on $f'$ with the same partition of $\GG$ and then obtain a formula $D$ such that 
+Given a derivation $\unitl \ f' : \unit \mid \GG \vd C$ and a partition $\langle \GG_0, \GG_1 \rangle$ of $\GG$, we apply induction on $f'$ with the same partition of $\GG$ and then obtain a formula $D$ such that 
 \begin{itemize}
   \item[--] $g' : {-} \mid \GG_0 \vd D$,
   \item[--] $h' : D \mid \GG_1 \vd C$, and
@@ -897,8 +908,8 @@ The multiplicity condition is automatically satisfied.
 The last case of one-premise rules is $ f = \pass \ f'$.
 There are two subcases determined by the partition of $\GG$, specifically, $\GG_0$ is an empty list or not.
 \begin{itemize}
-  \item[--] If $\GG_0 = [\ ]$, then the interpolant is $\I$ and two desired derivations are $\unitr$ and $\unitl (\pass \ f')$.
-The multiplicity condition is satisfied because $\gs{\I} = 0$ for every $X$.
+  \item[--] If $\GG_0 = [\ ]$, then the interpolant is $\unit$ and two desired derivations are $\unitr$ and $\unitl (\pass \ f')$.
+The multiplicity condition is satisfied because $\gs{\unit} = 0$ for every $X$.
   \item[--] If $\GG_0 = A, \GG'_0$, then we apply induction on $f'$ with the partition $\langle \GG'_0, \GG_1 \rangle$ and then obtain a formula $D$ and two derivations $g' : A \mid \GG'_0 \vd D$ and $h' : D \mid \GG_1 \vd C$, where $\gs{D} \leq \gs{A, \GG'_0} $ and $ \gs{D} \leq \gs{\GG_1, C}$ for every $X$.
 In this case, the interpolant formula for $f$ is $D$, and two desired derivations are $g = \pass \ g'$ and $h = h'$.
 The multiplicity condition is satisfied by the inductive hypothesis.
@@ -963,62 +974,17 @@ We first apply inductive hypothesis of $\mf{ccut}$-interpolation on $f'$ with th
 \end{itemize}
 By applying inductive hypothesis of $\mf{scut}$-interpolation on $f''$ with the partition $\langle [\ ] , \GG_2 \rangle$, we obtain a formula $E$ and derivations $g'' : B \mid \quad \vd E$ and $h'': E \mid \GG_2 \vd C$ such that $\gs{E} \leq\gs{B}$ and $ \gs{E} \leq \gs{\GG_2 , C}$ for every $X$.
 Then we construct the desired derivations as follows:
-% \begin{displaymath}
-% \begin{array}{c}
-%   \begin{array}{c}
-%     g
-%   \end{array}
-%   \quad 
-%   =
-%   \quad
-%     \begin{array}{c}
-%       \infer[\lright]{A\lolli B \mid \GG_0 \vd D_1 \lolli (\dots (D_n \lolli E)\dots)}{
-%       \deduce{\vdots}{
-%         \infer[\lright]{A \lolli B \mid \GG_0 , D_1, \dots ,D_{n-1} \vd D_n \lolli E}{
-%         \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots, D_n \vd E}{
-%           \deduce{{-} \mid \GG_0 , D_1, \dots, D_n \vd A}{g'}
-%           &
-%           \deduce{B \mid \quad \vd E}{g''}
-%         }
-%       }
-%       }
-%     }
-%     \end{array}
-%     \\[10pt]
-%     \begin{array}{c}
-%       h
-%     \end{array}
-%     \quad
-%     =
-%     \quad
-%     \begin{array}{c}
-%       \infer[\lleft]{D_1 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_1, \dots, \GD_n, \GG_2 \vd C}{
-%       \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
-%       &
-%       \deduce{D_2 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_2, \dots, \GD_n, \GG_2 \vd C}{
-%         \deduce{\vdots}{
-%           \infer[\lleft]{D_n \lolli E \mid \GD_n, \GG_2 \vd C}{
-%             \deduce{{-} \mid \GD_n, \GG_2 \vd D_n}{h'_n}
-%             &
-%             \deduce{E \mid \GG_2 \vd C}{h''}
-%           }
-%         }
-%       }
-%     }
-%     \end{array}
-%   \end{array}
-% \end{displaymath}
 \begin{displaymath}
-\begin{array}{c}
+\begin{array}{lcc}
   \begin{array}{c}
     g
   \end{array}
   \quad 
-  =
+  &=&
   \quad
     \begin{array}{c}
       \infer[\lright]{A\lolli B \mid \GG_0 \vd D_1 \lolli (\dots (D_n \lolli E)\dots)}{
-      \deduce{\vdots}{
+      \deduce{A \lolli B \mid \GG_0 , D_1 \vd D_2 \lolli (\dots (D_n \lolli E)\dots)}{\deduce{\vdots}{
         \infer[\lright]{A \lolli B \mid \GG_0 , D_1, \dots ,D_{n-1} \vd D_n \lolli E}{
         \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots, D_n \vd E}{
           \deduce{{-} \mid \GG_0 , D_1, \dots, D_n \vd A}{g'}
@@ -1027,16 +993,15 @@ Then we construct the desired derivations as follows:
         }
       }
       }
+      }
     }
     \end{array}
-  \end{array}
-\end{displaymath}
-\begin{displaymath}
+    \\[1.5cm]
     \begin{array}{c}
       h
     \end{array}
     \quad
-    =
+    &=&
     \quad
     \begin{array}{c}
       \infer[\lleft]{D_1 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_1, \dots, \GD_n, \GG_2 \vd C}{
@@ -1053,6 +1018,7 @@ Then we construct the desired derivations as follows:
       }
     }
     \end{array}
+  \end{array}
 \end{displaymath}
 Notice that $\GG_1 = \GD_1, \dots, \GD_n$, so the multiplicity condition is easy to check.
 
@@ -1069,7 +1035,7 @@ Another base case $f = \unitr$ is similar.
 For inductive cases, we first deal with one-premise rules. 
 The first group of rules are $\unitl$, $\tl$, and $\lright$. 
 We show the case of $f = \unitl \ f'$, while the other two are similar.
-Given a derivation $\unitl \ f' : \I \mid \GG \vd C$ and a partition $\langle \GG_0 , \GG_1 , \GG_2\rangle$ of $\GG$.
+Given a derivation $\unitl \ f' : \unit \mid \GG \vd C$ and a partition $\langle \GG_0 , \GG_1 , \GG_2\rangle$ of $\GG$.
 By induction, we have 
 \begin{itemize}
   \item[--] a partition $\langle \GD_0, \dots , \GD_0 \rangle$ of $\GG_1$, 
@@ -1155,7 +1121,7 @@ Given a derivation $\tr (f' , f'')$, where $f' : S \mid \GL \vd A$ and $f'' : {-
 % For inductive cases, we first deal with one-premise rules. 
 % The first group of rules are $\unitl$, $\tl$, and $\lright$. 
 % We show the case of $f = \unitl \ f'$, while the other two are similar.
-% Given a derivation $\unitl \ f' : \I \mid \GG \vd C$ and a partition $\langle \GG_0 , \GG_1 , \GG_2\rangle$ of $\GG$.
+% Given a derivation $\unitl \ f' : \unit \mid \GG \vd C$ and a partition $\langle \GG_0 , \GG_1 , \GG_2\rangle$ of $\GG$.
 % By induction, we have 
 % \begin{itemize}
 %   \item[--] a partition $\langle \GD_0, \dots , \GD_0 \rangle$ of $\GG_1$, 
@@ -1325,29 +1291,733 @@ Then by applying $\mf{scut}$-interpolation on $f'$ with the partition $\langle [
 \end{itemize}
 The formulae $A \lolli B$ and $B \lolli C$ are proved by the derivations $\lright \ g' : {-} \mid \quad \vd A \lolli B$ and $\lright (\pass \ h') : {-} \mid \quad \vd B \lolli C$, respectively.
 By Lemma \ref{lem:gs2vars}, we know that $\vars{B} \subseteq \vars{A}$ and $\vars{B} \subseteq \vars{C}$, which means that $\vars{B} \subseteq \vars{A} \cap \vars{C}$.
-%  however, it is impossible to find such $D$, $f'_0$, and $f'_1$ by induction without $\mf{ccut}$ interpolation.
-% then $D$ is the correct interpolant because we have $\lleft \ f'_0 \ f'' : A \lolli B \mid \GG_0, D, \GG_2 \vd C$ and the multiplicity condition is satisfied.
-% However, it is impossible to find $D$, $f'_0$, and $f'_1$ by induction without $\mf{ccut}$ interpolation.
-% \paragraph*{Remark}
 \end{proof}
-\begin{definition}[iterated $\mf{ccut}$]
-  Suppose that there are $f : S \mid \GG_0 , D_1 , \dots, D_n , \GG_2 \vd C$, and a list of derivations $\phi$ where for any $g_i \in \phi$, $\mf{ccut}(g_i , f)$ is a derivation. 
+Moreover, we can show that the $\mf{scut}\sls \mf{ccut}$-interpolation procedures of Theorem \ref{genIntrp} are right inverses of $\mf{scut}$ and $\mf{ccut}$.
+We first define iterated forms of $\mf{ccut}$, $\lright$, and $\lleft$.
+\begin{definition}
+~
+\begin{itemize}
+  \item  Given a derivation $f : S \mid \GG_0 , D_1 , \dots, D_n , \GG_2 \vd C$ and a list of derivations $\phi$ where for any $g_i \in \phi$, $\mf{ccut}(g_i , f)$ is a derivation. 
   We define $\mf{ccut}^* (\phi , f)$ recursively:
   \begin{itemize}
     \item[--] If $\phi = [\ ]$, then $\mf{ccut}^* (\phi , f) = f$.
     \item[--] If $\phi = (g_1 , \phi')$, then $\mf{ccut}^* (\phi , f) = \mf{ccut} (g_1 , (\mf{ccut}^* (\phi' , f)))$.
   \end{itemize}
+  \item Given a derivation $f : S \mid \GG , \GD \vd B$, we define $\lright^* (\GD , f)$ recursively:
+  \begin{itemize}
+    \item If $\GD = [\ ]$, then $\lright^* (\GD, f) = f$.
+    \item If $\GD = (A_1 , \GD')$, then $\lright^* (\GD , f) = \lright (\lright^* (\GD' , f))$.
+  \end{itemize}
+  \item Given a derivation $f : B \mid \GD \vd C$ and a list of derivations $\phi$ that consists of $g_i : {-} \mid \GG_i \vd A_i$ for $i \in [1 \dots n]$, we define $\lleft^* (\phi , f)$ recursively:
+  \begin{itemize}
+    \item If $\phi = [\ ]$, then $\lleft^* (\phi , f) = f$.
+    \item If $\phi = (g_1 , \phi')$, then $\lleft^* (\phi , f) = \lleft (g_1 , \lleft^* (\phi' , f))$.
+  \end{itemize}
+\end{itemize}
 \end{definition}
-The procedure in the proof of Theorem \ref{genIntrp} also provides a proof-relevant content of interpolation.
+\begin{proposition}\label{eq:cut}
+  Following equations of derivations hold in \SkNMILL\textnormal{:}
+    \begin{displaymath}
+      \begin{array}{l}
+      % scut-hass
+      \begin{array}{c}
+        \infer[\mf{scut}]{S \mid \GG_0, \GG_1 , \GG_2 , \GG_3 \vd C}{
+          \deduce{S \mid \GG_0 \vd A}{f}
+          &
+          \infer[\mf{ccut}]{A \mid \GG_1 , \GG_2 , \GG_3 \vd C}{
+            \deduce{{-} \mid \GG_2 \vd B}{g}
+            &
+            \deduce{A \mid \GG_1 , B , \GG_3 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[10pt]
+        \qquad \qquad \qquad \qquad \qquad  =
+        \begin{array}{c}
+          \infer[\mf{ccut}]{S \mid \GG_0, \GG_1 , \GG_2 , \GG_3 \vd C}{
+          \deduce{{-} \mid \GG_2 \vd B}{g}
+          &
+          \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , B , \GG_3 \vd C}{
+            \deduce{S \mid \GG_0 \vd A}{f}
+            &
+            \deduce{A \mid \GG_1 , B , \GG_3 \vd C}{h}
+          }
+        }
+        \end{array}
+      \end{array}
+      \end{displaymath}
+      \begin{displaymath}
+      \begin{array}{l}
+      % ccut-hass
+      \begin{array}{c}
+        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
+          \deduce{{-} \mid \GG_1 \vd A}{f}
+          &
+          \infer[\mf{ccut}]{S \mid \GG_0 , A , \GG_2 , \GG_3 , \GG_4 \vd C}{
+            \deduce{{-} \mid \GG_3 \vd B}{g}
+            &
+            \deduce{S \mid \GG_0 , A , \GG_2 , B , \GG_4 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[10pt]
+      \qquad \qquad \qquad \qquad \qquad  =
+      \begin{array}{c}
+        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
+          \deduce{{-} \mid \GG_3 \vd B}{g}
+          &
+          \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , B , \GG_4 \vd C}{
+            \deduce{{-} \mid \GG_1 \vd A}{f}
+            &
+            \deduce{S \mid \GG_0 , A , \GG_2 , B , \GG_4 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[30pt]
+      \end{array}
+    \end{displaymath}
+    \begin{displaymath}
+      \begin{array}{l}
+      % scutscut-vass
+      \begin{array}{c}
+        \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+          \deduce{S \mid \GG_0 \vd A}{f}
+          &
+          \infer[\mf{scut}]{A \mid \GG_1 , \GG_2 \vd C}{
+            \deduce{A \mid \GG_1 \vd B}{g}
+            &
+            \deduce{B \mid \GG_2 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[10pt]
+      \qquad \qquad \qquad \qquad \qquad  =
+      \begin{array}{c}
+        \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+          \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 \vd B}{
+            \deduce{S \mid \GG_0 \vd A}{f}
+            &
+            \deduce{A \mid \GG_1 \vd B}{g}
+          }
+          &
+          \deduce{B \mid \GG_2 \vd C}{h}
+        }
+      \end{array}
+      \end{array}
+      \end{displaymath}
+      \begin{displaymath}
+      \begin{array}{l}
+      %  ccutscut-vass
+      \begin{array}{c}
+        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 \vd C}{
+          \deduce{{-} \mid \GG_1 \vd A}{f}
+          &
+          \infer[\mf{scut}]{S \mid \GG_0 , A , \GG_2 , \GG_3 \vd C}{
+            \deduce{S \mid \GG_0 , A , \GG_2 \vd B}{g}
+            &
+            \deduce{B \mid \GG_3 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[10pt]
+      \qquad \qquad \qquad \qquad \qquad  =
+      \begin{array}{c}
+        \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 \vd C}{
+          \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd B}{
+            \deduce{{-} \mid \GG_1 \vd A}{f}
+            &
+            \deduce{S \mid \GG_0 , A , \GG_2 \vd B}{g}
+          }
+          &
+          \deduce{B \mid \GG_3 \vd C}{h}
+        }
+      \end{array}
+      \end{array}
+      \end{displaymath}
+      \begin{displaymath}
+      \begin{array}{l}
+      % ccutccut-vass
+      \begin{array}{c}
+        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
+          \deduce{{-} \mid \GG_2 \vd A}{f}
+          &
+          \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , A , \GG_3 , \GG_4 \vd C}{
+            \deduce{{-} \mid \GG_1 , A , \GG_3 \vd B}{g}
+            &
+            \deduce{S \mid \GG_0 , B , \GG_4 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[10pt]
+      \qquad \qquad \qquad \qquad \qquad  =
+      \begin{array}{c}
+        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
+          \infer[\mf{ccut}]{S \mid \GG_1 , \GG_2 , \GG_3 \vd B}{
+            \deduce{{-} \mid \GG_2 \vd A}{f}
+            &
+            \deduce{{-} \mid \GG_1 , A , \GG_3 \vd B}{g}
+          }
+          &
+          \deduce{S \mid \GG_0 , B , \GG_4 \vd C}{h}
+        }
+      \end{array}
+    \end{array}
+   \end{displaymath}
+\end{proposition}
+\begin{proof}
+  Equations are proved by mutual induction on derivations.
+\end{proof}
+Given a derivation $f : S \mid \GG_0 , A_1, \dots , A_n \vd B$ and a list of derivations $\phi$ that consists of $g_i : {-} \mid \GD_i \vd A_i$ for $i \in [1 \dots n]$, the following equation is derivable from the five equations in Lemma \ref{eq:cut}.
+For simplicity, we denote $A_1 \lolli (\dots (A_n \lolli B) \dots)$, $(A_1 , \dots , A_n)$, and $(\GD_1 , \dots , \GD_n)$ as $A^*$, $\GD$, and $\GD^*$, respectively.
+   \begin{equation}\label{scut-or-ols}
+   \begin{array}{l}
+    \begin{array}{c}
+    \infer[\mf{scut}]{S \mid \GG_0, \GD^*, \GG_1 \vd C}{
+      \infer[\lright^*]{S \mid \GG_0 \vd A^*}{
+        \GD
+        &
+        \deduce{S \mid \GG_0 , \GD \vd B}{f}
+      }
+      &
+      \infer[\lleft^*]{A^* \mid \GD^* , \GG_1 \vd C}{
+        \phi
+        &
+        \deduce{B \mid \GG_1 \vd C}{h}
+      }
+    }
+   \end{array}
+   \\[10pt]
+   \qquad \qquad \qquad \qquad \qquad
+   = 
+   \quad
+    \begin{array}{c}
+      \infer[\mf{scut}]{S \mid \GG_0 , \GD^* , \GG_1 \vd C}{
+        \infer[\mf{ccut}^*]{S \mid \GG_0 , \GD^* \vd B}{
+          \phi
+          &
+          \deduce{S \mid \GG_0 , \GD \vd B}{f}
+        }
+        &
+        \deduce{B \mid \GG_1 \vd C}{h}
+      }
+    \end{array}
+   \end{array}
+   \end{equation}
+  % \begin{equation*}
+  %  \begin{array}{l}
+  %     %scut⊸r⋆⊸ls
+  %     \begin{array}{c}
+  %       \infer[\mf{scut}]{S \mid \GG_0 , \GD , \GG_2 \vd C}{
+  %     \infer[\lright]{S \mid \GG_0 \vd A^*}{
+  %     \deduce{S \mid \GG_0 , A_1 \vd A'^*}{
+  %       \deduce{\vdots}{
+  %       \infer[\lright]{S \mid \GG_0 , A_1, \dots ,A_{n-1} \vd A_n \lolli B}{
+  %       \deduce{S \mid \GG_0 , A_1, \dots, A_n \vd B}{f}
+  %     }
+  %     }
+  %     }
+  %   }
+  %     &
+  %     \infer[\lleft]{A^* \mid \GD, \GG_2 \vd C}{
+  %     \deduce{{-} \mid \GD_1 \vd A_1}{g_1}
+  %     &
+  %     \deduce{A'^* \mid \GD_2, \dots, \GD_n, \GG_2 \vd C}{
+  %       \deduce{\vdots}{
+  %         \infer[\lleft]{A_n \lolli B \mid \GD_n, \GG_2 \vd C}{
+  %           \deduce{{-} \mid \GD_n \vd A_n}{g_n}
+  %           &
+  %           \deduce{B \mid \GG_2 \vd C}{h}
+  %         }
+  %       }
+  %     }
+  %   }
+  %   }
+  %     \end{array}
+  %     \end{array}
+  %     \end{equation*}
+  %     \begin{equation}\label{scut-or-ols}
+  %     \begin{array}{l}
+  %     \qquad  =
+  %     \begin{array}{c}
+  %       \infer[\mf{scut}]{S \mid \GG_0 , \GD , \GG_2 \vd C}{
+  %         \infer[\mf{ccut}]{S \mid \GG_0 , \GD \vd B}{
+  %           \deduce{{-} \mid \GD_1 \vd A_1}{g_1}
+  %           &
+  %           \deduce{S \mid \GG_0 , A_1 , \GD_2 , \dots , \GD_n \vd B}{
+  %             \deduce{\vdots}{
+  %             \infer[\mf{ccut}]{S \mid \GG_0 , A_1 , \dots , \GD_n \vd B}{
+  %               \deduce{{-} \mid \GD_n \vd A_n}{g_n}
+  %               &
+  %               \deduce{S \mid \GG_0 , A_1 , \dots , A_n \vd B}{f}
+  %             }
+  %           }
+  %         }
+  %         }
+  %         &
+  %         \deduce{B \mid \GG_2 \vd C}{h}
+  %       }
+  %     \end{array}
+  %     %scut⊸r⋆⊸ls : {S : Stp} {Γ Δ Δ' Λ : Cxt} {B C : Fma}
+  % % → (hs : Ders Δ Λ)
+  % % → (f : S ∣ Γ ++ Λ ⊢ B)
+  % % → (g : just B ∣ Δ' ⊢ C)
+  % % → scut (⊸r⋆ Λ f) (⊸ls hs g) ≡ scut (ccut⋆ Γ [] hs f) g
+  %  \end{array}
+  %  \end{equation}
+With the definition and the equations above, we can state and prove the following:
 % In particular, we can prove the following two theorems.
-\intrpCut
-% \begin{theorem}
-% ~
-% \\
-%   If $g : S \mid \GG_0 \vd D$ and $h : D \mid \GG_1 \vd C$ are derivations obtained by applying $\mf{scut}$-interpolation on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 \rangle$, then $\mf{scut}(g, h) \circeq f$.
-%   \\
-%   If $g : S \mid \GG_0 , D_1 , \dots, D_n, \GG_2 \vd C$ and $h_i : {-} \mid \GD_i \vd D_i$ for $i \in [1 \dots n]$ are derivations obtained by applying $\mf{ccut}$-interpolation on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 , \GG_2 \rangle$, then $\mf{ccut}^*([h_i] , g) \circeq f$.
-% \end{theorem}
+\cutIntrp
+\begin{proof}
+Similar to the proof of Theorem \ref{genIntrp}, we prove the theorem by mutual induction on derivations.
+We show the proof of the statement $(i)$, while $(ii)$ is proved in a similar manner.
+This proof relies on definitional equality of derivations where $\mf{scut}$ and $\mf{ccut}$ are defined according to the cut-elimination procedures described in \cite{uustalu:sequent:2021,wan2024}.
+
+The first bases case is $f = \ax : A \mid \quad \vd A$, where the interpolant formula is $A$ and $g = h = f = \ax$. 
+By definition, $\mf{scut} (\ax , \ax)$ is equal to $\ax$ which is equivalent to itself.
+Another base case is $f = \unitr$, where the interpolant formula is $\unit$ and $\mf{scut} (\unitr , \unitl (\unitr)) = \unitr$ which is equivalent to itself.
+
+For inductive cases, we first deal with one-premise rules.
+The first group of one-premise rules are $\unitl, \tl$, and $\lright$.
+We show the case of $f = \unitl \ f'$, while the other two are similar.
+In this case, the interpolant formula is $D$, and two desired derivations are $g = \unitl \ g'$ and $h = h'$.
+The derivation $\mf{scut} (\unitl \ g', h')$ is definitionally equal to $\unitl (\mf{scut} (g' , h'))$, then by inductive hypothesis and congruence of $\circeq$, we have $\unitl (\mf{scut} (g' , h')) \circeq \unitl \ f'$.
+
+The last case of one-premise rules is $ f = \pass \ f'$.
+There are two subcases determined by the partition of $\GG$, specifically, $\GG_0$ is an empty list or not.
+\begin{itemize}
+  \item[--] If $\GG_0 = [\ ]$, then the interpolant is $\unit$ and two desired derivations are $\unitr$ and $\unitl (\pass \ f')$. In this case, $\scut{\unitr}{\unitl (\pass \ f')} = \pass \ f'$, which is equivalent to itself.
+  \item[--] If $\GG_0 = A, \GG'_0$, then we apply induction on $f'$ with the partition $\langle \GG'_0, \GG_1 \rangle$ and then obtain a formula $D$ and two derivations $g' : A \mid \GG'_0 \vd D$ and $h' : D \mid \GG_1 \vd C$.
+In this case, the interpolant formula for $f$ is $D$, and two desired derivations are $g = \pass \ g'$ and $h = h'$.
+The derivation $\scut{\pass \ g'}{h'} = \pass (\scut{g'}{h'})$ is equivalent to $\pass \ f'$ by inductive hypothesis and congruence.
+\end{itemize} 
+For two-premises rules, we first check $f = \tr (f',f'')$.
+The first case of $\tr$ is the partition $\langle (\GG_0, \GG_1), \GG_2 \rangle$ ($\GG_1$ is a non-empty list) with $f' : S \mid \GG_0 \vd A$ and $f'': {-} \mid \GG_1, \GG_2 \vd B$.
+In this case, we apply induction on $f'$ with the partition $\langle \GG_0 , [\ ] \rangle $and $f''$ with the partition $\langle \GG_1 , \GG_2 \rangle$ respectively to obtain
+\begin{itemize}
+  \item[--] a formula $E$ and two derivations $g' : S \mid \GG_0 \vd E$, $h' : E \mid \quad \vd A$, and
+  \item[--] a formula $F$ and two derivations $g'' : {-} \mid \GG_1 \vd F$ and $h'' : F \mid \GG_2 \vd B$.
+\end{itemize}
+Then the desired interpolant formula is $E \ot F$ and the desired derivations are
+\begin{displaymath}
+  \begin{array}{c}
+  \begin{array}{c}
+    g
+  \end{array}
+  \quad
+  =
+  \quad
+  \begin{array}{c}
+    \infer[\tr]{S \mid \GG_0 , \GG_1 \vd E \ot F}{
+      \deduce{S \mid \GG_0 \vd E}{g'}
+      &
+      \deduce{{-} \mid \GG_1 \vd F}{g''}
+    }
+  \end{array}
+    \quad
+    \begin{array}{c}
+      h
+    \end{array}
+    \quad
+    =
+    \quad
+    \begin{array}{c}
+      \infer[\tl]{E \ot F \mid \GG_2 \vd A \ot B}{
+      \infer[\tr]{E \mid F , \GG_2 \vd A \ot B}{
+        \deduce{E \mid \quad \vd A}{h'}
+        &
+        \infer[\pass]{{-} \mid F , \GG_2 \vd B}{
+          \deduce{F \mid \GG_2 \vd B}{h''}
+        }
+      }
+    }
+    \end{array}
+  \end{array}
+\end{displaymath}
+Moreover, $\scut{g}{h}$ is equal to $\tr (\scut{g'}{h'} , \scut{g''}{h''})$ by the path below
+\begin{displaymath}
+  \begin{array}{lc}
+  &
+    \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd A \ot B}{
+      \infer[\tr]{S \mid \GG_0 , \GG_1 \vd E \ot F}{
+      \deduce{S \mid \GG_0 \vd E}{g'}
+      &
+      \deduce{{-} \mid \GG_1 \vd F}{g''}
+    }
+      &
+      \infer[\tl]{E \ot F \mid \GG_2 \vd A \ot B}{
+      \infer[\tr]{E \mid F , \GG_2 \vd A \ot B}{
+        \deduce{E \mid \quad \vd A}{h'}
+        &
+        \infer[\pass]{{-} \mid F , \GG_2 \vd B}{
+          \deduce{F \mid \GG_2 \vd B}{h''}
+        }
+      }
+    }
+    }
+    \\[10pt]
+    \mapsto&
+    \quad
+    \begin{array}{c}
+    \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd A \ot B}{
+      \deduce{S \mid \GG_0 \vd E}{g'}
+      &
+      \infer[\mf{ccut}]{E \mid \GG_1 , \GG_2 \vd A \ot B}{
+        \deduce{{-} \mid \GG_1 \vd F}{g''}
+        &
+        \infer[\tr]{E \mid F , \GG_2 \vd A \ot B}{
+        \deduce{E \mid \quad \vd A}{h'}
+        &
+        \infer[\pass]{{-} \mid F , \GG_2 \vd B}{
+          \deduce{F \mid \GG_2 \vd B}{h''}
+        }
+      }
+      }
+    }
+    \end{array}
+    \\[20pt]
+    \mapsto&
+    \quad
+    \begin{array}{c}
+      \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd A \ot B}{
+      \deduce{S \mid \GG_0 \vd E}{g'}
+      &
+      \infer[\tr]{E \mid \GG_1 , \GG_2 \vd A \ot B}{
+        \deduce{E \mid \quad \vd A}{h'}
+        &
+        \infer[\mf{ccut}]{E \mid \GG_1, \GG_2 \vd B}{
+        \deduce{{-}\mid \GG_1 \vd F}{g''}
+        &
+        \infer[\pass]{{-} \mid F , \GG_2 \vd B}{
+          \deduce{F \mid \GG_2 \vd B}{h''}
+        }
+      }
+      }
+    }
+    \end{array}
+    \\[20pt]
+    \mapsto&
+    \quad
+    \begin{array}{c}
+      \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd A \ot B}{
+      \deduce{S \mid \GG_0 \vd E}{g'}
+      &
+      \infer[\tr]{E \mid \GG_1 , \GG_2 \vd A \ot B}{
+        \deduce{E \mid \quad \vd A}{h'}
+        &
+        \infer[\mf{scut}]{E \mid \GG_1, \GG_2 \vd B}{
+        \deduce{{-}\mid \GG_1 \vd F}{g''}
+        &
+        \deduce{F \mid \GG_2 \vd B}{h''}
+      }
+      }
+    }
+    \end{array}
+  \end{array}
+  \end{displaymath}
+  \begin{displaymath}
+  \begin{array}{lr}
+  % \\[20pt]
+    \mapsto&
+    \quad
+    \begin{array}{c}
+      \infer[\tr]{S \mid \GG_0 , \GG_1 , \GG_2 \vd A \ot B}{
+      \infer[\mf{suct}]{S \mid \GG_0 \vd A}{
+        \deduce{S \mid \GG_0 \vd E}{g'}
+        &
+        \deduce{E \mid \quad \vd A}{h'}
+      }
+      &
+      \infer[\mf{scut}]{E \mid \GG_1, \GG_2 \vd B}{
+        \deduce{{-}\mid \GG_1 \vd F}{g''}
+        &
+        \deduce{F \mid \GG_2 \vd B}{h''}
+      }
+    }
+    \end{array}
+  \end{array}
+\end{displaymath}
+$\tr (\scut{g'}{h'} , \scut{g''}{h''})$ is equivalent to $\tr (f' ,f'')$ by inductive hypothesis and congruence.
+
+The second case of $\tr$ is the partition $\langle \GG_0, (\GG_1 , \GG_2) \rangle$ with $f' : S \mid \GG_0 , \GG_1 \vd A$ and $f'' : {-} \mid \GG_2 \vd B$.
+In this case, we apply induction on $f'$ with the partition $\langle \GG_0 , \GG_1 \rangle$ and then obtain a formula $D$ and two derivations $g' : S \mid \GG_0 \vd D$ and $h' : D \mid \GG_1 \vd A$.
+The interpolant formula is $D$ and the desired derivations are $g = g'$ and $h = \tr (h' , f'') : D \mid \GG_1 , \GG_2 \vd A \ot B$ where $\scut{g'}{\tr (h', f'')} = \tr (\scut{g'}{h'} , f'') \circeq \tr (f' , f'')$ by inductive hypothesis and congruence.
+
+The first case of $\lleft$ is the partition $\langle \GG_0, (\GG_1, \GG_2) \rangle$ ($\GG_1$ is non-empty) of $\GG$ with $f' : {-} \mid \GG_0, \GG_1 \vd A$ and $f'': B \mid \GG_2 \vd C$.
+Our goal is to find a formula $D$ and derivations $g : A\lolli B \mid \GG_0 \vd D$ and $h: D \mid \GG_1, \GG_2 \vd C$.
+We first apply inductive hypothesis of $\mf{ccut}$-interpolation on $f'$ with the partition $\langle \GG_0 , \GG_1 , [\ ]\rangle$ and obtain a partition $\langle \GD_1, \dots , \GD_n \rangle$ of $\GG_1$ and a list of formulae $D_1 , \dots , D_n$ and derivations
+\begin{itemize}
+  \item[--] $g': {-} \mid \GG_0 , D_1, \dots, D_n \vd A$ and
+  \item[--] $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1\dots n]$.
+\end{itemize}
+By applying inductive hypothesis of $\mf{scut}$-interpolation on $f''$ with the partition $\langle [\ ] , \GG_2 \rangle$, we obtain a formula $E$ and derivations $g'' : B \mid \quad \vd E$ and $h'': E \mid \GG_2 \vd C$.
+For simplicity, we denote $D_1 \lolli (\dots (D_n \lolli E)\dots)$, $(D_1 , \dots , D_n)$, and $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1\dots n]$ as $D^*$, $\GD$, and $\phi$, respectively.
+The list of contexts $\GD_1, \dots, \GD_n$ always rewrites to $\GG_1$.
+The desired derivations are constructed as follows:
+\begin{displaymath}
+\begin{array}{lcc}
+  \begin{array}{c}
+    g
+  \end{array}
+  \quad 
+  &=&
+  \quad
+    \begin{array}{c}
+      \infer[\lright^*]{A\lolli B \mid \GG_0 \vd D^*}{
+        \GD
+        &
+        \infer[\lleft]{A \lolli B \mid \GG_0 , \GD \vd E}{
+          \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
+          &
+          \deduce{B \mid \quad \vd E}{g''}
+        }
+      }
+    \end{array}
+    \\[20pt]
+    \begin{array}{c}
+      h
+    \end{array}
+    \quad
+    &=&
+    \quad
+    \begin{array}{c}
+      \infer[\lleft^*]{D^* \mid \GG_1 \GG_2 \vd C}{
+            \phi
+            &
+            \deduce{E \mid \GG_2 \vd C}{h''}
+          }
+    \end{array}
+  \end{array}
+\end{displaymath}
+Our goal is to show that $\scut{g}{h} \circeq \lleft(\iccut{\phi}{g'} , \scut{g''}{h''})$.
+We rewrite $\scut{g}{h}$ by the following path
+\begin{displaymath}
+  \begin{array}{lr}
+  \begin{array}{c}
+    \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+      \infer[\lright^*]{A\lolli B \mid \GG_0 \vd D^*}{
+        \GD
+        &
+        \infer[\lleft]{A \lolli B \mid \GG_0 , \GD \vd E}{
+          \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
+          &
+          \deduce{B \mid \quad \vd E}{g''}
+        }
+      }
+      &
+      \infer[\lleft^*]{D^* \mid \GG_1 \GG_2 \vd C}{
+            \phi
+            &
+            \deduce{E \mid \GG_2 \vd C}{h''}
+          }
+    }
+  \end{array}
+    &
+    \qquad
+    \qquad
+    \qquad
+  \end{array}
+\end{displaymath}
+\begin{displaymath}
+  \begin{array}{lr}
+    \begin{array}{c}
+    (\text{Eq} \ \ref{scut-or-ols})
+    \\
+    \mapsto
+  \end{array}
+  \qquad
+  \qquad
+  &
+  \begin{array}{c}
+    \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+    \infer[\mf{ccut}^*]{A \lolli B \mid \GG_0 , \GG_1 \vd E}{
+      \phi
+      &
+      \infer[\lleft]{A \lolli B \mid \GG_0 , \GD \vd E}{
+        \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
+        &
+        \deduce{B \mid \quad \vd E}{g''}
+      }
+    }
+    &
+    \deduce{E \mid \GG_2 \vd C}{h''}
+  }
+  \end{array}
+  \end{array}
+\end{displaymath}
+\begin{displaymath}
+  \begin{array}{lr}
+% \\[10 pt]
+    \mapsto&
+    \qquad \qquad
+    \begin{array}{c}
+      \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+      \infer[\lleft]{A \lolli B \mid \GG_0 , \GG_1 \vd E}{
+        \infer[\mf{ccut}^*]{{-} \mid \GG_0 , \GG_1 \vd A}{
+          \phi
+          &
+          \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
+        }
+        &
+        \deduce{B \mid \quad \vd E}{g''}
+      }
+      &
+      \deduce{E \mid \GG_2 \vd C}{h''}
+    }
+    \end{array}
+%   \end{array}
+% \end{displaymath}
+% \begin{displaymath}
+%   \begin{array}{lr}
+\\[1.5cm]
+    \mapsto&
+    \qquad \qquad
+    \begin{array}{c}
+      \infer[\lleft]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+        \infer[\mf{ccut}^*]{{-} \mid \GG_0 , \GG_1 \vd A}{
+          \phi
+          &
+          \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
+        }
+        &
+        \infer[\mf{scut}]{B \mid \GG_2 \vd C}{
+          \deduce{B \mid \quad E}{g''}
+          &
+          \deduce{E \mid \GG_2 \vd C}{h''}
+        }
+      }
+    \end{array}
+  \end{array}
+\end{displaymath}
+% \begin{displaymath}
+%   \begin{array}{lr}
+%     &
+%     \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+%       \infer[\lright]{A\lolli B \mid \GG_0 \vd D^*}{
+%       \deduce{A \lolli B \mid \GG_0 , D_1 \vd D'^*}{
+%         \deduce{\vdots}{
+%         \infer[\lright]{A \lolli B \mid \GG_0 , D_1, \dots ,D_{n-1} \vd D_n \lolli E}{
+%         \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots, D_n \vd E}{
+%           \deduce{{-} \mid \GG_0 , D_1, \dots, D_n \vd A}{g'}
+%           &
+%           \deduce{B \mid \quad \vd E}{g''}
+%         }
+%       }
+%       }
+%       }
+%     }
+%       &
+%       \infer[\lleft]{D^* \mid \GG_1, \GG_2 \vd C}{
+%       \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
+%       &
+%       \deduce{D'^{*} \mid \GD_2, \dots, \GD_n, \GG_2 \vd C}{
+%         \deduce{\vdots}{
+%           \infer[\lleft]{D_n \lolli E \mid \GD_n, \GG_2 \vd C}{
+%             \deduce{{-} \mid \GD_n, \GG_2 \vd D_n}{h'_n}
+%             &
+%             \deduce{E \mid \GG_2 \vd C}{h''}
+%           }
+%         }
+%       }
+%     }
+%     }
+%   \end{array}
+%   \end{displaymath}
+%   \begin{displaymath}
+%   \begin{array}{lr}
+%    \begin{array}{l}
+%     (\text{Eq} \ \ref{scut-or-ols})
+%     \\
+%     \mapsto
+%   \end{array}
+%   &
+%   \begin{array}{c}
+%     \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+%     \infer[\mf{ccut}]{A \lolli B \mid \GG_0 , \GG_1 \vd E}{
+%       \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
+%       &
+%       \deduce{A \lolli B \mid \GG_0 , D_1 , \GD_2 , \dots , \GD_n \vd E}{
+%         \deduce{\vdots}{
+%         \infer[\mf{ccut}]{A \lolli B \mid \GG_0 , D_1, D_2 ,\dots , \GD_n \vd E}{
+%           \deduce{{-} \mid \GD_n \vd D_n}{h'_n}
+%           &
+%           \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots , D_n \vd E}{
+%             \deduce{{-} \mid \GG_0 , D_1 , \dots , D_n \vd A}{g'}
+%             &
+%             \deduce{B \mid \quad \vd E}{g''}
+%           }
+%         }
+%       }
+%     }
+%     }
+%     &
+%     \deduce{E \mid \GG_2 \vd C}{h''}
+%    }
+%   \end{array}
+% \end{array}
+% \end{displaymath}
+% \begin{displaymath}
+% \begin{array}{lr}
+%   \mapsto&
+%   \begin{array}{c}
+%     \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+%     \infer[\lleft]{A \lolli B \mid \GG_0 , \GG_1 \vd E}{
+%       \infer[\mf{ccut}]{{-} \mid \GG_0 , \GG_1 \vd A}{
+%         \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
+%         &
+%         \deduce{{-} \mid \GG_0 , D_1 , \GD_2 , \dots , \GD_n \vd A}{
+%           \deduce{\vdots}{
+%         \infer[\mf{ccut}]{{-} \mid \GG_0 , D_1, D_2 , \dots , \GD_n \vd A}{
+%           \deduce{{-} \mid \GD_n \vd D_n}{h'_n}
+%           &
+%           \deduce{{-} \mid \GG_0 , D_1 , \dots , D_n \vd A}{g'}
+%         }
+%         }
+%       }
+%       }
+%       &
+%       \deduce{B \mid \quad \vd E}{g''}
+%     }
+%     &
+%     \deduce{E \mid \GG_2 \vd C}{h''}
+%    }
+%   \end{array}
+%   \end{array}
+%   \end{displaymath}
+%   \begin{displaymath}
+%   \begin{array}{lr}
+%   \mapsto&
+%   \begin{array}{c}
+%     \infer[\lleft]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+%       \infer[\mf{ccut}]{{-} \mid \GG_0 , \GG_1 \vd A}{
+%         \deduce{{-} \mid \GD_1 \vd D_1}{h'_1}
+%         &
+%         \deduce{{-} \mid \GG_0 , D_1 , \GD_2 , \dots , \GD_n \vd A}{
+%           \deduce{\vdots}{
+%         \infer[\mf{ccut}]{{-} \mid \GG_0 , D_1, D_2 , \dots , \GD_n \vd A}{
+%           \deduce{{-} \mid \GD_n \vd D_n}{h'_n}
+%           &
+%           \deduce{{-} \mid \GG_0 , D_1 , \dots , D_n \vd A}{g'}
+%         }
+%         }
+%       }
+%       }
+%       &
+%      \infer[\mf{scut}]{B \mid \GG_2 \vd C}{
+%       \deduce{B \mid \quad \vd E}{g''}
+%       &
+%       \deduce{E \mid \GG_2 \vd C}{h''}
+%     }
+%    }
+%   \end{array}
+%   \end{array}
+% \end{displaymath}
+The derivation $\lleft (\iccut{\phi}{g'} , \scut{g''}{h''})$ is equivalent to $\lleft (f' , f'')$ by inductive hypothesis and congruence.
+
+The second case of $\lleft$ is the partition $\langle (\GG_0 , \GG_1) , \GG_2 \rangle$ with derivations $f' : {-} \mid \GG_0 \vd A$ and $f'' : B \mid \GG_1 , \GG_2 \vd C$.
+In this case, we apply the inductive hypothesis of $\mf{scut}$-interpolation on $f''$ with the partition $\langle \GG_1 , \GG_2 \rangle$ and then obtain a formula $D$, and two derivations $g'' : B \mid \GG_1 \vd D$ and $h'' : D \mid \GG_2 \vd C$.
+The interpolant formula is $D$ and the desired derivations are $g = \lleft (f' , g'') : A \lolli B \mid \GG_0 , \GG_1 \vd D$ and $h = h''$.
+The derivation $\scut{\lleft (f' , g'')}{h''}$ is equal to $\lleft (f' , \scut{g''}{h''})$ which is equivalent to $\lleft (f' , f'')$ by inductive hypothesis and congruence.
+\end{proof}
 \section{Formalization}
 In this ongoing work, we show that sequent calculi for left skew monoidal (closed) categories enjoy Craig interpolation.
 The proofs of two statements of generalized interpolation are formalized in the proof assistant Agda.
