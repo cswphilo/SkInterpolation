@@ -151,11 +151,18 @@
 \newcommand{\FL}{\textbf{FL}}
 \newcommand{\scut}[2]{\mf{scut} (#1 , #2)}
 \newcommand{\iccut}[2]{\mf{ccut}^* (#1 , #2)}
+\newcommand{\MIP}{\textsf{MIP}}
+\newcommand{\MMIP}{\textsf{MMIP}}
+\newcommand{\sMIP}{\textsf{sMIP}}
+\newcommand{\cMIP}{\textsf{cMIP}}
+\newcommand{\cMMIP}{\textsf{cMMIP}}
 
 \newcommand{\niccolo}[1]{\textcolor{red}{#1}}
 \newcommand{\cheng}[1]{\textcolor{blue}{#1}}
 
-
+\setlist[description]{%
+  font={\normalfont},
+}
 %%%%%=============================================================================%%%%
 %%%%  Remarks: This template is provided to aid authors with the preparation
 %%%%  of original research articles intended for submission to journals published 
@@ -280,17 +287,17 @@ For further details on this approach, see \cite{Kihara2009}.
 
 For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven by adapting Maehara's method \cite{maehara1961}, which originally aimed to prove interpolation for $\mathbf{LK}$, a sequent calculus for classical logic.
 This includes the full Lambek calculus (\FL) and its extensions that incorporate various combinations of weakening, exchange, and contraction.
-In the case of \FL, for instance, the proof starts by establishing a stronger form of interpolation which we call \emph{Maehara interpolation property} \cite{ono:proof:nonclassical:1998}. 
+In the case of \FL, for instance, the proof starts by establishing a stronger form of interpolation which we call \emph{Maehara interpolation property} (\MIP) \cite{ono:proof:nonclassical:1998}. 
 The latter property states:
-\begin{itemize}
-  \item[\ ] Given $f : \Gamma \vdash C$ and a partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_2 \vdash C$, and $\vars{D} \subseteq \vars{\Gamma_0} \cap \vars{\Gamma_0, \Gamma_1, C}$
-\end{itemize}
+\begin{description}
+  \item[(\MIP~for \FL)] Given $f : \Gamma \vdash C$ and a partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_2 \vdash C$, and $\vars{D} \subseteq \vars{\Gamma_0} \cap \vars{\Gamma_0, \Gamma_1, C}$
+\end{description}
 Being a partition simply means that the ordered list of formulae $\Gamma$ is equal to the concatenation of $\Gamma_0, \Gamma_1$ and $\Gamma_2$, i.e. $\Gamma = \Gamma_0, \Gamma_1, \Gamma_2$. 
 \FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by a  multiplicity condition \cite{roorda1991,moot:categorial:2012}.
 The property states:
-\begin{itemize}
-  \item[\ ] Given $f : \Gamma \vdash C$ and a partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_2 \vdash C$, and $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{\GG_0, \GG_2 , C}$ for all atomic formulae $X$.
-\end{itemize}
+\begin{description}
+  \item[(\MIP~for \FL~with multiplicity condition)] Given $f : \Gamma \vdash C$ and a partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, there exist a formula $D$ and two derivations $g : \Gamma_1 \vdash D$ and $h : \Gamma_0, D, \Gamma_2 \vdash C$, and $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{\GG_0, \GG_2 , C}$ for all atomic formulae $X$.
+\end{description}
 Above $\gs{A}$ is equal to the number of occurrences of the atomic formula $X$ in $A$.
 Maehara interpolation also holds for the non-associative variant of \FL, for an appropriate reformulation of the principle in which antecedents are trees of formulae instead of lists.
 Notice that Craig interpolation is a property of a logic (with a notion of implication), while Maehara interpolation is a property of a deductive system in which it is possible to appropriately partition antecedents.
@@ -298,18 +305,17 @@ Notice that Craig interpolation is a property of a logic (with a notion of impli
 Maehara interpolation is a stronger form of the so-called \emph{deductive interpolation property}. A logic $\mc{L}$ has the deductive interpolation property if, for any formulae $A$ and $C$, whenever $A \vd C$ (where $\vd$ is the consequence relation of $\mc{L}$), then there exists a formula $B$ such that $A \vd B$ and $B \vd C$ while also satisfying the usual variable condition. Furthermore, if the sequent calculus of $\mc{L}$ admits the invertibility of implication-right rules (as is the case in \FL\ for both left- and right-implication), Craig interpolation follows immediately as a consequence of deductive interpolation.
 
 While Maheara's method is often applicable to extensions of \FL, it does not work for some of its fragment, which therefore do not enjoy Maehara interpolation. This is the case for fragments lacking multiplicative and/or additive conjunction, such as the product-free Lambek calculus \cite{Pentus1997} (with only left- and right-implications as connectives) and the implicational fragment of intuitionistic logic \cite{Kanazawa2006}. 
-The variant of Maehara interpolation satisfied by the product-free Lambek calculus, which we dub \emph{Maehara multi-interpolation}, is particularly relevant for our work. Here is its statement, which we have slightly modified to better align with our forthcoming discussion:
-\begin{itemize}
-  \item[\ ]  Given $f: S \mid \Gamma \vd C$ and a partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist 
+The variant of Maehara interpolation satisfied by the product-free Lambek calculus, which we dub \emph{Maehara multi-interpolation} (\MMIP), is particularly relevant for our work. Here is its statement, which we have slightly modified to better align with our forthcoming discussion:
+\begin{description}
+  \item[(\MMIP~for product-free Lambek calculus)]  Given $f: \Gamma \vd C$ and a partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist 
     \begin{itemize}
     \item[--] a partition $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$,
     \item[--] a list of interpolant formulae $D_1, \dots, D_n$,
     \item[--] a derivation $g: \GG_0, D_1, \dots, D_n, \GG_2 \vd C$,
     \item[--] a derivation $h_i : \GD_i \vd D_i$ for all $i \in [1\dots n]$, such that
-    \item[--] $\gs{D_i} \leq \gs{\GD_i}$ and $\gs{D_1, \dots, D_n} \leq \gs{S, \GG_0, \GG_2, C}$ for all $i \in [1 \dots n]$ and atomic formulae $X$.
+    \item[--] $\gs{D_i} \leq \gs{\GD_i}$ and $\gs{D_1, \dots, D_n} \leq \gs{\GG_0, \GG_2, C}$ for all $i \in [1 \dots n]$ and atomic formulae $X$.
   \end{itemize}
-\end{itemize}
-%% \niccolo{(I forgot, the use of $\sigma$ instead of $\vars$ was already in Ono?)
+\end{description}
 Differently from Maehara interpolation, in the above property we look for a  list of interpolants instead of a single formula.
 This adjustment allows to overcome the difficulty caused by the absence of conjunction.
 %\niccolo{(Are all difficulties actually overcome? Does this property still imply deductive/Craig interpolation?)}.
@@ -332,7 +338,7 @@ Different variants of left skew monoidal categories have led to the development 
 These include $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23,wan2024}, and $(v)$ left distributive skew monoidal categories with finite products and coproducts \cite{VW:2023}.
 Each of these logics admits a cut-free sequent calculus. Moreover, they admit a subcalculus of ``proofs in normal form'', which is inspired by Jean-Marc Andreoli's focusing method \cite{andreoli:logic:1992} and as such provides a way to make root-first proof search more deterministic.
 Practically, the focusing method is employed for solving the coherence problem for the corresponding variants of left skew monoidal categories. In the case of left skew monoidal closed categories, a solution to the coherence (or word) problem consists of a procedure for deciding equality of parallel morphisms in the free left skew monoidal closed category on a given set $\mathsf{At}$.
-In previous work, we showed that the focused subcalculus of \SkNMILL\ is a concrete presentation of such free category, so a solution to the coherence problem is obtained by checking whether two morphisms are represented by the same derivation in the focused subcalculus.
+In previous work, we showed that the focused subcalculus for \SkNMILL\ is a concrete presentation of such free category, so a solution to the coherence problem is obtained by checking whether two morphisms are represented by the same derivation in the focused subcalculus.
 
 
 To prove Craig interpolation for \SkNMILL, we need to modify the statement of Maehara interpolation.
@@ -431,13 +437,13 @@ All the proofs presented in this paper have been formalized in the proof assista
 % We define the relational semantics via a Kripke frame with two ternary relations and show that the partially ordered set which consists of subsets of possible worlds with appropriate operations is a thin skew bi-closed category.
 % Furthermore, by theorem (\ref{thm:main}), we can prove a thin version of main theorems in \cite{uustalu:eilenberg-kelly:2020}.
 
-\section{Sequent Calculus}\label{sec:syntax}
+\section{A Sequent Calculus for \SkNMILL}\label{sec:syntax}
 We start by recalling the sequent calculus for left skew monoidal closed categories that was introduced in \cite{UVW:protsn}, which we name \SkNMILL. This is a ``skew variant'' of non-commutative multiplicative intuitionistic linear logic, in a way that will be made precise later in this section.
 
 Formulae are inductively generated by the grammar $A, B::= X \ | \ \unit \ | \ A \ot B \ | \ A \lolli B$, where $X$ comes from a set $\mathsf{At}$ of atoms, $\unit$ is a multiplicative unit, $\ot$ is multiplicative conjunction and $\lolli$ is a linear implication. The set of formulae is denoted $\mf{Fma}$.
 
 A sequent is a triple of the form $S \mid \Gamma \vd A$. The antecedent consists of two parts: an optional formula $S$, called the \emph{stoup} (a terminology that comes from Girard \cite{girard:constructive:91}), and an ordered list of formulae $\Gamma$, that we call the \emph{context}. The succedent $A$ is a single formula.
-The symbol $S$ consistently denotes a stoup, meaning $S$ can either be a single formula or empty, indicated as $S = {-}$. Furthermore, $X$, $Y$, and $Z$ always denote atomic formulae.
+The symbol $S$ consistently denotes a stoup, meaning $S$ can either be a single formula or empty, indicated as $S = {-}$. Furthermore, letters $X$, $Y$, $Z$ and $W$ always denote atomic formulae.
 % The design of sequents is from previous work on syntactic characterizations for skew structures \cite{uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021}.
 % The peculiar design of sequents, involving the presence of the stoup in the antecedent, comes from previous work on deductive systems with skew structure by Uustalu, Veltri and Zeilberger \cite{uustalu:sequent:2021,uustalu:proof:nodate,uustalu:deductive:nodate,veltri:coherence:2021}.
 
@@ -506,15 +512,15 @@ The inference rules in (\ref{eq:seqcalc:skmc:Gir}) are similar to the ones in th
 \item The right tensor rule $\tr$, read bottom-up, splits the antecedent of a sequent $S \mid \Gamma, \Delta \vd A \ot B$ and in the case where $S$ is a formula, $S$ is always moved to the stoup of the left premise, even if $\Gamma$ is empty.
 % whereby the formula in the stoup, in case such a formula is present, has to be moved to the stoup of the first premise. In particular, the stoup formula of the conclusion cannot be moved to the antecedent of the second premise even if $\Gamma$ is chosen to be empty.
 \item The presence of the stoup distinguishes two types of antecedents, $A \mid \Gamma$ and ${-} \mid A, \Gamma$. The structural rule $\pass$ (for `passivation'), read bottom-up, allows the moving of the leftmost formula in the context to the stoup position whenever the stoup is empty.
-\item The logical connectives of \NMILL~typically include two ordered implications $\lolli$ and $\illol$ (often also called residuals), which are two variants of linear implication arising from the removal of the exchange rule from intuitionistic linear logic. In our logic \SkNMILL, only the left implication $\lolli$ is present.
-  \niccolo{Is this left or right implication?}
+\item The logical connectives of \NMILL~typically include two ordered implications $\lolli$ and $\illol$ (often also called residuals), which are two variants of linear implication arising from the removal of the exchange rule from intuitionistic linear logic. In our logic \SkNMILL, only the implication $\lolli$ is present, which Lambek would call right implication/residual.
+%  \niccolo{Is this left or right implication?}
 % It is currently not clear to us whether the inclusion of the second implication to our logic is a meaningful addition and whether it corresponds to some particular categorical notion.
 \end{enumerate}
 % The restrictions in 1--4 are essential for precisely capturing all the features of skew monoidal closed categories and nothing more, as we discuss in Section \ref{sec:catsem}.
 % Notice also that, similarly to the case of \NMILL, all structural rules of exchange, contraction, and weakening are absent. We give names to derivations and we write $f: S \mid \Gamma \vdash A$ when $f$ is a particular derivation of the sequent $S \mid \Gamma \vdash A$.
 
 This calculus is cut-free, in the sense that the following two rules are admissible:
-\begin{displaymath}
+\begin{equation}\label{eq:cut}
       \infer[\mathsf{scut}]{S \mid \Gamma , \Delta \vd C}{
         \deduce{S \mid \Gamma \vd A}{}
         &
@@ -526,7 +532,7 @@ This calculus is cut-free, in the sense that the following two rules are admissi
         &
         \deduce{S \mid \Delta_0 , A , \Delta_1 \vd C}{}
       }
-\end{displaymath}
+\end{equation}
 The presence of two cut rules comes from the fact that the cut formula can appear either in the stoup or the context of the second premise.
 
 
@@ -791,86 +797,130 @@ The generating equations of $\circeq$ have been carefully selected to appropriat
 %For a more detailed explanation on the sequent calculus and an interpretation of the system as a logic of resources, see \cite[Section 2]{UVW:protsn}.
 The latter paper also contains an interpretation of the sequent calculus as a logic of resources, as well as a calculus of derivations in normal form, which completely characterizes proofs modulo the congruence relation $\circeq$.
 
+\section{Failure of Maehara Interpolation}\label{sec:failure}
 
-\section{Interpolation}\label{sec:interpolation}
-In this section, we adapt Maehara's method to prove that \SkNMILL~enjoys Craig interpolation.
-Maehara's method is based on cut-free sequent calculi.
-The process is to prove Maehara interpolation, and then argue that Craig interpolation is a corollary.
+The goal of this paper is proving that the logic \SkNMILL~satisfies the Craig interpolation property. But, as already mentioned in the introductive section, we cannot follow the same proof strategy used in the (associative or non-associative) Lambek calculus, where Craig interpolation follows as a corollary to Maehara interpolation. This is because the sequent calculus of \SkNMILL~does not satisfy Maehara interpolation. Let us see why.
 
-Given a formula $A$ and an atomic formula $X$, $\gs{A}$ is a composition of two functions, one transforms a formula to a list of atomic formulae and the other counts the occurrences of $X$.
-Given a context $\GG$ and an atomic formula $X$, $\gs{\GG}$ is a composition of three functions, the first transforms each formula in $\GG$ to a list of atomic formulae, the second merges the lists into one list and the last counts the occurrences of $X$.
-
-Adapted from \cite[Chapter 2.10]{moot:categorial:2012}, the Maehara interpolation for the associative Lambek calculus is:
+First, in analogy with the presence of two admissible cut rules (\ref{eq:cut}), there are also two different form of interpolation. This is because the subsequence of the antecedents for which we wish to find an interpolant can either contain the stoup or it can be fully included in the context. More explicitly, given an antecedent $S \mid \Gamma$, we can either: $(i)$ split the context $\Gamma = \Gamma_1,\Gamma_2$ in two parts and look for an interpolant of the sub-antecedent $S \mid \Gamma_1$, or $(ii)$ split the context $\Gamma = \Gamma_0,\Gamma_1,\Gamma_2$ in three parts and look for an interpolant of the sub-context $\Gamma_1$.
+The Maehara interpolation property in \SkNMILL~would then consist of two statement, a \emph{stoup Maheara interpolation} (\sMIP) and a \emph{context Maehara interpolation} (\cMIP):
+\begin{description}
+\item[(\sMIP)] Given $f: S \mid \Gamma \vd C$ and a partition $\langle \GG_0,\GG_1 \rangle$ of $\GG$, there exists  
 \begin{itemize}
-  \item[\ ] Given $f : \Gamma \vdash C$ and any partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, where $\GG_1$ is non-empty, there exists a formula $D$ such that
-  \begin{itemize}
-    \item[--] $g : \Gamma_1 \vdash D$,
-    \item[--] $h : \Gamma_0, D, \Gamma_2 \vdash C$, and 
-    \item[--] $\gs{D} \leq \gs{\GG_1}$ and  $\gs{D} \leq \gs{\GG_0 , \GG_1 , D}$ for every $X$.
-  \end{itemize}
+  \item[--] an interpolant formula $D$,
+  \item[--] a derivation $g : S \mid \GG_0 \vd D$,
+  \item[--] a derivation $h : D \mid \GG_1 \vd C$, such that
+  \item[--] $\gs{D} \leq \gs{S , \GG_0}$ and $\gs{D} \leq \gs{\GG_1 , C}$ for all atomic formulae $X$.
 \end{itemize}
-The proof proceeds by induction on the height of derivations and we should exhaust all cases of any partition.
-\\
-It is natural to attempt to prove a similar statement for \SkNMILL:
-
-% The statement of $\mf{ccut}$-interpolation does not align with the general structure of interpolation in non-commutative substructural logic, because the general form of the statement is unprovable in \SkNMILL.
-% To illustrate this, consider the following statement:
-\begin{itemize}
-  \item[\ ] Given $f: S \mid \Gamma \vd C$ and any partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exists a formula $D$ such that 
-  \begin{itemize}
-    \item[--] $g : {-} \mid \GG_1 \vd D$,
-    \item[--] $h : S \mid \GG_0, D, \GG_2 \vd C$, and
-    \item[--] $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{S , \GG_0 , \GG_2 , C}$ for every $X$.    
+\item[(\cMIP)] Given $f: S \mid \Gamma \vd C$ and a partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exists  
+    \begin{itemize}
+      \item[--] an interpolant formula $D$,
+    \item[--] a derivation $g : {-} \mid \GG_1 \vd D$,
+    \item[--] a derivation $h : S \mid \GG_0, D, \GG_2 \vd C$, such that
+    \item[--] $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{S , \GG_0 , \GG_2 , C}$ for all atomic formulae $X$.    
   \end{itemize}
-\end{itemize}
-However, this statement is not provable in \SkNMILL.
-The critical case is $f = \tr (f',f'')$ with the partition $\langle \GG_0, (\GG'_1, \GG''_1), \GG_2\rangle$ and two derivations $f' : S \mid \GG_0 , \GG'_1 \vd A$ and $f'' : {-} \mid \GG''_1 , \GG_2 \vd B$.
-By induction on $f'$ and the partition $\langle \GG_0 , \GG'_1, [\ ] \rangle$, and on $f''$ and the partition $\langle [\ ], \GG''_1, \GG_2\rangle$ respectively, we have a formula $D$, $g' : {-} \mid \GG'_1 \vd D$, and $h': S \mid \GG_0 , D \vd A$ and a formula $E$, $g'' : {-} \mid \GG''_1 \vd E$ and $h'': {-} \mid E, \GG_2 \vd B$.
-We obtain $\tr (g',g'') : {-} \mid \GG'_1, \GG''_1 \vd D \ot E$ and $\tr (h', h'') : S \mid \GG_0, D, E, \GG_1 \vd A \ot B$, so the last step is to produce $D \ot E$ in the latter.
-But we get stuck because $\tl$ cannot be applied on formulae in context.
+\end{description}
 
-For example, suppose $f = \tr (f',f''): X \mid Y, Z \vd (X\ot Y)\ot Z$ where $f':X \mid Y \vd X\ot Y$ and $f'': {-} \mid Z \vd Z$, then given the partition $\langle [\ ], (Y,Z), [\ ]\rangle$, our goal is to find a formula $D$ and two derivations $g: {-} \mid Y, Z \vd D$ and $X \mid D \vd (X\ot Y)\ot Z$.
-Because $Y$ and $Z$ are atomic, the only possibility is that $D = Y \ot Z$, however, the sequent $X \mid Y \ot Z \vd (X \ot Y) \ot Z$ does not have a proof in \SkNMILL.
-\begin{equation*}\label{example:ccut:failure}
-  \begin{array}{c}
-    \infer[\tr]{X \mid Y \ot Z \vd (X \ot Y) \ot Z}{
-    \deduce{X \mid Y\ot Z \vd X \ot Y}{??}
-    &
-    \deduce{{-} \mid \quad \vd Z}{??}
-  }
-  \\[15pt]
-  \infer[\tr]{X \mid Y \ot Z \vd (X \ot Y) \ot Z}{
-    \infer[\tr]{X \mid \quad \vd X \ot Y}{
+
+
+% In this section, we adapt Maehara's method to prove that \SkNMILL~enjoys Craig interpolation.
+% Maehara's method is based on cut-free sequent calculi.
+% The process is to prove Maehara interpolation, and then argue that Craig interpolation is a corollary.
+% 
+% Given a formula $A$ and an atomic formula $X$, $\gs{A}$ is a composition of two functions, one transforms a formula to a list of atomic formulae and the other counts the occurrences of $X$.
+% Given a context $\GG$ and an atomic formula $X$, $\gs{\GG}$ is a composition of three functions, the first transforms each formula in $\GG$ to a list of atomic formulae, the second merges the lists into one list and the last counts the occurrences of $X$.
+% 
+% Adapted from \cite[Chapter 2.10]{moot:categorial:2012}, the Maehara interpolation for the associative Lambek calculus is:
+% \begin{itemize}
+%   \item[\ ] Given $f : \Gamma \vdash C$ and any partition $\langle \Gamma_0, \Gamma_1, \Gamma_2 \rangle$ of $\Gamma$, where $\GG_1$ is non-empty, there exists a formula $D$ such that
+%   \begin{itemize}
+%     \item[--] $g : \Gamma_1 \vdash D$,
+%     \item[--] $h : \Gamma_0, D, \Gamma_2 \vdash C$, and 
+%     \item[--] $\gs{D} \leq \gs{\GG_1}$ and  $\gs{D} \leq \gs{\GG_0 , \GG_1 , D}$ for every $X$.
+%   \end{itemize}
+% \end{itemize}
+% The proof proceeds by induction on the height of derivations and we should exhaust all cases of any partition.
+% \\
+% It is natural to attempt to prove a similar statement for \SkNMILL:
+% 
+% % The statement of $\mf{ccut}$-interpolation does not align with the general structure of interpolation in non-commutative substructural logic, because the general form of the statement is unprovable in \SkNMILL.
+% % To illustrate this, consider the following statement:
+% \begin{itemize}
+%   \item[\ ] Given $f: S \mid \Gamma \vd C$ and any partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exists a formula $D$ such that 
+%   \begin{itemize}
+%     \item[--] $g : {-} \mid \GG_1 \vd D$,
+%     \item[--] $h : S \mid \GG_0, D, \GG_2 \vd C$, and
+%     \item[--] $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{S , \GG_0 , \GG_2 , C}$ for every $X$.    
+%   \end{itemize}
+% \end{itemize}
+
+However, this property is not provable in \SkNMILL. The problem lays in the validity of the second statement \cMIP. An attempt to prove this would proceed by induction on the height of the derivation $f : S \mid \Gamma \vdash C$ and then inspecting what is the last rule applied in $f$. The rules $\tr$ and $\lleft$ split the context, so one should be careful to consider all possible ways in which these splittings relate to the given partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$.
+
+The critical case is $f = \tr (f',f'')$ with the partition $\langle \GG_0, (\GG'_1, \GG''_1), \GG_2\rangle$ and two derivations $f' : S \mid \GG_0 , \GG'_1 \vd A$ and $f'' : {-} \mid \GG''_1 , \GG_2 \vd B$. So this is the case when the $\tr$ rule splits $\GG_1$ in two parts $\GG'_1,\GG''_1$.
+By applying the inductive hypothesis on $f'$ and the partition $\langle \GG_0 , \GG'_1, [\ ] \rangle$, we would be given a formula $D$ and derivations $g' : {-} \mid \GG'_1 \vd D$, and $h': S \mid \GG_0 , D \vd A$. By applying the indutice hypothsis on $f''$ and the partition $\langle [\ ], \GG''_1, \GG_2\rangle$, we would be given a formula $E$ and derivations $g'' : {-} \mid \GG''_1 \vd E$ and $h'': {-} \mid E, \GG_2 \vd B$.
+We obtain $\tr (g',g'') : {-} \mid \GG'_1, \GG''_1 \vd D \ot E$, but we are unable to construct the other desired proof of sequent $S \mid \GG_0, D \ot E, \GG_1 \vd A \ot B$. We get very close via $\tr (h', h'') : S \mid \GG_0, D, E, \GG_1 \vd A \ot B$, but we are unable to merge $D$ and $E$ into $D \ot E$, since in our calculus the $\tl$ cannot be applied on formulae in context.
+
+For a simple concrete counterexample, consider the derivation
+\begin{equation*}
+  \infer[\tr]{X \mid Y, Z \vd (X\ot Y)\ot Z}{
+    \infer[\tr]{X \mid Y \vd X \ot Y}{
       \infer[\ax]{X \mid \quad \vd X}{}
       &
-      \deduce{{-} \mid \quad \vd Y}{??}
+      \infer[\pass]{{-} \mid Y \vd Y}{
+        \infer[\ax]{Y \mid \quad \vd Y}{}
+        }
     }
     &
-    \infer[\pass]{{-} \mid Y \ot Z \vd Z}{
-      \infer[\tl]{Y \ot Z \mid \quad \vd Z}{
-        \deduce{Y \mid Z \vd Z}{??}
-      }
+    \infer[\pass]{{-} \mid Z \vd Z}{
+      \infer[\ax]{Z \mid \quad \vd Z}{}
     }
   }
-  \end{array}
 \end{equation*}
-In general, the rule
-\begin{displaymath}
-\begin{array}{c}
-  \infer[\ot\mf{C}]{S \mid \GG , A \ot B , \GD \vd C}{
-    \deduce{S \mid \GG, A , B , \GD \vd C}{}
-  }
-\end{array}
-\end{displaymath}
-is not admissible in \SkNMILL.
-\\
-This situation is similar to those of proving interpolation of the product-free Lambek calculus \cite{Pentus1997} and implicational fragment of intuitionistic logic \cite{Kanazawa2006}.
-In both cases above, the formula-version of Maehara interpolation fails  because the additive ($\land$) and multiplicative ($\cdot$) conjunction are not present, respectively.
-For example, consider the sequent $W, W\bsls Y, W , W \bsls X , X \bsls (Y \bsls Z) \longrightarrow Z $ with the partition $\langle [\ ] , [W, W\bsls Y, W , W \bsls X], [X \bsls (Y \bsls Z)] \rangle$ in the product-free Lambek calculus.
-By Maehara's method, the interpolant formula should be $X \cdot Y$, but the calculus does not include $\cdot$ as a connective.
-However, \SkNMILL~has a multiplicative conjunction $\ot$.
-It fails because $\tl$ cannot be applied arbitrarily in the antecedent.
-This is an instance of a sequent calculus failing to have the formula-version of Maehara interpolation for a different reason.
+and the partition $\langle [\ ], (Y,Z), [\ ]\rangle$. Suppose by contradiction that Maehara interpolation holds, so we would have a formula $D$ and two derivations $g: {-} \mid Y, Z \vd D$ and $h : X \mid D \vd (X\ot Y)\ot Z$.
+The variable condition of Maehara interpolation and the existence of the derivation $g$ ensure that $D$ does not contain atomic formulae other than $Y$ and $Z$, and the latter must have a unique occurrence in $D$. Nevertheless, the existence of derivation $h$ is absurd. Since $X$ is atomic, $h$ can only be of the form: $(i)$ $f = \tr(f_1,f_2)$ for some derivations $f_1 : X \mid D \vd X \ot Y$ and $f_2 : {-} \mid \quad \vd Z$, or $(ii)$ $f = \tr(f'_1,f'_2)$ for some derivations $f'_1 : X \mid \quad \vd X \ot Y$ and $f'_2 : {-} \mid D \vd Z$. Case $(i)$ is impossible since there is no such $f_2$, while case $(ii)$ is impossible since there is no such $f'_1$.
+% , and no other  are atomic, the only possibility is that $D = Y \ot Z$, however, the sequent $X \mid Y \ot Z \vd (X \ot Y) \ot Z$ does not have a proof in \SkNMILL.
+% \begin{equation*}\label{example:ccut:failure}
+%   \begin{array}{c}
+%     \infer[\tr]{X \mid Y \ot Z \vd (X \ot Y) \ot Z}{
+%     \deduce{X \mid Y\ot Z \vd X \ot Y}{??}
+%     &
+%     \deduce{{-} \mid \quad \vd Z}{??}
+%   }
+%   \\[15pt]
+%   \infer[\tr]{X \mid Y \ot Z \vd (X \ot Y) \ot Z}{
+%     \infer[\tr]{X \mid \quad \vd X \ot Y}{
+%       \infer[\ax]{X \mid \quad \vd X}{}
+%       &
+%       \deduce{{-} \mid \quad \vd Y}{??}
+%     }
+%     &
+%     \infer[\pass]{{-} \mid Y \ot Z \vd Z}{
+%       \infer[\tl]{Y \ot Z \mid \quad \vd Z}{
+%         \deduce{Y \mid Z \vd Z}{??}
+%       }
+%     }
+%   }
+%   \end{array}
+% \end{equation*}
+% In general, the rule
+% \begin{displaymath}
+% \begin{array}{c}
+%   \infer[\ot\mf{C}]{S \mid \GG , A \ot B , \GD \vd C}{
+%     \deduce{S \mid \GG, A , B , \GD \vd C}{}
+%   }
+% \end{array}
+% \end{displaymath}
+% is not admissible in \SkNMILL.
+%\\
+
+This situation is reminiscent of proving interpolation in the product-free Lambek calculus \cite{Pentus1997} and in the implicational fragment of intuitionistic logic \cite{Kanazawa2006}.
+In both these cases, Maehara interpolation fails because none of the additive ($\land$) and multiplicative ($\ot$) conjunction is present.
+A concrete counterexample in the product-free Lambek calculus (adapted from Kanazawa \cite{Kanazawa2006}) is given by the derivable sequent $W, W\bsls Y, W , W \bsls X , X \bsls (Y \bsls Z) \vd Z$ with the partition $\langle [\ ] , [W, W\bsls Y, W , W \bsls X], [X \bsls (Y \bsls Z)] \rangle$. This can be shown to not satisfy Maehara interpolation property. In the presence of $\ot$,  Maehara's method would produce the interpolant formula $X \ot Y$. The situation of \SkNMILL~ is somewhere inbetween: we have a multiplicative conjunction $\ot$ but we cannot do much with it if a formula $A \ot B$ is in context instead of the stoup position, since the rule $\tl$ cannot be applied arbitrarily in the antecedent.
+The counterexample to \MIP~in product-free sequent calculus can, when appropriately modified, also works as a counterexample to \cMIP~in \SkNMILL: consider the derivable sequent  $X \lolli (Y \lolli Z) \mid W \lolli X, W , W \lolli Y, W \vd Z$ with the partition $\langle [\ ] , [W \lolli X, W , W \lolli Y, W], [\ ] \rangle$.
+%This is an instance of a sequent calculus failing to have the formula-version of Maehara interpolation for a different reason.
+
+\section{Interpolation}\label{sec:interpolation}
+
+In this section, we show that \SkNMILL~enjoys Craig interpolation.
 
 For \SkNMILL, we should prove the following two statements of Maehara interpolation.
 \genIntrp
