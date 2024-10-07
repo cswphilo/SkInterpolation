@@ -972,7 +972,7 @@ We proceed by induction on the structure of $f$.
 \underline{Case $f = \ax$.} Suppose $f = \ax : A \mid \quad \vd A$, which forces $\GG_0 = \GG_1 = [\ ]$.
 In this case, the interpolant formula is $A$ and $g = h = \ax : A \mid \quad \vd A$, where the multiplicity condition is automatically satisfied.
 \\
-\underline{Case $f = \unitr$.} Since $f : \mid \quad \vd \unit$, this forces again $\GG_0$ and $\GG_1$ to be empty lists.
+\underline{Case $f = \unitr$.} Since $f : {-} \mid \quad \vd \unit$, this forces again $\GG_0$ and $\GG_1$ to be empty lists.
 In this case, the interpolant formula is $\unit$ and $g =  \unitr : {-} \mid \quad \vd \unit$ and $h = \unitl (\unitr) : \unit \mid \quad \vd \unit$, where the multiplicity condition is vacuously satisfied.
 \\
 \underline{Case $f = \unitl \ f'$.}
@@ -989,7 +989,7 @@ The multiplicity condition is automatically satisfied.
 \underline{Cases $f = \tl \ f'$ and $f = \lright \ f'$.} Analogous to the previous case.
 \\
 \underline{Case $f = \pass \ f'$}. Let $f' : A \mid \Gamma' \vd C$ and $\Gamma = A,\Gamma'$.
-There are two subcases determined by the partition $\GG_0,\GG_1$ of $\GG$. 
+There are two subcases determined by the partition $\langle \GG_0,\GG_1 \rangle$ of $\GG$. 
 Specifically, either $\GG_0$ is an empty list or not.
 \begin{itemize}
   \item[$\bullet$] If $\GG_0 = [\ ]$, then the interpolant is $\unit$ and two desired derivations are $\unitr$ and $\unitl (\pass \ f')$.
@@ -1089,7 +1089,7 @@ By induction on $f''$ with the partition $\langle [\ ] , \Delta' \rangle$ we obt
 \item[--] a derivation $h'': E \mid \Delta' \vd C$ such that
 \item[--] $\gs{E} \leq\gs{B}$ and $ \gs{E} \leq \gs{\GG_2 , C}$ for all atomic formuale $X$.
 \end{itemize}
-We also apply the \cMMIP~procedure (which, remember, is proved mutually with \sMIP) on the derivation $f'$ with the partition $\langle \GG_0 , \GG'' , [\ ]\rangle$ and obtain
+We also apply the \cMMIP~procedure (which, remember, is proved by mutual induction with \sMIP) on the derivation $f'$ with the partition $\langle \GG_0 , \GG'' , [\ ]\rangle$ and obtain
 \begin{itemize}
 \item[--]  a partition $\langle \GD_1, \dots , \GD_n \rangle$ of $\GG''$,
 \item[--] a list of formulae $D_1 , \dots , D_n$,
@@ -1150,65 +1150,82 @@ Notice that $\GG'' = \GD_1, \dots, \GD_n$, so the multiplicity condition is easy
 \end{proof}
 
 \begin{proof}[Proof of \cMMIP]
-The first base case is $f  = \ax : A \mid \quad \vd A$, which means that $\GG_0 = \GG_1 = \GG_2 = [\ ]$.
-In this case, the partition of $\GG_1$ is $\langle [\ ] \rangle$ and the list of formulae and list of derivations are empty lists.
-Another base case $f = \unitr$ is similar.
-
-For inductive cases, we first deal with one-premise rules. 
-The first group of rules are $\unitl$, $\tl$, and $\lright$. 
-We show the case of $f = \unitl \ f'$, while the other two are similar.
-Given a derivation $\unitl \ f' : \unit \mid \GG \vd C$ and a partition $\langle \GG_0 , \GG_1 , \GG_2\rangle$ of $\GG$.
-By induction, we have 
+We proceed by induction on the structure of $f$. 
+\\
+\underline{Case $f  = \ax$.}
+Suppose $f = \ax : A \mid \quad \vd A$, which means that $\GG_0 = \GG_1 = \GG_2 = [\ ]$.
+In this case, the desired partition of $\GG_1$ is the empty one $\langle [\ ] \rangle$, i.e. $n=0$. The desired lists of formulae $D_i$ and of derivations $h_i$ are also empty. The desired derivation $g$ is $\ax$.
+\\
+\underline{Case $f = \unitr$.} Similar to the previous one.
+\\
+\underline{Case $f = \unitl \ f'$.}
+Given a derivation $f' : {-} \mid \GG \vd C$, by induction on $f'$ with the same partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$ we obtain  
 \begin{itemize}
-  \item[--] a partition $\langle \GD_0, \dots , \GD_0 \rangle$ of $\GG_1$, 
-  \item[--] a list of interpolant formulae $D_1, \dots , D_n$ and
-  \item[--] derivations $g' : {-} \mid \GG_0 , D_1 , \dots , D_n , \GG_2 \vd C$ and $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1 \dots n]$
-  \item[--]  $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1 \dots n]$ and $\gs{D_1, \dots, D_n} \leq \gs{S, \GG_0, \GG_2, C}$ for every $X$.
+  \item[--] a partition $\langle \GD_0, \dots , \GD_n \rangle$ of $\GG_1$, 
+  \item[--] a list of interpolant formulae $D_1, \dots , D_n$,
+  \item[--] a derivation $g' : {-} \mid \GG_0 , D_1 , \dots , D_n , \GG_2 \vd C$,
+    \item[--] derivations $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1 \dots n]$, such that
+    \item[--]  $\gs{D_i} \leq \gs{\GD_i}$ for all $i \in [1 \dots n]$ and atomic formulae $X$,
+      \item[--] $\gs{D_1, \dots, D_n} \leq \gs{S, \GG_0, \GG_2, C}$ for all atomic formulae $X$.
 \end{itemize}
-In this case, the partition, the list of interpolant formulae are the same as the inductive hypothesis.
+The desired partition of $\GG_1$ is $\langle \GD_0, \dots , \GD_n \rangle$, the desired list of interpolant formulae is $D_1,\dots,D_n$.
 The desired derivations are $g = \unitl \ g'$ and $h_i = h'_i$ for $i \in [1 \dots n]$.
 The multiplicity condition is automatically satisfied.
-
-The critical case among one-premise rules is $f = \pass \ f'$, with the partition $\langle [\ ], (A, \GG_1) , \GG_2 \rangle$ and derivation $f' : A \mid \GG_1 , \GG_2 \vd C$.
-In this case, we apply the inductive hypothesis of $\mf{scut}$-interpolation on $f'$ and obtain a formula $D$ such that 
+\\
+\underline{Cases $f = \tl \ f'$ and $f = \lright \ f'$.} Analogous to the previous case.
+\\
+\underline{Case $f = \pass \ f'$.}
+Let $f' : A \mid \Gamma' \vd C$ and $\Gamma = A,\Gamma'$. There are subcases determined by the partition $\langle \GG_0,\GG_1,\GG_2 \rangle$ of $\GG$.
+The most interesting case is the one where $\GG_0 = [\ ]$ and $\GG_1 = A,\GG'_1$, so that $\GG' = \GG'_1,\GG_2$. The other possible cases are handled similarly to the $\unitl$ case discussed above.
+We apply the \sMIP~procedure (which, remember, is proved by mutual induction with \cMMIP) on the derivation $f'$ and the partition $\langle \GG'_1,\GG_2 \rangle$, which gives us
 \begin{itemize}
-  \item[--] $g': A \mid \GG_1 \vd D$,
-  \item[--] $h' : D \mid \GG_2 \vd C$, and
-  \item[--] $\gs{D} \leq \gs{A , \GG_1}$ and $\gs{D} \leq \gs{\GG_2 , C}$ for every $X$.
+  \item[--] a formula $D$,
+  \item[--] a derivation $g': A \mid \GG'_1 \vd D$,
+  \item[--] a derivation $h' : D \mid \GG_2 \vd C$, such that
+  \item[--] $\gs{D} \leq \gs{A , \GG'_1}$ and $\gs{D} \leq \gs{\GG_2 , C}$ for every atomic formula $X$.
 \end{itemize}
-The desired derivations are $\pass \ g' : {-} \mid A , \GG_1 \vd D$ and $\pass \ h' : {-} \mid D, \GG_2 \vd C$, i.e. the partition of $A, \GG_1$ is itself and the list of formulae is the singleton list $[D]$.
-The multiplicity condition is satisfied by hypothesis.
-
-Next we deal with two-premises rules.
-We show the case $f = \tr (f' , f'')$, while the case of $\lleft$ is similar.
-Given a derivation $\tr (f' , f'')$, where $f' : S \mid \GL \vd A$ and $f'' : {-} \mid \GO \vd B$ and the partition $\langle \GG_0 , \GG_1, \GG_2 \rangle$ of $(\GL, \GO)$, there are three cases:
-\begin{enumerate}
-  \item If $\GG_0 = (\GG'_0 , \GG''_0)$ where $\GL = \GG'_0$ and $\GO = (\GG''_0 , \GG_1 , \GG_2)$, then we apply induction on $f''$ to obtain a partition $\langle \GD_0, \dots , \GD_0 \rangle$ of $\GG_1$ and a list of interpolant formulae $D_1, \dots , D_n$ such that
+The desired partition of $A,\GG'_1$ is the singleton context $[A,\GG'_1]$, i.e. $n = 1$.
+The desired list of interpolant formulae is the singleton $[D]$.
+The desired derivation $g$ is $\pass \ g' : {-} \mid A , \GG'_1 \vd D$ and the desired list of derivations $h_i$ is the singleton consisting only of $\pass \ h' : {-} \mid D, \GG_2 \vd C$.
+The multiplicity condition follows from the inductive hypothesis.
+\\
+\underline{Case $f = \tr (f' , f'')$.}
+Let $f' : S \mid \GL \vd A$ and $f'' : {-} \mid \GO \vd B$, so that $\GG = \GL,\GO$.
+We need to check how the latter splitting of $\GG$ compares to the given partition $\langle \GG_0 , \GG_1, \GG_2 \rangle$.
+There are three possibilities:
+\begin{itemize}
+\item[$\bullet$] $\GG_1$ is fully contained in $\GO$.
+  This means that $\GG_0 = \GL , \GG'_0$ and $\GO = \GG'_0 , \GG_1 , \GG_2$.
+  Then $f' : S \mid \GL \vd A$ and $f'' : {-} \mid \GG'_0 , \GG_1 , \GG_2 \vd B$.
+  By induction on $f''$ with partition $\langle \GG'_0 , \GG_1 , \GG_2 \rangle$ we obtain
   \begin{itemize}
-    \item[--] $g'' : {-} \mid \GG''_0 , D_1 , \dots , D_n , \GG_2 \vd B$,
-    \item[--] $h''_i : {-} \mid \GD_i \vd D_i$, for $i \in [1 \dots n]$, and 
-    \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1 \dots n]$ and $\gs{D_1, \dots , D_n} \leq \gs{ \GG''_0 , \GG_2 , B}$ for every $X$.
+  \item[--] a partition $\langle \GD_0, \dots , \GD_n \rangle$ of $\GG_1$,
+    \item[--] a list of interpolant formulae $D_1, \dots , D_n$,
+    \item[--] a derivation $g'' : {-} \mid \GG'_0 , D_1 , \dots , D_n , \GG_2 \vd B$,
+    \item[--] derivations $h''_i : {-} \mid \GD_i \vd D_i$, for $i \in [1 \dots n]$, such that
+    \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1 \dots n]$ and $\gs{D_1, \dots , D_n} \leq \gs{ \GG'_0 , \GG_2 , B}$ for every $X$.
   \end{itemize}
-  The desired derivations are $g = \tr (f' , g'')$ and $h_i = h''_i$ for $i \in [1 \dots n]$.
-  The multiplicity condition is satisfied because $\gs{D_1 , \dots , D_n} \leq \gs{ \GG''_0 , \GG_2 , B} \leq \gs{S, \GG'_0, \GG''_0 , \GG_2 , A \ot B}$.
-  \item If $\GG_1 = (\GG'_1 , \GG''_1)$ where $\GL = (\GG_0 , \GG'_1)$ and $\GO = (\GG''_1 , \GG_2)$, then we apply induction on $f'$ and $f''$ respectively to obtain
+  The desired partition of $\GG_1$ is $\langle \GD_0, \dots , \GD_n \rangle$. The desired list of interpolant formulae is $D_1,\dots,D_n$.
+  The desired derivation $g$ is $\tr (f' , g'')$ and the desired list of derivations $h_i$ is  $h''_i$ for $i \in [1 \dots n]$.
+  The multiplicity condition is satisfied because $\gs{D_1 , \dots , D_n} \leq \gs{ \GG'_0 , \GG_2 , B} \leq \gs{S, \GL, \GG'_0 , \GG_2 , A \ot B}$.
+\item[$\bullet$] $\GG_1$ is fully contained in $\GL$. This case is analogouse to the one above, but now we have to induct on the derivation $f'$ instead of $f''$.
+\item[$\bullet$] $\GG_1$ splits between $\GL$ and $\GO$.
+  This means that $\GG_1 = \GG'_1 , \GG''_1$ and $\GL = \GG_0 , \GG'_1$ and $\GO = \GG''_1 , \GG_2$, and $\GG''_1$ is non-empty.
+  Then $f' : S \mid \GG_0,\GG'_1 \vd A$ and $f'' : {-} \mid \GG''_1,\GG_2 \vd B$.
+  By induction on $f'$ with the partition $\langle \GG_0, \GG'_1 \rangle$ and on $f''$ with the partition $\langle \GG''_1,\GG_2 \rangle$, respectively, we obtain
   \begin{itemize}
-    \item[--] a partition $\langle \GD'_0, \dots , \GD'_0 \rangle$ of $\GG'_1$ and a list of interpolant formulae $D'_1, \dots , D'_n$ such that
-    \item[--] $g' : S \mid \GG_0 , D'_1 , \dots , D'_n \vd A$,
-    \item[--] $h'_i : {-} \mid \GD'_i \vd D'_i$, for $i \in [1 \dots n]$, and 
-    \item[--] $\gs{D'_i} \leq \gs{\GD'_i}$ for $i \in [1 \dots n]$ and $\gs{D'_1 , \dots , D'_n} \leq \gs{ S, \GG_0 , A}$ for every $X$ and
+  \item[--] a partition $\langle \GD_0, \dots , \GD_n \rangle$ of $\GG'_1$ and a partition $\langle \GD_{n+1}, \dots , \GD_m \rangle$ of $\GG''_1$,
+    \item[--] two lists of interpolant formulae $D_1, \dots , D_n$ and $D_{n+1}, \dots , D_m$,
+    \item[--] derivations $g' : S \mid \GG_0 , D_1 , \dots , D_n \vd A$ and $g'' : {-} \mid D_{n+1} , \dots , D_{m} , \GG_2 \vd B$,
+    \item[--] derivations $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1 \dots n]$, and derivations $h''_j : {-} \mid \GD_j \vd D_j$, for $j \in [n+1 \dots m]$, such that
+    \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1 \dots n]$ and $\gs{D_{j}} \leq \gs{\GD_{j}}$ for $j \in [n+1 \dots m]$ for every $X$, 
+      \item[--] $\gs{D_1 , \dots , D_n} \leq \gs{ S, \GG_0 , A}$ and $\gs{D_{n+1} , \dots , D_{m}} \leq \gs{\GG_2 , B}$ for every $X$.
   \end{itemize}
-  \begin{itemize}
-    \item[--] a partition $\langle \GD''_0, \dots , \GD''_0 \rangle$ of $\GG''_1$ and a list of interpolant formulae $D''_1, \dots , D''_m$ such that
-    \item[--] $g'' : {-} \mid D''_{n+1} , \dots , D''_{n+m} , \GG_2 \vd B$, 
-    \item[--] $h''_i : {-} \mid \GD''_i \vd D''_i$, for $i \in [n+1 \dots n+m]$, and
-    \item[--] $\gs{D''_{i}} \leq \gs{\GD''_{i}}$ for $i \in [n+1 \dots n+m]$ and $\gs{D''_{n+1} , \dots , D''_{n+m}} \leq \gs{\GG_2 , B}$ for every $X$.
-  \end{itemize}
-  The desired derivations are 
-  \begin{itemize}
-    \item[--] $g = \tr(g' , g'') : S \mid \GG_0 , D'_1 , \dots , D'_n , D''_{n+1} , \dots , D''_{n+m} , \GG_2 \vd A \ot B$ and 
-    \item[--] for $i \in [1 \dots n+m]$, if $i \leq n$, then $h_i = h'_i$. Otherwise, let $h_i = h''_i$.
-  \end{itemize}
+  The desired partition of $\GG'_1,\GG''_1$ is $\langle \GD_0, \dots , \GD_n, \GD_{n+1}, \dots , \GD_m \rangle$.
+  The desired list of interpolant formulae is $D_1, \dots , D_n,D_{n+1}, \dots , D_m$.
+  The desired derivations are:
+  $g$ is $\tr(g' , g'') : S \mid \GG_0 , D'_1 , \dots , D'_n , D''_{n+1} , \dots , D''_{n+m} , \GG_2 \vd A \ot B$ and 
+    for $i \in [1 \dots n+m]$, if $i \leq n$, then $h_i = h'_i$. Otherwise, let $h_i = h''_i$.
   We abbreviate $D'_1 , \dots , D'_n$ as $[D']$, $\GD'_1, \dots , \GD'_n$ as $[\GD']$, $D''_{n+1} , \dots , D''_{n+m}$ as $[D'']$, and $\GD''_{n+1}, \dots , \GD''_{n+m}$ as $[\GD'']$. 
   For the multiplicity condition, we argue that for every $X$
   \begin{itemize}
@@ -1223,8 +1240,9 @@ Given a derivation $\tr (f' , f'')$, where $f' : S \mid \GL \vd A$ and $f'' : {-
   % By inductive hypothesis, we know that $\gs{[D']} \subseteq \gs{ S, \GG_0 , A}$ and $\gs{[D'']} \subseteq \gs{\GG_2 , B}$.
   % By the definition of $\mf{var}$, we have $\gs{[D'], [D'']} \subseteq \gs{ S, \GG_0 , A , \GG_2 , B} = \gs{S , \GG_0 , \GG_2 , A \ot B}$.
   % Therefore, $\gs{[D'], [D'']} \subseteq \gs{[\GD'] , [\GD'']} \cap \gs{S , \GG_0 , \GG_2 , A \ot B}$, as desired.
-  \item The case $\GG_2 = (\GG'_2 , \GG''_2)$ where $\GL = \GG_0 , \GG_1, \GG'_2$ and $\GO = \GG''_2$ is similar to the first case.
-\end{enumerate}
+  \item[$\bullet$] The case $\GG_2 = (\GG'_2 , \GG''_2)$ where $\GL = \GG_0 , \GG_1, \GG'_2$ and $\GO = \GG''_2$ is similar to the first case.
+\end{itemize}
+%\underline{Case $f = \lleft (f',f'') $.} Analogous to the case of $\tr$ above.
 \end{proof}
 % \begin{lemma}\label{lem:ccut:intrp}
 % ~
