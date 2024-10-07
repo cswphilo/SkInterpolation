@@ -373,6 +373,7 @@ Motivated by the categorical interpretation of \SkNMILL, we take one more step a
 In previous work \cite{UVW:protsn}, we introduced an equivalence relation on derivations ($\circeq$) that captures $eta$-conversions and permutative conversions, and is both sound and complete with respect to the categorical semantics.
 We show that the \sMIP~and \cMMIP~procedures of Theorem \ref{genIntrp} are right inverses of the admissible rules $\mf{scut}$ and $\mf{ccut}$, respectively. Formally, we prove the following theorem:
 \begin{restatable*}{theorem}{cutIntrp}\label{cutIntrp}
+~
   \begin{enumerate}[label=(\roman*)]
   \item Let $g : S \mid \GG_0 \vd D$ and $h : D \mid \GG_1 \vd C$ be the derivations obtained by applying the \sMIP~procedure on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 \rangle$. Then $\mf{scut}(g, h) \circeq f$.
   \item Let $g : S \mid \GG_0 , D_1 , \dots, D_n, \GG_2 \vd C$ and $h_i : {-} \mid \GD_i \vd D_i$ for $i \in [1 \dots n]$ be derivations obtained by applying the \cMMIP~procedure on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 , \GG_2 \rangle$. Then $\mf{ccut}^*([h_i] , g) \circeq f$.
@@ -536,7 +537,42 @@ This calculus is cut-free, in the sense that the following two rules are admissi
 \end{equation}
 The presence of two cut rules comes from the fact that the cut formula can appear either in the stoup or the context of the second premise.
 
-\niccolo{Define $\lright^*$ and $\lleft^*$ here.}
+% \niccolo{Define $\lright^*$ and $\lleft^*$ here.}
+
+Given a list of formulae $\GL$ and a list of derivations $\phi$ of the form ${-} \mid \GG_i \vd A_i$ for $i \in [1 \dots n]$, we define iterated $\lright$ and $\lleft$ respectively as follows:
+\begin{equation}\label{-oR-oL*}
+  \begin{array}{c}
+    \infer[\lright^*]{S \mid \GG \vd \ldbc \GL \mid B\rdbc}{
+      \deduce{S \mid \GG , \GL \vd B}{f}
+    }
+    \qquad
+    \infer[\lleft^*]{\ldbc \GL \mid B \rdbc \mid \GG , \GD \vd C}{
+      \phi
+      &
+      \deduce{B \mid \GD \vd C}{f}
+    }
+  \end{array}
+\end{equation}
+The formula $\ldbc \GD \mid B \rdbc$ is defined inductively as
+\begin{itemize}
+  \item[--] If $\GD = [\ ]$, then $\ldbc \GD \mid B \rdbc = B$.
+  \item[--] If $\GD =  (A_1 , \GD')$, then $\ldbc \GD \mid B \rdbc = A_1 \lolli \ldbc \GD' \mid B \rdbc$.
+\end{itemize} 
+% \begin{definition}
+%   ~
+%   \begin{itemize}
+%     \item Given a derivation $f : S \mid \GG , \GD \vd B$, we define $\lright^* (\GD , f)$ recursively:
+%   \begin{itemize}
+%     \item If $\GD = [\ ]$, then $\lright^* (\GD, f) = f$.
+%     \item If $\GD = (A_1 , \GD')$, then $\lright^* (\GD , f) = \lright (\lright^* (\GD' , f))$.
+%   \end{itemize}
+%   \item Given a derivation $f : B \mid \GD \vd C$ and a list of derivations $\phi$ that consists of $g_i : {-} \mid \GG_i \vd A_i$ for $i \in [1 \dots n]$, we define $\lleft^* (\phi , f)$ recursively:
+%   \begin{itemize}
+%     \item If $\phi = [\ ]$, then $\lleft^* (\phi , f) = f$.
+%     \item If $\phi = (g_1 , \phi')$, then $\lleft^* (\phi , f) = \lleft (g_1 , \lleft^* (\phi' , f))$.
+%   \end{itemize}
+%   \end{itemize}
+% \end{definition}
 
 \section{Equivalence of Derivations}\label{sec:equiv}
 
@@ -800,9 +836,205 @@ The generating equations of $\circeq$ have been carefully selected to appropriat
 %For a more detailed explanation on the sequent calculus and an interpretation of the system as a logic of resources, see \cite[Section 2]{UVW:protsn}.
 The latter paper also contains an interpretation of the sequent calculus as a logic of resources, as well as a calculus of derivations in normal form, which completely characterizes proofs modulo the congruence relation $\circeq$.
 
-\niccolo{Move admissible cut equations here.}
-
-
+% \niccolo{Move admissible cut equations here.}
+Moreover, following equations of derivations hold in \SkNMILL~due to the cut-elimination procedures defined in \cite{UVW:protsn,wan2024}.
+\begin{proposition}\label{eq:cut}
+    \begin{displaymath}
+      \begin{array}{l}
+      % scut-hass
+      \begin{array}{c}
+        \infer[\mf{scut}]{S \mid \GG_0, \GG_1 , \GG_2 , \GG_3 \vd C}{
+          \deduce{S \mid \GG_0 \vd A}{f}
+          &
+          \infer[\mf{ccut}]{A \mid \GG_1 , \GG_2 , \GG_3 \vd C}{
+            \deduce{{-} \mid \GG_2 \vd B}{g}
+            &
+            \deduce{A \mid \GG_1 , B , \GG_3 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[10pt]
+        \qquad \qquad \qquad \qquad \qquad  =
+        \begin{array}{c}
+          \infer[\mf{ccut}]{S \mid \GG_0, \GG_1 , \GG_2 , \GG_3 \vd C}{
+          \deduce{{-} \mid \GG_2 \vd B}{g}
+          &
+          \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , B , \GG_3 \vd C}{
+            \deduce{S \mid \GG_0 \vd A}{f}
+            &
+            \deduce{A \mid \GG_1 , B , \GG_3 \vd C}{h}
+          }
+        }
+        \end{array}
+      \end{array}
+      \end{displaymath}
+      \begin{displaymath}
+      \begin{array}{l}
+      % ccut-hass
+      \begin{array}{c}
+        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
+          \deduce{{-} \mid \GG_1 \vd A}{f}
+          &
+          \infer[\mf{ccut}]{S \mid \GG_0 , A , \GG_2 , \GG_3 , \GG_4 \vd C}{
+            \deduce{{-} \mid \GG_3 \vd B}{g}
+            &
+            \deduce{S \mid \GG_0 , A , \GG_2 , B , \GG_4 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[10pt]
+      \qquad \qquad \qquad \qquad \qquad  =
+      \begin{array}{c}
+        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
+          \deduce{{-} \mid \GG_3 \vd B}{g}
+          &
+          \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , B , \GG_4 \vd C}{
+            \deduce{{-} \mid \GG_1 \vd A}{f}
+            &
+            \deduce{S \mid \GG_0 , A , \GG_2 , B , \GG_4 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[30pt]
+      \end{array}
+    \end{displaymath}
+    \begin{displaymath}
+      \begin{array}{l}
+      % scutscut-vass
+      \begin{array}{c}
+        \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+          \deduce{S \mid \GG_0 \vd A}{f}
+          &
+          \infer[\mf{scut}]{A \mid \GG_1 , \GG_2 \vd C}{
+            \deduce{A \mid \GG_1 \vd B}{g}
+            &
+            \deduce{B \mid \GG_2 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[10pt]
+      \qquad \qquad \qquad \qquad \qquad  =
+      \begin{array}{c}
+        \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
+          \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 \vd B}{
+            \deduce{S \mid \GG_0 \vd A}{f}
+            &
+            \deduce{A \mid \GG_1 \vd B}{g}
+          }
+          &
+          \deduce{B \mid \GG_2 \vd C}{h}
+        }
+      \end{array}
+      \end{array}
+      \end{displaymath}
+      \begin{displaymath}
+      \begin{array}{l}
+      %  ccutscut-vass
+      \begin{array}{c}
+        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 \vd C}{
+          \deduce{{-} \mid \GG_1 \vd A}{f}
+          &
+          \infer[\mf{scut}]{S \mid \GG_0 , A , \GG_2 , \GG_3 \vd C}{
+            \deduce{S \mid \GG_0 , A , \GG_2 \vd B}{g}
+            &
+            \deduce{B \mid \GG_3 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[10pt]
+      \qquad \qquad \qquad \qquad \qquad  =
+      \begin{array}{c}
+        \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 \vd C}{
+          \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd B}{
+            \deduce{{-} \mid \GG_1 \vd A}{f}
+            &
+            \deduce{S \mid \GG_0 , A , \GG_2 \vd B}{g}
+          }
+          &
+          \deduce{B \mid \GG_3 \vd C}{h}
+        }
+      \end{array}
+      \end{array}
+      \end{displaymath}
+      \begin{displaymath}
+      \begin{array}{l}
+      % ccutccut-vass
+      \begin{array}{c}
+        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
+          \deduce{{-} \mid \GG_2 \vd A}{f}
+          &
+          \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , A , \GG_3 , \GG_4 \vd C}{
+            \deduce{{-} \mid \GG_1 , A , \GG_3 \vd B}{g}
+            &
+            \deduce{S \mid \GG_0 , B , \GG_4 \vd C}{h}
+          }
+        }
+      \end{array}
+      \\[10pt]
+      \qquad \qquad \qquad \qquad \qquad  =
+      \begin{array}{c}
+        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
+          \infer[\mf{ccut}]{S \mid \GG_1 , \GG_2 , \GG_3 \vd B}{
+            \deduce{{-} \mid \GG_2 \vd A}{f}
+            &
+            \deduce{{-} \mid \GG_1 , A , \GG_3 \vd B}{g}
+          }
+          &
+          \deduce{S \mid \GG_0 , B , \GG_4 \vd C}{h}
+        }
+      \end{array}
+    \end{array}
+   \end{displaymath}
+\end{proposition}
+\begin{proof}
+  Equations are proved by mutual induction on derivations.
+\end{proof}
+Given a derivation $f : S \mid \GG_0 , A_1, \dots , A_n \vd B$ and a list of derivations $\phi$ that consists of $g_i : {-} \mid \GD_i \vd A_i$ for $i \in [1 \dots n]$, the following equation is derivable from the five equations in Proposition \ref{eq:cut}.
+For simplicity, we denote $(A_1 , \dots , A_n)$ and $(\GD_1 , \dots , \GD_n)$ as $\GL$ and $\GD$, respectively.
+   \begin{equation}\label{scut-or-ols}
+   \begin{array}{l}
+    \begin{array}{c}
+    \infer[\mf{scut}]{S \mid \GG_0, \GD, \GG_1 \vd C}{
+      \infer[\lright^*]{S \mid \GG_0 \vd \ldbc \GL \mid B\rdbc}{
+        \deduce{S \mid \GG_0 , \GL \vd B}{f}
+      }
+      &
+      \infer[\lleft^*]{\ldbc \GL \mid B\rdbc \mid \GD , \GG_1 \vd C}{
+        \phi
+        &
+        \deduce{B \mid \GG_1 \vd C}{h}
+      }
+    }
+   \end{array}
+   \\[10pt]
+   \qquad \qquad \qquad \qquad \qquad
+   = 
+   \quad
+    \begin{array}{c}
+      \infer[\mf{scut}]{S \mid \GG_0 , \GD , \GG_1 \vd C}{
+        \infer[\mf{ccut}^*]{S \mid \GG_0 , \GD \vd B}{
+          \phi
+          &
+          \deduce{S \mid \GG_0 , \GD \vd B}{f}
+        }
+        &
+        \deduce{B \mid \GG_1 \vd C}{h}
+      }
+    \end{array}
+   \end{array}
+   \end{equation}
+The iterated version of context cut ($\mf{ccut}^*$) is defined as follows:
+\begin{definition}
+~
+\begin{itemize}
+  \item  Given a derivation $f : S \mid \GG_0 , D_1 , \dots, D_n , \GG_2 \vd C$ and a list of derivations $\phi$ where for any $g_i \in \phi$, $\mf{ccut}(g_i , f)$ is a derivation. 
+  We define $\mf{ccut}^* (\phi , f)$ recursively:
+  \begin{itemize}
+    \item[--] If $\phi = [\ ]$, then $\mf{ccut}^* (\phi , f) = f$.
+    \item[--] If $\phi = (g_1 , \phi')$, then $\mf{ccut}^* (\phi , f) = \mf{ccut} (g_1 , (\mf{ccut}^* (\phi' , f)))$.
+  \end{itemize}
+\end{itemize}
+\end{definition}
 \section{Failure of Maehara Interpolation}\label{sec:failure}
 
 The goal of this paper is proving that the logic \SkNMILL~satisfies the Craig interpolation property. But, as already mentioned in the introductive section, we cannot follow the same proof strategy used in the (associative or non-associative) Lambek calculus, where Craig interpolation follows as a corollary to Maehara interpolation. This is because the sequent calculus of \SkNMILL~does not satisfy Maehara interpolation. Let us see why.
@@ -1087,7 +1319,7 @@ By induction on $f''$ with the partition $\langle [\ ] , \Delta' \rangle$ we obt
 \item[--] a formula $E$,
 \item[--] a derivation $g'' : B \mid \quad \vd E$,
 \item[--] a derivation $h'': E \mid \Delta' \vd C$ such that
-\item[--] $\gs{E} \leq\gs{B}$ and $ \gs{E} \leq \gs{\GG_2 , C}$ for all atomic formuale $X$.
+\item[--] $\gs{E} \leq\gs{B}$ and $ \gs{E} \leq \gs{\GG_2 , C}$ for all atomic formulae $X$.
 \end{itemize}
 We also apply the \cMMIP~procedure (which, remember, is proved by mutual induction with \sMIP) on the derivation $f'$ with the partition $\langle \GG_0 , \GG'' , [\ ]\rangle$ and obtain
 \begin{itemize}
@@ -1437,218 +1669,7 @@ By Lemma \ref{lem:gs2vars}, we know that $\vars{B} \subseteq \vars{A}$ and $\var
 \end{proof}
 
 \section{Proof-Relevant Interpolation}\label{sec:proof-rel} 
-
-Moreover, we can show that the $\mf{scut}\sls \mf{ccut}$-interpolation procedures of Theorem \ref{genIntrp} are right inverses of $\mf{scut}$ and $\mf{ccut}$.
-We first define iterated forms of $\mf{ccut}$, $\lright$, and $\lleft$.
-\begin{definition}
-~
-\begin{itemize}
-  \item  Given a derivation $f : S \mid \GG_0 , D_1 , \dots, D_n , \GG_2 \vd C$ and a list of derivations $\phi$ where for any $g_i \in \phi$, $\mf{ccut}(g_i , f)$ is a derivation. 
-  We define $\mf{ccut}^* (\phi , f)$ recursively:
-  \begin{itemize}
-    \item[--] If $\phi = [\ ]$, then $\mf{ccut}^* (\phi , f) = f$.
-    \item[--] If $\phi = (g_1 , \phi')$, then $\mf{ccut}^* (\phi , f) = \mf{ccut} (g_1 , (\mf{ccut}^* (\phi' , f)))$.
-  \end{itemize}
-  \item Given a derivation $f : S \mid \GG , \GD \vd B$, we define $\lright^* (\GD , f)$ recursively:
-  \begin{itemize}
-    \item If $\GD = [\ ]$, then $\lright^* (\GD, f) = f$.
-    \item If $\GD = (A_1 , \GD')$, then $\lright^* (\GD , f) = \lright (\lright^* (\GD' , f))$.
-  \end{itemize}
-  \item Given a derivation $f : B \mid \GD \vd C$ and a list of derivations $\phi$ that consists of $g_i : {-} \mid \GG_i \vd A_i$ for $i \in [1 \dots n]$, we define $\lleft^* (\phi , f)$ recursively:
-  \begin{itemize}
-    \item If $\phi = [\ ]$, then $\lleft^* (\phi , f) = f$.
-    \item If $\phi = (g_1 , \phi')$, then $\lleft^* (\phi , f) = \lleft (g_1 , \lleft^* (\phi' , f))$.
-  \end{itemize}
-\end{itemize}
-\end{definition}
-\begin{proposition}\label{eq:cut}
-  Following equations of derivations hold in \SkNMILL\textnormal{:}
-    \begin{displaymath}
-      \begin{array}{l}
-      % scut-hass
-      \begin{array}{c}
-        \infer[\mf{scut}]{S \mid \GG_0, \GG_1 , \GG_2 , \GG_3 \vd C}{
-          \deduce{S \mid \GG_0 \vd A}{f}
-          &
-          \infer[\mf{ccut}]{A \mid \GG_1 , \GG_2 , \GG_3 \vd C}{
-            \deduce{{-} \mid \GG_2 \vd B}{g}
-            &
-            \deduce{A \mid \GG_1 , B , \GG_3 \vd C}{h}
-          }
-        }
-      \end{array}
-      \\[10pt]
-        \qquad \qquad \qquad \qquad \qquad  =
-        \begin{array}{c}
-          \infer[\mf{ccut}]{S \mid \GG_0, \GG_1 , \GG_2 , \GG_3 \vd C}{
-          \deduce{{-} \mid \GG_2 \vd B}{g}
-          &
-          \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , B , \GG_3 \vd C}{
-            \deduce{S \mid \GG_0 \vd A}{f}
-            &
-            \deduce{A \mid \GG_1 , B , \GG_3 \vd C}{h}
-          }
-        }
-        \end{array}
-      \end{array}
-      \end{displaymath}
-      \begin{displaymath}
-      \begin{array}{l}
-      % ccut-hass
-      \begin{array}{c}
-        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
-          \deduce{{-} \mid \GG_1 \vd A}{f}
-          &
-          \infer[\mf{ccut}]{S \mid \GG_0 , A , \GG_2 , \GG_3 , \GG_4 \vd C}{
-            \deduce{{-} \mid \GG_3 \vd B}{g}
-            &
-            \deduce{S \mid \GG_0 , A , \GG_2 , B , \GG_4 \vd C}{h}
-          }
-        }
-      \end{array}
-      \\[10pt]
-      \qquad \qquad \qquad \qquad \qquad  =
-      \begin{array}{c}
-        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
-          \deduce{{-} \mid \GG_3 \vd B}{g}
-          &
-          \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , B , \GG_4 \vd C}{
-            \deduce{{-} \mid \GG_1 \vd A}{f}
-            &
-            \deduce{S \mid \GG_0 , A , \GG_2 , B , \GG_4 \vd C}{h}
-          }
-        }
-      \end{array}
-      \\[30pt]
-      \end{array}
-    \end{displaymath}
-    \begin{displaymath}
-      \begin{array}{l}
-      % scutscut-vass
-      \begin{array}{c}
-        \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
-          \deduce{S \mid \GG_0 \vd A}{f}
-          &
-          \infer[\mf{scut}]{A \mid \GG_1 , \GG_2 \vd C}{
-            \deduce{A \mid \GG_1 \vd B}{g}
-            &
-            \deduce{B \mid \GG_2 \vd C}{h}
-          }
-        }
-      \end{array}
-      \\[10pt]
-      \qquad \qquad \qquad \qquad \qquad  =
-      \begin{array}{c}
-        \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
-          \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 \vd B}{
-            \deduce{S \mid \GG_0 \vd A}{f}
-            &
-            \deduce{A \mid \GG_1 \vd B}{g}
-          }
-          &
-          \deduce{B \mid \GG_2 \vd C}{h}
-        }
-      \end{array}
-      \end{array}
-      \end{displaymath}
-      \begin{displaymath}
-      \begin{array}{l}
-      %  ccutscut-vass
-      \begin{array}{c}
-        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 \vd C}{
-          \deduce{{-} \mid \GG_1 \vd A}{f}
-          &
-          \infer[\mf{scut}]{S \mid \GG_0 , A , \GG_2 , \GG_3 \vd C}{
-            \deduce{S \mid \GG_0 , A , \GG_2 \vd B}{g}
-            &
-            \deduce{B \mid \GG_3 \vd C}{h}
-          }
-        }
-      \end{array}
-      \\[10pt]
-      \qquad \qquad \qquad \qquad \qquad  =
-      \begin{array}{c}
-        \infer[\mf{scut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 \vd C}{
-          \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 \vd B}{
-            \deduce{{-} \mid \GG_1 \vd A}{f}
-            &
-            \deduce{S \mid \GG_0 , A , \GG_2 \vd B}{g}
-          }
-          &
-          \deduce{B \mid \GG_3 \vd C}{h}
-        }
-      \end{array}
-      \end{array}
-      \end{displaymath}
-      \begin{displaymath}
-      \begin{array}{l}
-      % ccutccut-vass
-      \begin{array}{c}
-        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
-          \deduce{{-} \mid \GG_2 \vd A}{f}
-          &
-          \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , A , \GG_3 , \GG_4 \vd C}{
-            \deduce{{-} \mid \GG_1 , A , \GG_3 \vd B}{g}
-            &
-            \deduce{S \mid \GG_0 , B , \GG_4 \vd C}{h}
-          }
-        }
-      \end{array}
-      \\[10pt]
-      \qquad \qquad \qquad \qquad \qquad  =
-      \begin{array}{c}
-        \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
-          \infer[\mf{ccut}]{S \mid \GG_1 , \GG_2 , \GG_3 \vd B}{
-            \deduce{{-} \mid \GG_2 \vd A}{f}
-            &
-            \deduce{{-} \mid \GG_1 , A , \GG_3 \vd B}{g}
-          }
-          &
-          \deduce{S \mid \GG_0 , B , \GG_4 \vd C}{h}
-        }
-      \end{array}
-    \end{array}
-   \end{displaymath}
-\end{proposition}
-\begin{proof}
-  Equations are proved by mutual induction on derivations.
-\end{proof}
-Given a derivation $f : S \mid \GG_0 , A_1, \dots , A_n \vd B$ and a list of derivations $\phi$ that consists of $g_i : {-} \mid \GD_i \vd A_i$ for $i \in [1 \dots n]$, the following equation is derivable from the five equations in Lemma \ref{eq:cut}.
-For simplicity, we denote $A_1 \lolli (\dots (A_n \lolli B) \dots)$, $(A_1 , \dots , A_n)$, and $(\GD_1 , \dots , \GD_n)$ as $A^*$, $\GD$, and $\GD^*$, respectively.
-   \begin{equation}\label{scut-or-ols}
-   \begin{array}{l}
-    \begin{array}{c}
-    \infer[\mf{scut}]{S \mid \GG_0, \GD^*, \GG_1 \vd C}{
-      \infer[\lright^*]{S \mid \GG_0 \vd A^*}{
-        \GD
-        &
-        \deduce{S \mid \GG_0 , \GD \vd B}{f}
-      }
-      &
-      \infer[\lleft^*]{A^* \mid \GD^* , \GG_1 \vd C}{
-        \phi
-        &
-        \deduce{B \mid \GG_1 \vd C}{h}
-      }
-    }
-   \end{array}
-   \\[10pt]
-   \qquad \qquad \qquad \qquad \qquad
-   = 
-   \quad
-    \begin{array}{c}
-      \infer[\mf{scut}]{S \mid \GG_0 , \GD^* , \GG_1 \vd C}{
-        \infer[\mf{ccut}^*]{S \mid \GG_0 , \GD^* \vd B}{
-          \phi
-          &
-          \deduce{S \mid \GG_0 , \GD \vd B}{f}
-        }
-        &
-        \deduce{B \mid \GG_1 \vd C}{h}
-      }
-    \end{array}
-   \end{array}
-   \end{equation}
+In this section we show proof-relevant interpolation for \SkNMILL~that is reminiscent to {\v{C}}ubri{\'c} \cite{Cubric1994} and Saurin \cite{Saurin2024}, in the sense that that the $\mf{scut}\sls \mf{ccut}$-interpolation procedures of Theorem \ref{genIntrp} are right inverses of $\mf{scut}$ and $\mf{ccut}$.
   % \begin{equation*}
   %  \begin{array}{l}
   %     %scut⊸r⋆⊸ls
@@ -1710,7 +1731,7 @@ For simplicity, we denote $A_1 \lolli (\dots (A_n \lolli B) \dots)$, $(A_1 , \do
   % % → scut (⊸r⋆ Λ f) (⊸ls hs g) ≡ scut (ccut⋆ Γ [] hs f) g
   %  \end{array}
   %  \end{equation}
-With the definition and the equations above, we can state and prove the following:
+% With the definition and the equations above, we can state and prove the following:
 % In particular, we can prove the following two theorems.
 \cutIntrp
 \begin{proof}
@@ -1896,7 +1917,7 @@ We first apply inductive hypothesis of $\mf{ccut}$-interpolation on $f'$ with th
   \item[--] $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1\dots n]$.
 \end{itemize}
 By applying inductive hypothesis of $\mf{scut}$-interpolation on $f''$ with the partition $\langle [\ ] , \GG_2 \rangle$, we obtain a formula $E$ and derivations $g'' : B \mid \quad \vd E$ and $h'': E \mid \GG_2 \vd C$.
-For simplicity, we denote $D_1 \lolli (\dots (D_n \lolli E)\dots)$, $(D_1 , \dots , D_n)$, and $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1\dots n]$ as $D^*$, $\GD$, and $\phi$, respectively.
+For simplicity, we denote $(D_1 , \dots , D_n)$ and $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1\dots n]$ as $\GD$ and $\phi$, respectively.
 The list of contexts $\GD_1, \dots, \GD_n$ always rewrites to $\GG_1$.
 The desired derivations are constructed as follows:
 \begin{displaymath}
@@ -1908,9 +1929,7 @@ The desired derivations are constructed as follows:
   &=&
   \quad
     \begin{array}{c}
-      \infer[\lright^*]{A\lolli B \mid \GG_0 \vd D^*}{
-        \GD
-        &
+      \infer[\lright^*]{A\lolli B \mid \GG_0 \vd \ldbc \GD \mid E\rdbc}{
         \infer[\lleft]{A \lolli B \mid \GG_0 , \GD \vd E}{
           \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
           &
@@ -1918,7 +1937,7 @@ The desired derivations are constructed as follows:
         }
       }
     \end{array}
-    \\[20pt]
+    \\[30pt]
     \begin{array}{c}
       h
     \end{array}
@@ -1926,7 +1945,7 @@ The desired derivations are constructed as follows:
     &=&
     \quad
     \begin{array}{c}
-      \infer[\lleft^*]{D^* \mid \GG_1 \GG_2 \vd C}{
+      \infer[\lleft^*]{\ldbc \GD \mid E\rdbc \mid \GG_1 \GG_2 \vd C}{
             \phi
             &
             \deduce{E \mid \GG_2 \vd C}{h''}
@@ -1940,9 +1959,7 @@ We rewrite $\scut{g}{h}$ by the following path
   \begin{array}{lr}
   \begin{array}{c}
     \infer[\mf{scut}]{A \lolli B \mid \GG_0 , \GG_1 , \GG_2 \vd C}{
-      \infer[\lright^*]{A\lolli B \mid \GG_0 \vd D^*}{
-        \GD
-        &
+      \infer[\lright^*]{A\lolli B \mid \GG_0 \vd \ldbc \GD \mid E\rdbc}{
         \infer[\lleft]{A \lolli B \mid \GG_0 , \GD \vd E}{
           \deduce{{-} \mid \GG_0 , \GD \vd A}{g'}
           &
@@ -1950,7 +1967,7 @@ We rewrite $\scut{g}{h}$ by the following path
         }
       }
       &
-      \infer[\lleft^*]{D^* \mid \GG_1 \GG_2 \vd C}{
+      \infer[\lleft^*]{\ldbc \GD \mid E\rdbc \mid \GG_1 \GG_2 \vd C}{
             \phi
             &
             \deduce{E \mid \GG_2 \vd C}{h''}
