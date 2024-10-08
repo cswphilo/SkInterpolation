@@ -250,3 +250,4 @@ TSWLatexianTemp*
 paper/LSFA24.pag
 paper/CHANGELOG.md
 paper/LICENSE.md
+*.tex~

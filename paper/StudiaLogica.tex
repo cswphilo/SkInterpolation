@@ -272,7 +272,7 @@ Here we investigate the problem proof-theoretically and show that the sequent ca
 % }
 
 Craig interpolation is a fundamental result in first-order logic, named after the logician William Craig \cite{craig:interpolation:1957}.
-A logic $\mc{L}$ has the \emph{Craig interpolation property} if, for any formula $A \to C$ provable in $\mc{L}$ (where $\to$ is the implication connective in $\mc{L}$), there exists a formula $B$ such that $A \to B$ and $B \to C$ are provable in $\mc{L}$, satisfying the variable condition: $\vars{B} \subseteq \vars{A} \cap \vars{C}$, where $\vars{A}$ is the set of atomic formulae appearing in $A$.
+A logic $\mc{L}$ has the \emph{Craig interpolation property} if, for any formula $A \to C$ provable in $\mc{L}$ (where $\to$ is the implication connective in $\mc{L}$), there exists a formula $D$ such that $A \to D$ and $D \to C$ are provable in $\mc{L}$, satisfying the variable condition: $\vars{D} \subseteq \vars{A} \cap \vars{C}$, where $\vars{A}$ is the set of atomic formulae appearing in $A$.
 Craig interpolation has been moslty employed to prove model-theoretical results, including Beth's definability theorem \cite{Beth1953}, but more recently it has found applications in other areas, e.g. in model checking \cite{Henzinger2004}.
 
 From the viewpoint of sequent calculus, substructural logics are defined by the absence of at least one structural rule.
@@ -344,7 +344,7 @@ In previous work, we showed that the focused subcalculus for \SkNMILL\ is a conc
 To prove Craig interpolation for \SkNMILL, we need to modify the statement of Maehara interpolation.
 This modification is required due to issues similar to those encountered in the product-free Lambek calculus \cite{Pentus1997} and the implicational fragment of intuitionistic logic \cite{Kanazawa2006}, where Maehara interpolation fails. The main result of the paper is the following:
 \begin{restatable*}{theorem}{genIntrp}\label{genIntrp}
-In the sequent calculus for \SkNMILL, the two following interpolation properties hold:
+In the sequent calculus for \SkNMILL, the following two interpolation properties hold:
 \begin{description}
 \item[(\sMIP)] Given a derivation $f: S \mid \GG \vd C$ and a partition $\langle \GG_0,\GG_1 \rangle$ of $\GG$, there exist
 \begin{itemize}
@@ -542,9 +542,9 @@ We introduce a few admissible rules that will be employed later in the paper.
 First, given a list of formulae $\GD = A_1,\dots,A_n$, we define an iterated version of the rule $\lright$, consisting of $n$ applications of $\lright$. Below and in the future we write $\GD \lolli^* B$ for the formula $A_1 \lolli (A_2 \lolli (\dots (A_n \lolli B) \dots ))$, which is simply $B$ when $\GD$ is empty. The double-line inference rule denotes an equality of sequents.
 \begin{equation}\label{-oR*}
   \begin{array}{l}
-    \infer[\lright^*]{S \mid \GG \vd \GD \lolli^* B}{
+    \proofbox{\infer[\lright^*]{S \mid \GG \vd \GD \lolli^* B}{
       \deduce{S \mid \GG , \GD \vd B}{f}
-    }
+    }}
 %    \\[20pt]
     %    \qquad \qquad \qquad \qquad \qquad \quad =
     =
@@ -568,12 +568,12 @@ If $n = 0$, then $\lright^* f = f$.
 Second, given a list of formulae $\GD = A_1,\dots,A_n$ and a list of derivations $f_i : {-} \mid \GG_i \vd A_i$ for $i \in [1,\dots , n]$, we define an iterated version of $\lleft$, consisting on $n$ applications of $\lleft$, one for each derivation $f_i$:
 \begin{equation}\label{-oL*}
   \begin{array}{l}
-    \infer[\lleft^*]{\GD \lolli^* B \mid \GG_1,\dots,\GG_n,\GL \vd C}{
+    \proofbox{\infer[\lleft^*]{\GD \lolli^* B \mid \GG_1,\dots,\GG_n,\GL \vd C}{
       \deduce{[ {-} \mid \GG_i \vd A_i]_i}{[f_i]}
       &
       \deduce{B \mid \GL \vd C}{g}
-    }
-    \\[20pt]
+    }}
+    \\
     \qquad \qquad =
     \proofbox{
       \infer={\GD \lolli^* B \mid \GG_1,\dots,\GG_n,\GL \vd C}{
@@ -619,11 +619,11 @@ If $n=0$, then $\lleft^* ([\ ],g) = g$.
 Finally, given a list of derivations $f_i : {-} \mid \GD_i \vd A_i$ for $i \in [1,\dots , n]$, we define an iterated version of $\mathsf{ccut}$, consisting on $n$ applications of $\mathsf{ccut}$, one for each derivation $f_i$:
 \begin{equation}\label{ccut*}
   \begin{array}{l}
-    \infer[\mathsf{ccut}^*]{S \mid \GG_0,\GD_1,\GD_2,\dots,\GD_n,\GG_1 \vd C}{
+    \proofbox{\infer[\mathsf{ccut}^*]{S \mid \GG_0,\GD_1,\GD_2,\dots,\GD_n,\GG_1 \vd C}{
       \deduce{[ {-} \mid \GD_i \vd A_i]_i}{[f_i]}
       &
       \deduce{S \mid \GG_0,A_1,\dots,A_n,\GG_1 \vd C}{g}
-    }
+    }}
     \\[20pt]
     \qquad \qquad =
     \proofbox{
@@ -1058,8 +1058,8 @@ Notice that the each pair of derivations in these equations are \emph{strictly} 
           }
         }
       \end{array}
-      \\[10pt]
-      \qquad \qquad \qquad \qquad \qquad  =
+      \\[20pt]
+      \qquad \qquad \qquad \qquad   =
       \begin{array}{c}
         \infer[\mf{ccut}]{S \mid \GG_0 , \GG_1 , \GG_2 , \GG_3 , \GG_4 \vd C}{
           \infer[\mf{ccut}]{S \mid \GG_1 , \GG_2 , \GG_3 \vd B}{
@@ -1685,7 +1685,8 @@ This procedure is terminating, since each recursive call happens on a derivation
 This behaviour is further confirmed in our Agda formalization, where the inductive proof of \sMIP/\cMMIP~is accepted by the proof assistant as terminating.
 
 \begin{example}
-  We compute the $\mf{scut}$-interpolant formula of the end-sequent of the derivation 
+Let us illustrate the interpolation procedure on a simple example.
+ We compute the stoup Maehara interpolant of the end-sequent in the derivation 
   \begin{displaymath}
     \begin{array}{c}
       \infer[\lleft]{Y \lolli Z \mid X \lolli Y , X \vd Z}{
@@ -1705,15 +1706,16 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
   \end{displaymath}
   with the partition $\langle [X \lolli Y] , [X]\rangle$.
   \\
-  Following the procedure in the proof of Theorem \ref{genIntrp}, we apply $\mf{ccut}$-interpolation on $\pass (\lleft ((\pass \ \ax), \ax)) : {-} \mid X \lolli Y , X \vd Y$ with the partition $\langle [X \lolli Y] , [X] , [\ ] \rangle$ to obtain
+  Following the procedure in the proof of Theorem \ref{genIntrp}, we need to apply the \cMMIP~procedureto the derivation $\pass (\lleft ((\pass \ \ax), \ax)) : {-} \mid X \lolli Y , X \vd Y$ (witnessing the left premise of $\lleft$) with the partition $\langle [X \lolli Y] , [X] , [\ ] \rangle$.
+This produces
   \begin{itemize}
     \item[--] a partition $\langle [X] \rangle$ of $[X]$,
-    \item[--] a singleton list of formulae $[X]$, and
+    \item[--] a singleton list of interoplant formulae $[X]$, and
     \item[--] derivations $\pass (\lleft ((\pass \ \ax), \ax)) : {-} \mid X \lolli Y , X \vd Y$ and $ \pass \ \ax : {-} \mid X \vd X$ 
   \end{itemize}
-  such that the multiplicity condition holds.
-  Next, we apply $\mf{scut}$-interpolation on $Z \mid \quad \vd Z$ with the partition $\langle [\ ] , [\ ] \rangle$ to obtain two derivations $\ax : Z \mid \quad \vd Z$ and $\ax : Z \mid \quad \vd Z$.
-  Then we construct the desired derivations as follows:
+  satisfying the variable multiplicity condition.
+  Next, we need to apply the \sMIP~procedure on the derivation $\ax : Z \mid \quad \vd Z$ with the partition $\langle [\ ] , [\ ] \rangle$ which produces two derivations $\ax : Z \mid \quad \vd Z$ and $\ax : Z \mid \quad \vd Z$.
+  Then we obtain the desired interpolant formula $X \lolli Z$ and the desired derivations 
   \begin{displaymath}
     \begin{array}{lc}
       \begin{array}{c}
@@ -1758,33 +1760,40 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
     \end{array}
   \end{displaymath}
 \end{example}
-\begin{lemma}\label{lem:gs:vars:equiv}
-  For any formula $A$ and an atomic formula $X$, $X \in \vars{A}$ if and only if $1 \leq \gs{A}$.
-\end{lemma}
-\begin{proof}
-  This is true by definition.
-\end{proof}
+
+We conclude this section showing how Craig interpolation follows from stoup Maehara interpolation.
+
+%\begin{lemma}\label{lem:gs:vars:equiv}
+%  For any formula $A$ and an atomic formula $X$, $X \in \vars{A}$ if and only if $1 \leq \gs{A}$.
+%\end{lemma}
+%\begin{proof}
+%  This is true by definition.
+%\end{proof}
 \begin{lemma}\label{lem:gs2vars}
-  For any formulae $A$ and $B$, if $\gs{A} \leq \gs{B}$ for every $X$, then $\vars{A} \subseteq \vars{B}$.
+%  For any formulae $A$ and $B$, 
+If $\gs{A} \leq \gs{B}$ for every $X$, then $\vars{A} \subseteq \vars{B}$.
 \end{lemma}
 \begin{proof}
-  For any $X \in \vars{A}$, by the assumption $\gs{A} \leq \gs{B}$ and Lemma \ref{lem:gs:vars:equiv}, we know that $X \in \vars{B}$ as well.
+  Given $X \in \vars{A}$, by the assumption $\gs{A} \leq \gs{B}$ we know that 
+%and Lemma \ref{lem:gs:vars:equiv}, we know that 
+$X \in \vars{B}$ as well.
   Therefore we can conclude that $\vars{A} \subseteq \vars{B}$.
 \end{proof}
 \begin{theorem}\label{thm:craig:intrp}
-  For any formulae $A$ and $C$, if $A \lolli C$ is provable, then there exists a formula $B$ such that both $A \lolli B$ and $B \lolli C$ are provable, and $\vars{B} \subseteq \vars{A} \cap \vars{C}$.
+  For any formulae $A$ and $C$, if $A \lolli C$ is provable in \SkNMILL, then there exists a formula $D$ such that both $A \lolli D$ and $D \lolli C$ are provable, and $\vars{D} \subseteq \vars{A} \cap \vars{C}$.
 \end{theorem}
 \begin{proof}
 $A \lolli C$ being provable means that there is a derivation $f : {-} \mid \quad \vd A \lolli C$. 
 By invertibility of the rule $\lright$, we obtain a derivation $f' : {-} \mid A \vd C$.
-Then by applying $\mf{scut}$-interpolation on $f'$ with the partition $\langle [A ], [\ ]\rangle$, we get a formula $B$ such that 
+Then by running the \sMIP~procedure on $f'$ with the partition $\langle [A ], [\ ]\rangle$, we get  
 \begin{itemize}
-  \item[--] $g': {-} \mid A \vd B$,
-  \item[--] $h': B \mid \quad \vd C$, and 
-  \item[--] $\gs{B} \leq \gs{A} $ and $ \gs{B} \leq \gs{C}$ for every $X$.
+\item[--]  a formula $D$,
+  \item[--] $g': {-} \mid A \vd D$,
+  \item[--] $h': D \mid \quad \vd C$, and 
+  \item[--] $\gs{D} \leq \gs{A} $ and $ \gs{D} \leq \gs{C}$ for every $X$.
 \end{itemize}
-The formulae $A \lolli B$ and $B \lolli C$ are proved by the derivations $\lright \ g' : {-} \mid \quad \vd A \lolli B$ and $\lright (\pass \ h') : {-} \mid \quad \vd B \lolli C$, respectively.
-By Lemma \ref{lem:gs2vars}, we know that $\vars{B} \subseteq \vars{A}$ and $\vars{B} \subseteq \vars{C}$, which means that $\vars{B} \subseteq \vars{A} \cap \vars{C}$.
+The formulae $A \lolli D$ and $D \lolli C$ are proved by the derivations $\lright \ g' : {-} \mid \quad \vd A \lolli D$ and $\lright (\pass \ h') : {-} \mid \quad \vd D \lolli C$, respectively.
+By Lemma \ref{lem:gs2vars}, we know that $\vars{D} \subseteq \vars{A}$ and $\vars{D} \subseteq \vars{C}$, which means that $\vars{D} \subseteq \vars{A} \cap \vars{C}$.
 \end{proof}
 
 \section{Proof-Relevant Interpolation}\label{sec:proof-rel} 
