@@ -886,7 +886,6 @@ The three equations in Figure \ref{fig:circeqeta} are $\eta$-conversions, comple
   \caption{Equivalence of derivations: permutative conversions}
   \label{fig:circeq-perm}
 \end{figure}
-
 % \begin{displaymath}
 % \label{fig:circeq}
 % \small\begin{array}{rlll}
@@ -1077,7 +1076,7 @@ Notice that the each pair of derivations in these equations are \emph{strictly} 
   \label{fig:asscut}
 \end{figure}
 
-We conclude this section by introducing a final equation, that will be employed later in Section \ref{sec:proof-rel}.
+We conclude this section by introducing a final equation and two equivalences, that will be employed later in Section \ref{sec:proof-rel}.
 In the construction of the $\mathsf{scut}$ admissibility procedure, the case when the first premise is of the form $\lright\ f$ and the second premise of the form $\lleft\ (g,h)$ (i.e. a principal cut when the cut formula is an implication) is defined as follows:
 \[
 \begin{array}{l}
@@ -1109,9 +1108,10 @@ In the construction of the $\mathsf{scut}$ admissibility procedure, the case whe
 \end{array}
 \]
 This equation can be generalized to one where $\lright$, $\lleft$ and $\mathsf{ccut}$ are replaced by their iterated versions $\lright^*$, $\lleft^*$ and $\mathsf{ccut^*}$ introduced in Equations (\ref{-oR*}), (\ref{-oL*}) and (\ref{ccut*}). 
-Given a list of formulae $\GL = A_1, \dots , A_n$, a derivation $f : S \mid \GG_0 , \GL \vd B$ and a list of derivations $g_i : {-} \mid \GD_i \vd A_i$ for $i \in [1,\dots , n]$, the following equation is derivable:
 %For simplicity, we denote $(A_1 , \dots , A_n)$ and $(\GD_1 , \dots , \GD_n)$ as $\GL$ and $\GD$, respectively.
-\begin{equation}\label{scut-or-ols}
+\begin{proposition}\label{scut-or-ols}
+Given a list of formulae $\GL = A_1, \dots , A_n$, a derivation $f : S \mid \GG_0 , \GL \vd B$ and a list of derivations $g_i : {-} \mid \GD_i \vd A_i$ for $i \in [1,\dots , n]$, the following equation is derivable:
+\begin{displaymath}
   \begin{array}{l}
     \infer[\mf{scut}]{S \mid \GG_0, \GD_1,\dots,\GD_n, \GG_1 \vd C}{
     \infer[\lright^*]{S \mid \GG_0 \vd \GL \lolli^* B}{
@@ -1139,9 +1139,68 @@ Given a list of formulae $\GL = A_1, \dots , A_n$, a derivation $f : S \mid \GG_
     }
     }
   \end{array}
-\end{equation}
+\end{displaymath} 
+\end{proposition}
 Proving that this equation holds requires various applications of the associativity equations in Proposition \ref{prop:cut}.
-
+% Notice that in the cut-elimination procedures described in \cite{UVW:protsn,wan2024}, $\scut{\tr (f ,g)}{h}$ ($\scut{f}{}$)
+\begin{proposition}\label{eq:scut:otr:-or}
+Following equivalences of derivations involving $\mf{scut}$, $\tr$, and $\lright$ are admissible in \SkNMILL.
+  \begin{displaymath}
+  \begin{array}{l}
+  \begin{array}{c}
+    \infer[\mf{scut}]{S \mid \GG , \GD , \GL \vd B \ot C}{
+      \deduce{S \mid \GG \vd A}{f}
+      &
+      \infer[\tr]{A \mid \GD , \GL \vd B \ot C}{
+        \deduce{A \mid \GD \vd B}{g}
+        &
+        \deduce{{-} \mid \GL \vd C}{h}
+      }
+    }
+  \end{array}
+    \\
+    \qquad \qquad \qquad \qquad \qquad \circeq
+    \begin{array}{c}
+      \infer[\tr]{S \mid \GG , \GD , \GL \vd B \ot C}{
+        \infer[\mf{scut}]{S \mid \GG , \GD \vd B}{
+          \deduce{S \mid \GG \vd A}{f}
+          &
+          \deduce{A \mid \GD \vd B}{g}
+        }
+        &
+        \deduce{{-} \mid \GL \vd C}{h}
+      }
+    \end{array}
+\\[20pt]
+%   \end{array}
+% \end{equation}
+% \begin{equation}\label{eq:scut:-or}
+%   \begin{array}{l}
+  \begin{array}{c}
+    \infer[\mf{scut}]{S \mid \GG , \GD \vd B \lolli C}{
+      \deduce{S \mid \GG \vd B}{f}
+      &
+      \infer[\lright]{A \mid \GD \vd B \lolli C}{
+        \deduce{A \mid \GD , B \vd C}{g}
+      }
+    }
+  \end{array}
+  \quad
+  \circeq
+  \quad
+    \begin{array}{c}
+      \infer[\lright]{S \mid \GG , \GD \vd B \lolli C}{
+        \infer[\mf{scut}]{S \mid \GG , \GD , B \vd C}{
+          \deduce{S \mid \GG \vd A}{f}
+          &
+          \deduce{A \mid \GD , B \vd C}{g}
+        }
+        }
+    \end{array}
+  \end{array}
+\end{displaymath}
+\end{proposition}
+Both equivalences are proved by induction on the derivation $f$ with the equivalences in Figure \ref{fig:circeqeta} and \ref{fig:circeq-perm}.
 \section{Failure of Maehara Interpolation}\label{sec:failure}
 
 The goal of this paper is proving that the logic \SkNMILL~satisfies the Craig interpolation property. But, as already mentioned in the introductive section, we cannot follow the same proof strategy used in the (associative or non-associative) Lambek calculus, where Craig interpolation follows as a corollary to Maehara interpolation. This is because the sequent calculus of \SkNMILL~does not satisfy Maehara interpolation. Let us see why.
@@ -1933,7 +1992,7 @@ Here we show the same for \SkNMILL: the \sMIP~procedure is a right inverse of $\
 %  The derivation $\mf{scut} (\unitl \ g', h')$ is definitionally equal to $\unitl (\mf{scut} (g' , h'))$, then by inductive hypothesis and congruence of $\circeq$, we have $\unitl (\mf{scut} (g' , h')) \circeq \unitl \ f'$.
   \\
   \underline{Cases $f = \tl \ f'$ and $f = \lright \ f'$.} Analogous to the previous case.
-  Though the case of $\lright$ requires an additional application of Proposition \ref{}.
+  Though the case of $\lright$ requires an additional application of Proposition \ref{eq:scut:otr:-or}.
   \\
   \underline{Case $f = \pass \ f'$.} Two cases determined by whether $\GG_0$ is empty or not.
   \begin{itemize}
@@ -1946,7 +2005,7 @@ $\scut{\pass \ g'}{h'} = \pass (\scut{g'}{h'})$. By inductive hypothesis on $f'$
   \end{itemize} 
   \underline{Case $f = \tr (f',f'')$.} Two case determined by whether $\GG_0$ is fully contained in the context of the left premise or not.
   \begin{itemize}
-    \item[$\bullet$] In the first case, the goal reduces to $\scut{g'}{\tr (h', f'')} \circeq \tr (f' , f'')$. By Proposition \ref{}, we have $\scut{g'}{\tr (h', f'')} \circeq \tr (\scut{g'}{h'} , f'')$. By inductive hypothesis on $f'$ and congruence, the latter is $\circeq$-related to $\tr (f' , f'')$.
+    \item[$\bullet$] In the first case, the goal reduces to $\scut{g'}{\tr (h', f'')} \circeq \tr (f' , f'')$. By Proposition \ref{eq:scut:otr:-or}, we have $\scut{g'}{\tr (h', f'')} \circeq \tr (\scut{g'}{h'} , f'')$. By inductive hypothesis on $f'$ and congruence, the latter is $\circeq$-related to $\tr (f' , f'')$.
     \item[$\bullet$] In the second case, the goal reduces to showing that the derivation $\mf{scut}(\tr (g,h'),\tl\ (\tr (h',\pass` h'')))$ is $\circeq$-related to $\tr (f',f'')$.
       This is witnessed by the following sequence of equivalences:
   \[\arraycolsep=10pt    
@@ -1955,7 +2014,7 @@ $\scut{\pass \ g'}{h'} = \pass (\scut{g'}{h'})$. By inductive hypothesis on $f'$
         \qquad = \mf{scut}(g',\tr (h',\mf{scut}(g'',h'')))
         & \text{(by definition of $\mf{scut}$)} \\
         \qquad \circeq \tr (\mf{scut}(g',h'),\mf{scut}(g'',h''))
-        & \text{(by Proposition \ref{})} \\
+        & \text{(by Proposition \ref{eq:scut:otr:-or})} \\
         \qquad \circeq \tr (f',f'')
         & \text{(by ind. hyp. on $f'$ and $f''$}\\
         & \text{and congruence)}
@@ -1970,7 +2029,7 @@ $\scut{\pass \ g'}{h'} = \pass (\scut{g'}{h'})$. By inductive hypothesis on $f'$
       \begin{array}{lr}
         \mf{scut}(\lright^* (\lleft(g',g'')),\lleft^*([h'_i],h'')) \\
         \qquad \circeq \mf{scut}(\mf{ccut^*}([h'_i],\lleft(g',g'')),h'')
-        & \text{(by (\ref{scut-or-ols}))} \\
+        & \text{(by Proposition \ref{scut-or-ols})} \\
         \qquad = \lleft(\mf{ccut^*}([h'_i],g'),\mf{scut}(h'',g''))
         & \text{(by definition of $\mf{scut}$ and $\mf{ccut^*}$)} \\
         \qquad \circeq \lleft (f',f'')
