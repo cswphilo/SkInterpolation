@@ -1077,7 +1077,7 @@ Notice that the each pair of derivations in these equations are \emph{strictly} 
 \end{figure}
 
 We conclude this section by introducing a final equation and two equivalences, that will be employed later in Section \ref{sec:proof-rel}.
-In the construction of the $\mathsf{scut}$ admissibility procedure, the case when the first premise is of the form $\lright\ f$ and the second premise of the form $\lleft\ (g,h)$ (i.e. a principal cut when the cut formula is an implication) is defined as follows:
+In the construction of the $\mathsf{scut}$ admissibility procedure \cite{UVW:protsn,wan2024}, the case when the first premise is of the form $\lright\ f$ and the second premise of the form $\lleft\ (g,h)$ (i.e. a principal cut when the cut formula is an implication) is defined as follows:
 \[
 \begin{array}{l}
   \proofbox{
@@ -1141,10 +1141,16 @@ Given a list of formulae $\GL = A_1, \dots , A_n$, a derivation $f : S \mid \GG_
   \end{array}
 \end{displaymath} 
 \end{proposition}
-Proving that this equation holds requires various applications of the associativity equations in Proposition \ref{prop:cut}.
+\begin{proof}
+  Proving the validity of the equation requires various applications of the associativity equations in Proposition \ref{prop:cut}.
+\end{proof}
 % Notice that in the cut-elimination procedures described in \cite{UVW:protsn,wan2024}, $\scut{\tr (f ,g)}{h}$ ($\scut{f}{}$)
+
+The admissibility of rule $\mf{scut}$ is proved in \cite{UVW:protsn,wan2024} by structural recursion on the derivation of the left premise.
+This implies that ``$\mf{scut}$ commutes with left rules in first premise'', i.e. that $\mf{scut}(\odot\mathsf{L}\ f, g) = \odot\mathsf{L} (\mf{scut}(f, g)$ for any one-premise left rule $\odot\mathsf{L}$ among $\unitl$, $\tl$ and $\pass$, and also $\mf{scut}(\lleft (f,f'), g) = \lleft (f,\mf{scut}(f', g)$.
+It is possible to also show that ``$\mf{scut}$ commutes with right rules in second premise'', but only up to equivalence $\circeq$.
 \begin{proposition}\label{eq:scut:otr:-or}
-Following equivalences of derivations involving $\mf{scut}$, $\tr$, and $\lright$ are admissible in \SkNMILL.
+The following equivalences of derivations involving $\mf{scut}$, $\tr$, and $\lright$ are admissible in \SkNMILL:
   \begin{displaymath}
   \begin{array}{l}
   \begin{array}{c}
@@ -1200,7 +1206,11 @@ Following equivalences of derivations involving $\mf{scut}$, $\tr$, and $\lright
   \end{array}
 \end{displaymath}
 \end{proposition}
-Both equivalences are proved by induction on the derivation $f$ with the equivalences in Figure \ref{fig:circeqeta} and \ref{fig:circeq-perm}.
+\begin{proof}
+  Both equivalences are proved by structural induction on the derivation $f$.
+\end{proof}
+%with the equivalences in Figure \ref{fig:circeqeta} and \ref{fig:circeq-perm}.
+
 \section{Failure of Maehara Interpolation}\label{sec:failure}
 
 The goal of this paper is proving that the logic \SkNMILL~satisfies the Craig interpolation property. But, as already mentioned in the introductive section, we cannot follow the same proof strategy used in the (associative or non-associative) Lambek calculus, where Craig interpolation follows as a corollary to Maehara interpolation. This is because the sequent calculus of \SkNMILL~does not satisfy Maehara interpolation. Let us see why.
