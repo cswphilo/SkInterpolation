@@ -1712,12 +1712,13 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
   \end{equation}
   with the partition $\langle [X \lolli Y] , [X, W]\rangle$.
   \\
-  Following the procedure in the proof of Theorem \ref{genIntrp}, we need to apply the \cMMIP~procedure to the derivation $\pass (\lleft ((\pass \ \ax), \tr (\ax , \pass \ \ax))) : {-} \mid X \lolli Y , X, W \vd Y \ot W$ (witnessing the left premise of $\lleft$) with the partition $\langle [X \lolli Y] , [X, W] , [\ ] \rangle$.
+  Following the procedure in the proof of Theorem \ref{genIntrp}, we are in the case when the last rule is $\lleft$ and both lists in the partition $\langle [X \lolli Y] , [X, W]\rangle$ move to the context of the left premise.
+  This means that we need to apply the \cMMIP~procedure to the derivation $\pass (\lleft (\pass \ \ax, \tr (\ax , \pass \ \ax))) : {-} \mid X \lolli Y , X, W \vd Y \ot W$ (witnessing the left premise of $\lleft$) with the partition $\langle [X \lolli Y] , [X, W] , [\ ] \rangle$.
   This produces
   \begin{itemize}
     \item[--] a partition $\langle [X] , [W] \rangle$ of $[X, W]$,
     \item[--] a list of interoplant formulae $[X , W]$, and
-    \item[--] derivations $\pass (\lleft ((\pass \ \ax), \tr (\ax , \pass \ \ax))) : {-} \mid X \lolli Y , X, W \vd Y \ot W$, $\pass \ \ax : {-} \mid X \vd X$, and $\pass \ \ax : {-} \mid W \vd W$,
+    \item[--] derivations $\pass (\lleft (\pass \ \ax, \tr (\ax , \pass \ \ax))) : {-} \mid X \lolli Y , X, W \vd Y \ot W$, $\pass \ \ax : {-} \mid X \vd X$, and $\pass \ \ax : {-} \mid W \vd W$,
   \end{itemize}
   satisfying the multiplicity condition.
   Next, we need to apply the \sMIP~procedure on the derivation $\ax : Z \mid \quad \vd Z$ with the partition $\langle [\ ] , [\ ] \rangle$ which produces two derivations $\ax : Z \mid \quad \vd Z$ and $\ax : Z \mid \quad \vd Z$.
@@ -1755,7 +1756,7 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
         }
         }
       \end{array}
-      \\[2cm]
+      \\[2.5cm]
       \begin{array}{c}
         h
       \end{array}
@@ -1779,8 +1780,7 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
       \end{array}
     \end{array}
   \end{displaymath}
-  This is, however, different from case of the associative Lambek calculus (with $\ot$).
-  Consider the similar derivation of (\ref{example:interpolant}) in the associative Lambek calculus:
+  Notice that this is crucially different from the result that Maehara's method would produce on the corresponding derivation in the associative Lambek calculus (with $\ot$). The translation of derivation (\ref{example:interpolant}) in the associative Lambek calculus is
   \begin{displaymath}
     \begin{array}{c}
       \infer[\sls\mf{L}]{Z \sls (Y \ot W) , Y \sls X , X, W \vd Z}{
@@ -1798,7 +1798,7 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
       }
     \end{array}
   \end{displaymath}
-  By the interpolation procedure defined in \cite{moot:categorial:2012}, the interpolant formula is instead ${Z \sls (X \ot W)}$, which is constructable due to the presence of $\ot$.
+  Using the Maehara interpolation procedure defined in \cite{moot:categorial:2012}, the resulting interpolant formula would be ${Z \sls (X \ot W)}$. Again, $X$ and $Y$ can be tensored in the latter formula since the Lambek calculus admits a general left rule for $\ot$.
 \end{example}
 
 We conclude this section showing how Craig interpolation follows from stoup Maehara interpolation.
