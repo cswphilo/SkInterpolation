@@ -293,12 +293,12 @@ The latter property states:
   \item[(\MIP~for \FL)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$, and $\vars{D} \subseteq \vars{\GG_0} \cap \vars{\GG_0, \GG_1, C}$
 \end{description}
 Being a partition simply means that the ordered list of formulae $\GG$ is equal to the concatenation of $\GG_0, \GG_1$ and $\GG_2$, i.e. $\GG = \GG_0, \GG_1, \GG_2$. 
-\FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by a  multiplicity condition \cite{roorda1991,moot:categorial:2012}.
-The property states:
-\begin{description}
-  \item[(\MIP~for \FL~with multiplicity condition)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$, and $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{\GG_0, \GG_2 , C}$ for all atomic formulae $X$.
-\end{description}
-Above $\gs{A}$ is equal to the number of occurrences of the atomic formula $X$ in $A$.
+% \FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by a  variable condition \cite{roorda1991,moot:categorial:2012}.
+% The property states:
+% \begin{description}
+%   \item[(\MIP~for \FL~with variable condition)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$, and $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{\GG_0, \GG_2 , C}$ for all atomic formulae $X$.
+% \end{description}
+% Above $\gs{A}$ is equal to the number of occurrences of the atomic formula $X$ in $A$.
 Maehara interpolation also holds for the non-associative variant of \FL, for an appropriate reformulation of the principle in which antecedents are trees of formulae instead of lists.
 Notice that Craig interpolation is a property of a logic (with a notion of implication), while Maehara interpolation is a property of a deductive system in which it is possible to appropriately partition antecedents.
 
@@ -313,9 +313,10 @@ The variant of Maehara interpolation satisfied by the product-free Lambek calcul
     \item[--] a list of interpolant formulae $D_1, \dots, D_n$,
     \item[--] a derivation $g: \GG_0, D_1, \dots, D_n, \GG_2 \vd C$,
     \item[--] a derivation $h_i : \GD_i \vd D_i$ for all $i \in [1, \dots, n]$, such that
-    \item[--] $\gs{D_i} \leq \gs{\GD_i}$ and $\gs{D_1, \dots, D_n} \leq \gs{\GG_0, \GG_2, C}$ for all $i \in [1,\dots , n]$ and atomic formulae $X$.
+    \item[--] $\vars{D_1, \dots, D_n} \subseteq \vars{\GD_1 , \dots , \GD_n} \cap \vars{\GG_0, \GG_2, C}$.
   \end{itemize}
 \end{description}
+% Above $\gs{A}$ is equal to the number of occurrences of the atomic formula $X$ in $A$.
 Differently from Maehara interpolation, in the above property we look for a  list of interpolants instead of a single formula.
 This adjustment allows to overcome the difficulty caused by the absence of conjunction.
 %\niccolo{(Are all difficulties actually overcome? Does this property still imply deductive/Craig interpolation?)}.
@@ -351,7 +352,7 @@ This modification is required due to issues similar to those encountered in the 
       \item[--] an interpolant formula $D$,
       \item[--] a derivation $g : S \mid \GG_0 \vd D$,
       \item[--] a derivation $h : D \mid \GG_1 \vd C$, such that
-      \item[--] $\gs{D} \leq \gs{S , \GG_0}$ and $\gs{D} \leq \gs{\GG_1 , C}$ for all atomic formulae $X$.
+      \item[--] $\vars{D} \subseteq \vars{S , \GG_0} \cap \vars{\GG_1 , C}$.
     \end{itemize}
     %   , where $s(S) = I$ if $S = {-}$ or $s(S) = B$ if $S = B$.
     \item[(\cMMIP)] Given a derivation $f: S \mid \GG \vd C$ and a partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist  
@@ -359,9 +360,10 @@ This modification is required due to issues similar to those encountered in the 
       \item[--] a partition $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$,
       \item[--] a list of interpolant formulae $D_1, \dots, D_n$,
       \item[--] $g: S \mid \GG_0, D_1, \dots, D_n, \GG_2 \vd C$,
-      \item[--] $h_i : {-} \mid \GD_i \vd D_i$ for  all $i \in [1, \dots, n]$,
-      \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for all $i \in [1,\dots , n]$ and atomic formulae $X$, and
-      \item[--] $\gs{D_1, \dots, D_n} \leq \gs{S, \GG_0, \GG_2, C}$ for all $i \in [1,\dots , n]$ and atomic formulae $X$.
+      \item[--] $h_i : {-} \mid \GD_i \vd D_i$ for  all $i \in [1, \dots, n]$, such that
+      % \item[--] $\vars{D_i} \leq \vars{\GD_i}$ for all $i \in [1,\dots , n]$ and atomic formulae $X$, and
+      \item[--] $\vars{D_1, \dots, D_n} \subseteq \vars{\GD_1, \dots, \GD_n} \cap \vars{S, \GG_0, \GG_2, C}$.
+      % for all $i \in [1,\dots , n]$ and atomic formulae $X$.
     \end{itemize}
   \end{description}
 \end{restatable*}
@@ -409,7 +411,7 @@ Theorems \ref{genIntrp} and \ref{cutIntrp} together show that \SkNMILL\ satisfie
 % rules are restricted to be applied in a specific order.
 % A focused calculus provides an algorithm to solve both the proof identity problems for its non-focused calculus and coherence problems for its corresponding variant of left skew monoidal category.
 
-% The variation of Craig interpolation is defined by replacing the multiplicity condition with that given a set of formulae $\GT$, and given a derivation $f:A \vd^{\GT} C$, if all formulae appearing in $f$ are in $\GT$, then there exists a formula $B \in \GT$ and two derivations $f_0: A\vd^{\GT} B$ and $f_1: B \vd^{\GT} C$. 
+% The variation of Craig interpolation is defined by replacing the variable condition with that given a set of formulae $\GT$, and given a derivation $f:A \vd^{\GT} C$, if all formulae appearing in $f$ are in $\GT$, then there exists a formula $B \in \GT$ and two derivations $f_0: A\vd^{\GT} B$ and $f_1: B \vd^{\GT} C$. 
 % In this paper, we call the former Craig interpolation and the latter weak interpolation.
 
 % In this work, we show that sequent calculi for left skew monoidal (closed) categories enjoy Craig interpolation.
@@ -1223,14 +1225,14 @@ The Maehara interpolation property in \SkNMILL~would then consist of two stateme
     \item[--] an interpolant formula $D$,
     \item[--] a derivation $g : S \mid \GG_0 \vd D$,
     \item[--] a derivation $h : D \mid \GG_1 \vd C$, such that
-    \item[--] $\gs{D} \leq \gs{S , \GG_0}$ and $\gs{D} \leq \gs{\GG_1 , C}$ for all atomic formulae $X$.
+    \item[--] $\vars{D} \subseteq \vars{S , \GG_0} \cap \vars{\GG_1 , C}$.
   \end{itemize}
   \item[(\cMIP)] Given $f: S \mid \GG \vd C$ and a partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exists  
   \begin{itemize}
     \item[--] an interpolant formula $D$,
     \item[--] a derivation $g : {-} \mid \GG_1 \vd D$,
     \item[--] a derivation $h : S \mid \GG_0, D, \GG_2 \vd C$, such that
-    \item[--] $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{S , \GG_0 , \GG_2 , C}$ for all atomic formulae $X$.    
+    \item[--] $\vars{D} \leq \vars{\GG_1} \cap \vars{S , \GG_0 , \GG_2 , C}$.    
   \end{itemize}
 \end{description}
 
@@ -1378,10 +1380,10 @@ We separate the proofs for readability.
   We proceed by induction on the structure of $f$. 
   \\
   \underline{Case $f = \ax$.} Suppose $f = \ax : A \mid \quad \vd A$, which forces $\GG_0 = \GG_1 = [\ ]$.
-  In this case, the interpolant formula is $A$ and $g = h = \ax : A \mid \quad \vd A$, where the multiplicity condition is automatically satisfied.
+  In this case, the interpolant formula is $A$ and $g = h = \ax : A \mid \quad \vd A$, where the variable condition is automatically satisfied.
   \\
   \underline{Case $f = \unitr$.} Since $f : {-} \mid \quad \vd \unit$, this forces again $\GG_0$ and $\GG_1$ to be empty lists.
-  In this case, the interpolant formula is $\unit$ and $g =  \unitr : {-} \mid \quad \vd \unit$ and $h = \unitl (\unitr) : \unit \mid \quad \vd \unit$, where the multiplicity condition is vacuously satisfied.
+  In this case, the interpolant formula is $\unit$ and $g =  \unitr : {-} \mid \quad \vd \unit$ and $h = \unitl (\unitr) : \unit \mid \quad \vd \unit$, where the variable condition is vacuously satisfied.
   \\
   \underline{Case $f = \unitl \ f'$.}
   Given a derivation $f' : {-} \mid \GG \vd C$, by induction on $f'$ with the same partition $\langle \GG_0, \GG_1 \rangle$ of $\GG$ we obtain  
@@ -1389,10 +1391,10 @@ We separate the proofs for readability.
     \item[--] a formula $D$,
     \item[--] a derivation $g' : {-} \mid \GG_0 \vd D$,
     \item[--] a derivation $h' : D \mid \GG_1 \vd C$, such that
-    \item[--] $\gs{D} \leq \gs{\GG_0}$ and $\gs{D} \leq \gs{\GG_1 , C}$ for every  $X$.
+    \item[--] $\vars{D} \subseteq \vars{\GG_0} \cap \vars{\GG_1 , C}$.
   \end{itemize}
   In this case, the interpolant formula for $f$ is $D$ and the two desired derivations are $g = \unitl \ g'$ and $h = h'$.
-  The multiplicity condition is automatically satisfied.
+  The variable condition is automatically satisfied.
   \\
   \underline{Cases $f = \tl \ f'$ and $f = \lright \ f'$.} Analogous to the previous case.
   \\
@@ -1401,16 +1403,16 @@ We separate the proofs for readability.
   Specifically, either $\GG_0$ is an empty list or not.
   \begin{itemize}
     \item[$\bullet$] If $\GG_0 = [\ ]$, then the interpolant is $\unit$ and two desired derivations are $\unitr$ and $\unitl (\pass \ f')$.
-    The multiplicity condition is satisfied because $\gs{\unit} = 0$ for every $X$.
+    The variable condition is satisfied because $\vars{\unit} = \emptyset$.
     \item[$\bullet$] If $\GG_0 = A, \GG'_0$, then by induction on $f'$ with the partition $\langle \GG'_0, \GG_1 \rangle$ we obtain
     \begin{itemize}
       \item[--] a formula $D$,
       \item[--] a derivation $g' : A \mid \GG'_0 \vd D$,
       \item[--] a derivation $h' : D \mid \GG_1 \vd C$, such that
-      \item[--] $\gs{D} \leq \gs{A, \GG'_0} $ and $ \gs{D} \leq \gs{\GG_1, C}$ for every  $X$.
+      \item[--] $\vars{D} \subseteq \vars{A, \GG'_0} \cap \vars{\GG_1, C}$.
     \end{itemize}
     In this case, the interpolant formula for $f$ is $D$, and two desired derivations are $g = \pass \ g'$ and $h = h'$.
-    The multiplicity condition follows directly from the inductive hypothesis.
+    The variable condition follows directly from the inductive hypothesis.
   \end{itemize} 
   \underline{Case $f = \tr (f',f'')$.} Let $f' : S \mid \GL \vd A$ and $f'' : {-} \mid \GO \vd B$, so that $\GG = \GL,\GO$. We need to check how the latter splitting of $\GG$ compares to the given partition $\langle \GG_0,\GG_1 \rangle$. 
   There are two possibilities:
@@ -1423,10 +1425,10 @@ We separate the proofs for readability.
       \item[--] a formula $D$,
       \item[--] a derivation $g' : S \mid \GG_0 \vd D$, 
       \item[--] a derivation $h' : D \mid \GG'_1 \vd A$ such that 
-      \item[--] $\gs{D} \leq \gs{S, \GG_0} $ and $ \gs{D} \leq \gs{\GG'_1 , A}$ for every $X$.
+      \item[--] $\vars{D} \subseteq \vars{S, \GG_0} \cap \vars{\GG'_1 , A}$.
     \end{itemize}
     The desired interpolant formula is $D$ and the desired derivations are $g = g'$ and $h = \tr (h' , f'') : D \mid \GG'_1 , \GO \vd A \ot B$.
-    The multiplicity condition is satisfied because $\gs{D} \leq \gs{\GG'_1 , A} \leq \gs{\GG'_1 , \GO , A \ot B}$ for every $X$.
+    The variable condition is satisfied because $\vars{D} \subseteq \vars{\GG'_1 , A} \subseteq \vars{\GG'_1 , \GO , A \ot B}$.
     \item[$\bullet$]  $\GG_0$ splits between $\GL$ and $\GO$. 
     This means that $\GG_0 = \GL,\GG'_0$ and $\GO = \GG'_0,\GG_1$, and $\GG'_0$ is non-empty.
     Then $f' : S \mid \GL \vd A$ and $f'': {-} \mid \GG'_0, \GG_1 \vd B$.
@@ -1435,8 +1437,8 @@ We separate the proofs for readability.
       \item[--] formulae $E$ and $F$,
       \item[--] derivations $g' : S \mid \GL \vd E$ and $g'' : {-} \mid \GG'_0 \vd F$,
       \item[--] derivations $h' : E \mid \quad \vd A$ and $h'' : F \mid \GG_1 \vd B$, such that
-      \item[--] $\gs{E} \leq \gs{S, \GL} $ and $ \gs{E} \leq \gs{A}$ for every $X$, and
-      \item[--] $\gs{F} \leq \gs{\GG'_0} $ and $\gs{F} \leq \gs{\GG_1, B}$ for every $X$.
+      \item[--] $\vars{E} \subseteq \vars{S, \GL} \cap \vars{A}$, and
+      \item[--] $\vars{F} \subseteq \vars{\GG'_0} \cap \vars{\GG_1, B}$.
     \end{itemize}
     The desired interpolant formula is $D = E \ot F$ and the desired derivations are
     \begin{displaymath}
@@ -1466,7 +1468,7 @@ We separate the proofs for readability.
         \end{array}
       \end{array}
     \end{displaymath}
-    The multiplicity condition is satisfied because $\gs{E \ot F} = \gs{E} + \gs{F} \leq \gs{S , \GL} + \gs{\GG'_0} = \gs{S, \GL , \GG'_0}$ and $\gs{E \ot F} = \gs{E} + \gs{F} \leq \gs{A} + \gs{\GG_1 , B} = \gs{A, \GG_1 , B} = \gs{\GG_1, A \ot B}$ for every $X$.
+    The variable condition is satisfied because $\vars{E \ot F} = \vars{E} \cup \vars{F} \subseteq \vars{S , \GL} \cup \vars{\GG'_0} = \vars{S, \GL , \GG'_0}$ and $\vars{E \ot F} = \vars{E} \cup \vars{F} \subseteq \vars{A} \cup \vars{\GG_1 , B} = \vars{A, \GG_1 , B} = \vars{\GG_1, A \ot B}$.
   \end{itemize}
   \underline{Case $f = \lleft(f',f'')$.}
   Let $f' : {-} \mid \GL \vd A$ and $f'' : B \mid \GO \vd C$, so that $\GG = \GL,\GO$. 
@@ -1481,10 +1483,10 @@ We separate the proofs for readability.
       \item[--]  a formula $D$,
       \item[--] a derivation $g'' : B \mid \GG'_0 \vd D$,
       \item[--] a derivation $h'' : D \mid \GG_1 \vd C$ such that 
-      \item[--] $\gs{D} \leq \gs{B , \GG'_0}$ and $ \gs{D} \leq \gs{\GG_1 , C}$ for every  $X$.
+      \item[--] $\vars{D} \subseteq \vars{B , \GG'_0} \cap \vars{\GG_1 , C}$.
     \end{itemize}
     The desired interpolant formula is $D$ and the desired derivations are $g = \lleft (f' , g'') : A \lolli B \mid \GL , \GG'_0 \vd D$ and $h = h''$.
-    The multiplicity condition is satisfied because $\gs{D} \leq \gs{B , \GG'_0} \leq \gs{A \lolli B , \GL , \GG'_0}$ for every $X$.
+    The variable condition is satisfied because $\vars{D} \subseteq \vars{B , \GG'_0} \subseteq \vars{A \lolli B , \GL , \GG'_0}$.
     
     \item[$\bullet$] $\GG_1$ splits between $\GL$ and $\GO$. 
     This means that $\GL = \GG_0,\GG'_1$ and $\GG_1 = \GG'_1,\GO$, and $\GG'_1$ is non-empty.
@@ -1495,7 +1497,7 @@ We separate the proofs for readability.
       \item[--] a formula $E$,
       \item[--] a derivation $g'' : B \mid \quad \vd E$,
       \item[--] a derivation $h'': E \mid \GO \vd C$ such that
-      \item[--] $\gs{E} \leq\gs{B}$ and $ \gs{E} \leq \gs{\GO , C}$ for all $X$.
+      \item[--] $\vars{E} \subseteq \vars{B} \cap \vars{\GO , C}$.
     \end{itemize}
     We also apply the \cMMIP~procedure (which, remember, is proved by mutual induction with \sMIP) on the derivation $f'$ with the partition $\langle \GG_0 , \GG'_1 , [\ ]\rangle$ and obtain
     \begin{itemize}
@@ -1503,8 +1505,8 @@ We separate the proofs for readability.
       \item[--] a list of formulae $D_1 , \dots , D_n$,
       \item[--] a derivation $g': {-} \mid \GG_0 , D_1, \dots, D_n \vd A$,
       \item[--] a list of derivations $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1, \dots, n]$, such that
-      \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for all $i \in [1, \dots, n]$ and $X$,
-      \item[--] $\gs{D_1 , \dots , D_n} \leq \gs{\GG_0 , A}$ for all $X$.
+      % \item[--] $\vars{D_i} \leq \vars{\GD_i}$ for all $i \in [1, \dots, n]$ and $X$,
+      \item[--] $\vars{D_1 , \dots , D_n} \subseteq \vars{\GD_1 , \dots , \GD_n} \cap \vars{\GG_0 , A}$.
     \end{itemize}
     The desired interpolant formula is $D = D_1 \lolli (D_2 \lolli (\dots (D_n \lolli E)\dots))$.
     The desired derivations $g$ and $h$ are constructed as follows:
@@ -1553,7 +1555,7 @@ We separate the proofs for readability.
         }
       \end{array}
     \end{displaymath}
-    Notice that $\GG'' = \GD_1, \dots, \GD_n$, so the multiplicity condition is easy to check.
+    Notice that $\GG'_1 = \GD_1, \dots, \GD_n$, so the variable condition is easy to check.
   \end{itemize}
 \end{proof}
 
@@ -1573,12 +1575,12 @@ We separate the proofs for readability.
     \item[--] a list of interpolant formulae $D_1, \dots , D_n$,
     \item[--] a derivation $g' : {-} \mid \GG_0 , D_1 , \dots , D_n , \GG_2 \vd C$,
     \item[--] derivations $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1,\dots , n]$, such that
-    \item[--]  $\gs{D_i} \leq \gs{\GD_i}$ for all $i \in [1,\dots , n]$ and $X$,
-    \item[--] $\gs{D_1, \dots, D_n} \leq \gs{S, \GG_0, \GG_2, C}$ for all  $X$.
+    % \item[--]  $\gs{D_i} \leq \gs{\GD_i}$ for all $i \in [1,\dots , n]$ and $X$,
+    \item[--] $\vars{D_1, \dots, D_n} \subseteq \vars{\GD_1 , \dots , \GD_n} \cap \vars{S, \GG_0, \GG_2, C}$ for all  $X$.
   \end{itemize}
   The desired partition of $\GG_1$ is $\langle \GD_0, \dots , \GD_n \rangle$, the desired list of interpolant formulae is $D_1,\dots,D_n$.
   The desired derivations are $g = \unitl \ g'$ and $h_i = h'_i$ for $i \in [1,\dots , n]$.
-  The multiplicity condition is automatically satisfied.
+  The variable condition is automatically satisfied.
   \\
   \underline{Cases $f = \tl \ f'$ and $f = \lright \ f'$.} Analogous to the previous case.
   \\
@@ -1590,12 +1592,12 @@ We separate the proofs for readability.
     \item[--] a formula $D$,
     \item[--] a derivation $g': A \mid \GG'_1 \vd D$,
     \item[--] a derivation $h' : D \mid \GG_2 \vd C$, such that
-    \item[--] $\gs{D} \leq \gs{A , \GG'_1}$ and $\gs{D} \leq \gs{\GG_2 , C}$ for every $X$.
+    \item[--] $\vars{D} \subseteq \vars{A , \GG'_1} \subseteq \vars{\GG_2 , C}$.
   \end{itemize}
   The desired partition of $A,\GG'_1$ is the singleton context $[A,\GG'_1]$, i.e. $n = 1$.
   The desired list of interpolant formulae is the singleton $[D]$.
   The desired derivation $g$ is $\pass \ g' : {-} \mid A , \GG'_1 \vd D$ and the desired list of derivations $h_i$ is the singleton consisting only of $\pass \ h' : {-} \mid D, \GG_2 \vd C$.
-  The multiplicity condition follows from the inductive hypothesis.
+  The variable condition follows from the inductive hypothesis.
   \\
   \underline{Case $f = \tr (f' , f'')$.}
   Let $f' : S \mid \GL \vd A$ and $f'' : {-} \mid \GO \vd B$, so that $\GG = \GL,\GO$.
@@ -1611,12 +1613,12 @@ We separate the proofs for readability.
       \item[--] a list of interpolant formulae $D_1, \dots , D_n$,
       \item[--] a derivation $g'' : {-} \mid \GG'_0 , D_1 , \dots , D_n , \GG_2 \vd B$,
       \item[--] derivations $h''_i : {-} \mid \GD_i \vd D_i$, for $i \in [1,\dots , n]$, such that
-      \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1,\dots , n]$ and $\gs{D_1, \dots , D_n} \leq \gs{ \GG'_0 , \GG_2 , B}$ for every $X$.
+      \item[--] $\vars{D_1, \dots , D_n} \subseteq \vars{\GD_1 , \dots , \GD_n} \cap \vars{ \GG'_0 , \GG_2 , B}$.
     \end{itemize}
     The desired partition of $\GG_1$ is $\langle \GD_0, \dots , \GD_n \rangle$. The desired list of interpolant formulae is $D_1,\dots,D_n$.
     The desired derivation $g$ is $\tr (f' , g'')$ and the desired derivation $h_i$ is  $h''_i$ for $i \in [1,\dots , n]$.
-    The multiplicity condition is satisfied because $\gs{D_1 , \dots , D_n} \leq \gs{ \GG'_0 , \GG_2 , B} \leq \gs{S, \GL, \GG'_0 , \GG_2 , A \ot B}$.
-    \item[$\bullet$] $\GG_1$ is fully contained in $\GL$. This case is analogouse to the one above, but now we have to induct on the derivation $f'$ instead of $f''$.
+    The variable condition is satisfied because $\vars{D_1 , \dots , D_n} \subseteq \vars{ \GG'_0 , \GG_2 , B} \subseteq \vars{S, \GL, \GG'_0 , \GG_2 , A \ot B}$.
+    \item[$\bullet$] $\GG_1$ is fully contained in $\GL$. This case is analogous to the one above, but now we have to induct on the derivation $f'$ instead of $f''$.
     \item[$\bullet$] $\GG_1$ splits between $\GL$ and $\GO$.
     This means that $\GG_1 = \GG'_1 , \GG''_1$ and $\GL = \GG_0 , \GG'_1$ and $\GO = \GG''_1 , \GG_2$, and $\GG''_1$ is non-empty.
     Then $f' : S \mid \GG_0,\GG'_1 \vd A$ and $f'' : {-} \mid \GG''_1,\GG_2 \vd B$.
@@ -1626,8 +1628,8 @@ We separate the proofs for readability.
       \item[--] two lists of interpolant formulae $D_1, \dots , D_n$ and $D_{n+1}, \dots , D_m$,
       \item[--] derivations $g' : S \mid \GG_0 , D_1 , \dots , D_n \vd A$ and $g'' : {-} \mid D_{n+1} , \dots , D_{m} , \GG_2 \vd B$,
       \item[--] derivations $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1,\dots , n]$, and derivations $h'_j : {-} \mid \GD_j \vd D_j$, for $j \in [n+1,\dots , m]$, such that
-      \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1,\dots , n]$ and $\gs{D_{j}} \leq \gs{\GD_{j}}$ for $j \in [n+1,\dots , m]$ for every $X$, 
-      \item[--] $\gs{D_1 , \dots , D_n} \leq \gs{ S, \GG_0 , A}$ and $\gs{D_{n+1} , \dots , D_{m}} \leq \gs{\GG_2 , B}$ for every $X$.
+      % \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1,\dots , n]$ and $\gs{D_{j}} \leq \gs{\GD_{j}}$ for $j \in [n+1,\dots , m]$ for every $X$, 
+      \item[--] $\vars{D_1 , \dots , D_n} \subseteq \vars{\GD_1 , \dots , \GD_n} \cap \vars{ S, \GG_0 , A}$ and $\vars{D_{n+1} , \dots , D_{m}} \subseteq \vars{\GD_{n+1} , \dots , \GD_m}\vars{\GG_2 , B}$.
     \end{itemize}
     The desired partition of $\GG'_1,\GG''_1$ is $\langle \GD_0, \dots , \GD_n, \GD_{n+1}, \dots , \GD_m \rangle$.
     The desired list of interpolant formulae is $D_1, \dots , D_n,D_{n+1}, \dots , D_m$.
@@ -1641,8 +1643,8 @@ We separate the proofs for readability.
     \end{displaymath}
     while the desired derivation $h_i$ is $h'_i$ for $i \in [1,\dots,m]$.
     %  We abbreviate $D'_1 , \dots , D'_n$ as $[D']$, $\GD'_1, \dots , \GD'_n$ as $[\GD']$, $D''_{n+1} , \dots , D''_{n+m}$ as $[D'']$, and $\GD''_{n+1}, \dots , \GD''_{n+m}$ as $[\GD'']$. 
-    For the multiplicity condition, we have
-    $\gs{D_1,\dots,D_m} \leq \gs{S, \GG_0 , A , \GG_2 , B} = \gs{S , \GG_0 , \GG_2 , A \ot B}$.
+    For the variable condition, we have
+    $\vars{D_1,\dots,D_m} \subseteq \vars{S, \GG_0 , A , \GG_2 , B} = \vars{S , \GG_0 , \GG_2 , A \ot B}$.
     %%   \begin{itemize}
     %%   \item[--] by inductive hypothesis, we know that $\gs{[D']} \leq \gs{[\GD']}$ and $\gs{[D'']} \leq \gs{[\GD'']}$;
     %%     \item[--] by the definition of $\sigma_{X}$, we have $\gs{[D'], [D'']} \leq \gs{[\GD'] , [\GD'']}$;
@@ -1655,7 +1657,7 @@ We separate the proofs for readability.
     % By inductive hypothesis, we know that $\gs{[D']} \subseteq \gs{ S, \GG_0 , A}$ and $\gs{[D'']} \subseteq \gs{\GG_2 , B}$.
     % By the definition of $\mf{var}$, we have $\gs{[D'], [D'']} \subseteq \gs{ S, \GG_0 , A , \GG_2 , B} = \gs{S , \GG_0 , \GG_2 , A \ot B}$.
     % Therefore, $\gs{[D'], [D'']} \subseteq \gs{[\GD'] , [\GD'']} \cap \gs{S , \GG_0 , \GG_2 , A \ot B}$, as desired.
-    \item[$\bullet$] The case $\GG_2 = (\GG'_2 , \GG''_2)$ where $\GL = \GG_0 , \GG_1, \GG'_2$ and $\GO = \GG''_2$ is similar to the first case.
+    % \item[$\bullet$] The case $\GG_2 = (\GG'_2 , \GG''_2)$ where $\GL = \GG_0 , \GG_1, \GG'_2$ and $\GO = \GG''_2$ is similar to the first case.
   \end{itemize}
   %\underline{Case $f = \lleft (f',f'') $.} Analogous to the case of $\tr$ above.
 \end{proof}
@@ -1686,7 +1688,7 @@ We separate the proofs for readability.
 % \end{itemize}
 % In this case, the partition, the list of interpolant formulae are the same as the inductive hypothesis.
 % The desired derivations are $g = \unitl \ g'$ and $h_i = h'_i$ for $i \in [1,\dots , n]$.
-% The multiplicity condition is automatically satisfied.
+% The variable condition is automatically satisfied.
 
 % The critical case among one-premise rules is $f = \pass \ f'$, with the partition $\langle [\ ], (A, \GG_1) , \GG_2 \rangle$ and derivation $f' : A \mid \GG_1 , \GG_2 \vd C$.
 % In this case, we apply the inductive hypothesis of $\mf{scut}$-interpolation on $f'$ and obtain a formula $D$ such that 
@@ -1696,7 +1698,7 @@ We separate the proofs for readability.
 %   \item[--] $\gs{D} \leq \gs{A , \GG_1}$ and $\gs{D} \leq \gs{\GG_2 , C}$ for every $X$.
 % \end{itemize}
 % The desired derivations are $\pass \ g' : {-} \mid A , \GG_1 \vd D$ and $\pass \ h' : {-} \mid D, \GG_2 \vd C$, i.e. the partition of $A, \GG_1$ is itself and the list of formulae is the singleton list $[D]$.
-% The multiplicity condition is satisfied by hypothesis.
+% The variable condition is satisfied by hypothesis.
 
 % Next we deal with two-premises rules.
 % We show the case $f = \tr (f' , f'')$, while the case of $\lleft$ is similar.
@@ -1709,7 +1711,7 @@ We separate the proofs for readability.
 %     \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1,\dots , n]$ and $\gs{D_1, \dots , D_n} \leq \gs{ \GG''_0 , \GG_2 , B}$ for every $X$.
 %   \end{itemize}
 %   The desired derivations are $g = \tr (f' , g'')$ and $h_i = h''_i$ for $i \in [1,\dots , n]$.
-%   The multiplicity condition is satisfied because $\gs{D_1 , \dots , D_n} \leq \gs{ \GG''_0 , \GG_2 , B} \leq \gs{S, \GG'_0, \GG''_0 , \GG_2 , A \ot B}$.
+%   The variable condition is satisfied because $\gs{D_1 , \dots , D_n} \leq \gs{ \GG''_0 , \GG_2 , B} \leq \gs{S, \GG'_0, \GG''_0 , \GG_2 , A \ot B}$.
 %   \item If $\GG_1 = (\GG'_1 , \GG''_1)$ where $\GL = (\GG_0 , \GG'_1)$ and $\GO = (\GG''_1 , \GG_2)$, then we apply induction on $f'$ and $f''$ respectively to obtain
 %   \begin{itemize}
 %     \item[--] a partition $\langle \GD'_0, \dots , \GD'_0 \rangle$ of $\GG'_1$ and a list of interpolant formulae $D'_1, \dots , D'_n$ such that
@@ -1729,7 +1731,7 @@ We separate the proofs for readability.
 %     \item[--] for $i \in [1,\dots , n+m]$, if $i \leq n$, then $h_i = h'_i$. Otherwise, let $h_i = h''_i$.
 %   \end{itemize}
 %   We abbreviate $D'_1 , \dots , D'_n$ as $[D']$, $\GD'_1, \dots , \GD'_n$ as $[\GD']$, $D''_{n+1} , \dots , D''_{n+m}$ as $[D'']$, and $\GD''_{n+1}, \dots , \GD''_{n+m}$ as $[\GD'']$. 
-%   For the multiplicity condition, we argue that for every $X$
+%   For the variable condition, we argue that for every $X$
 %   \begin{itemize}
 %     \item[--] by inductive hypothesis, we know that $\gs{[D']} \leq \gs{[\GD']}$ and $\gs{[D'']} \leq \gs{[\GD'']}$;
 %     \item[--] by the definition of $\sigma_{X}$, we have $\gs{[D'], [D'']} \leq \gs{[\GD'] , [\GD'']}$;
@@ -1789,7 +1791,7 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
     \item[--] a list of interoplant formulae $[X , W]$, and
     \item[--] derivations $\pass (\lleft (\pass \ \ax, \tr (\ax , \pass \ \ax))) : {-} \mid X \lolli Y , X, W \vd Y \ot W$, $\pass \ \ax : {-} \mid X \vd X$, and $\pass \ \ax : {-} \mid W \vd W$,
   \end{itemize}
-  satisfying the multiplicity condition.
+  satisfying the variable condition.
   Next, we need to apply the \sMIP~procedure on the derivation $\ax : Z \mid \quad \vd Z$ with the partition $\langle [\ ] , [\ ] \rangle$ which produces two derivations $\ax : Z \mid \quad \vd Z$ and $\ax : Z \mid \quad \vd Z$.
   Then we obtain the desired interpolant formula $X \lolli (W \lolli Z)$ and the desired derivations 
   \begin{displaymath}
@@ -1877,16 +1879,16 @@ We conclude this section showing how Craig interpolation follows from stoup Maeh
 %\begin{proof}
 %  This is true by definition.
 %\end{proof}
-\begin{lemma}\label{lem:gs2vars}
-  %  For any formulae $A$ and $B$, 
-  If $\gs{A} \leq \gs{B}$ for every $X$, then $\vars{A} \subseteq \vars{B}$.
-\end{lemma}
-\begin{proof}
-  Given $X \in \vars{A}$, by the assumption $\gs{A} \leq \gs{B}$ we know that 
-  %and Lemma \ref{lem:gs:vars:equiv}, we know that 
-$X \in \vars{B}$ as well.
-  Therefore we can conclude that $\vars{A} \subseteq \vars{B}$.
-\end{proof}
+% \begin{lemma}\label{lem:gs2vars}
+%   %  For any formulae $A$ and $B$, 
+%   If $\gs{A} \leq \gs{B}$ for every $X$, then $\vars{A} \subseteq \vars{B}$.
+% \end{lemma}
+% \begin{proof}
+%   Given $X \in \vars{A}$, by the assumption $\gs{A} \leq \gs{B}$ we know that 
+%   %and Lemma \ref{lem:gs:vars:equiv}, we know that 
+% $X \in \vars{B}$ as well.
+%   Therefore we can conclude that $\vars{A} \subseteq \vars{B}$.
+% \end{proof}
 \begin{theorem}\label{thm:craig:intrp}
   For any formulae $A$ and $C$, if $A \lolli C$ is provable in \SkNMILL, then there exists a formula $D$ such that both $A \lolli D$ and $D \lolli C$ are provable, and $\vars{D} \subseteq \vars{A} \cap \vars{C}$.
 \end{theorem}
@@ -1898,10 +1900,11 @@ $A \lolli C$ being provable means that there is a derivation $f : {-} \mid \quad
     \item[--]  a formula $D$,
     \item[--] $g': {-} \mid A \vd D$,
     \item[--] $h': D \mid \quad \vd C$, and 
-    \item[--] $\gs{D} \leq \gs{A} $ and $ \gs{D} \leq \gs{C}$ for every $X$.
+    \item[--] $\vars{D} \subseteq \vars{A} \cap \vars{C}$.
   \end{itemize}
   The formulae $A \lolli D$ and $D \lolli C$ are proved by the derivations $\lright \ g' : {-} \mid \quad \vd A \lolli D$ and $\lright (\pass \ h') : {-} \mid \quad \vd D \lolli C$, respectively.
-  By Lemma \ref{lem:gs2vars}, we know that $\vars{D} \subseteq \vars{A}$ and $\vars{D} \subseteq \vars{C}$, which means that $\vars{D} \subseteq \vars{A} \cap \vars{C}$.
+  The variable condition is satisfied automatically.
+  % By Lemma \ref{lem:gs2vars}, we know that $\vars{D} \subseteq \vars{A}$ and $\vars{D} \subseteq \vars{C}$, which means that $\vars{D} \subseteq \vars{A} \cap \vars{C}$.
 \end{proof}
 
 \section{Proof-Relevant Interpolation}\label{sec:proof-rel} 
