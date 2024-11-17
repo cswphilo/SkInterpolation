@@ -289,8 +289,8 @@ Substructural logics have proven useful for modelling various phenomena in diffe
 Craig interpolation for substructural logics has been extensively studied, using either algebraic or proof-theoretic techniques. 
 
 For substructural logics that lack a cut-free sequent calculus, such as arbitrary extensions of the full Lambek calculus with exchange ($\FL_{\textbf{e}}$), Craig interpolation is established using algebraic methods such as amalgamation.
-For further details on this approach, see \cite{Kihara2009}.
-\niccolo{Pick a better reference where algebraic proofs of amalgamation are actually given. Keep the Kihara2009 reference saying that this studies the relationship between various interpolation properties and amalgamation properties.}
+For further details on this approach, see~\cite{Fussner2024} and for the relationship between amalgamation and interpolation properties in substructural logics, see~\cite{Kihara2009}.
+% \niccolo{Pick a better reference where algebraic proofs of amalgamation are actually given. Keep the Kihara2009 reference saying that this studies the relationship between various interpolation properties and amalgamation properties.}
 
 For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven by adapting Maehara's method \cite{maehara1961}, which originally aimed to prove interpolation for $\mathbf{LK}$, a sequent calculus for classical logic.
 This includes the full Lambek calculus (\FL) and its extensions that incorporate various combinations of weakening, exchange, and contraction.
@@ -1647,7 +1647,7 @@ We separate the proofs for readability.
       \item[--] derivations $g' : S \mid \GG_0 , D_1 , \dots , D_n \vd A$ and $g'' : {-} \mid D_{n+1} , \dots , D_{m} , \GG_2 \vd B$,
       \item[--] derivations $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1,\dots , n]$, and derivations $h'_j : {-} \mid \GD_j \vd D_j$, for $j \in [n+1,\dots , m]$, such that
       % \item[--] $\gs{D_i} \leq \gs{\GD_i}$ for $i \in [1,\dots , n]$ and $\gs{D_{j}} \leq \gs{\GD_{j}}$ for $j \in [n+1,\dots , m]$ for every $X$, 
-      \item[--] $\vars{D_1 , \dots , D_n} \subseteq \vars{\GD_1 , \dots , \GD_n} \cap \vars{ S, \GG_0 , A}$ and $\vars{D_{n+1} , \dots , D_{m}} \subseteq \vars{\GD_{n+1} , \dots , \GD_m}\vars{\GG_2 , B}$.
+      \item[--] $\vars{D_1 , \dots , D_n} \subseteq \vars{\GD_1 , \dots , \GD_n} \cap \vars{ S, \GG_0 , A}$ and $\vars{D_{n+1} , \dots , D_{m}} \subseteq \vars{\GD_{n+1} , \dots , \GD_m} \cap \vars{\GG_2 , B}$.
     \end{itemize}
     The desired partition of $\GG'_1,\GG''_1$ is $\langle \GD_0, \dots , \GD_n, \GD_{n+1}, \dots , \GD_m \rangle$.
     The desired list of interpolant formulae is $D_1, \dots , D_n,D_{n+1}, \dots , D_m$.
