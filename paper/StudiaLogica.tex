@@ -1364,7 +1364,7 @@ This implies that there exists a derivation $f : A \vd B$.
 Apply the Maehara multi-interpolation procedure to $f$ and the partition $\langle [\ ],[A],[\ ]\rangle$.
 This produces a partition $\langle \GD_1,\dots,\GD_n \rangle$ of $[A]$.
 Since $[A]$ is a singleton list, all $\GD_i$ must be empty apart from one which is equal to $[A]$.
-Maehara multi-interpolation also produces formulae $D_1,\dots,D_n$ satisfying the variable condition $\sigma_X(D_i) \leq \sigma_X(\GD_i)$ for all $i$ and atomic formulae $X$. 
+Maehara multi-interpolation also produces formulae $D_1,\dots,D_n$ satisfying the variable condition $\vars{D_1, \dots, D_n} \subseteq \vars{\GD_1 , \dots , \GD_n}$. 
 The latter cannot be true if $\GD_i$ is empty, since this logic has no units.
 This implies $n = 1$.
 Therefore, Maehara multi-interpolation in this case produces only two derivations $h : A \vd D_1$ and $g : D_1 \vd B$, i.e. $D_1$ is the Craig interpolant of $A$ and $B$.
