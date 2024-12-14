@@ -1349,7 +1349,7 @@ The variable condition of Maehara interpolation and the existence of the derivat
 This situation is reminiscent of proving interpolation in the product-free Lambek calculus \cite{Pentus1997} and in the implicational fragment of intuitionistic logic \cite{Kanazawa2006}.
 In both these cases, Maehara interpolation fails because none of the additive ($\land$) and multiplicative ($\ot$) conjunction is present.
 A concrete counterexample in the product-free Lambek calculus (adapted from Kanazawa \cite{Kanazawa2006}) is given by the derivable sequent $W, W\bsls Y, W , W \bsls X , X \bsls (Y \bsls Z) \vd Z$ with the partition $\langle [\ ] , [W, W\bsls Y, W , W \bsls X], [X \bsls (Y \bsls Z)] \rangle$. This can be shown to not satisfy Maehara interpolation property. In the presence of $\ot$,  Maehara's method would produce the interpolant formula $X \ot Y$. The situation of \SkNMILL~ is somewhere inbetween: we have a multiplicative conjunction $\ot$ but we cannot do much with it if a formula $A \ot B$ is in context instead of the stoup position, since the rule $\tl$ cannot be applied arbitrarily in the antecedent.
-The counterexample to \MIP~in product-free sequent calculus can, when appropriately modified, also works as a counterexample to \cMIP~in \SkNMILL: consider the derivable sequent  $X \lolli (Y \lolli Z) \mid W \lolli X, W , W \lolli Y, W \vd Z$ with the partition $\langle [\ ] , [W \lolli X, W , W \lolli Y, W], [\ ] \rangle$.
+The counterexample to \MIP~in product-free Lambek calculus can, when appropriately modified, also works as a counterexample to \cMIP~in \SkNMILL: consider the derivable sequent  $X \lolli (Y \lolli Z) \mid W \lolli X, W , W \lolli Y, W \vd Z$ with the partition $\langle [\ ] , [W \lolli X, W , W \lolli Y, W], [\ ] \rangle$.
 %This is an instance of a sequent calculus failing to have the formula-version of Maehara interpolation for a different reason.
 
 \section{Craig Interpolation for \SkNMILL}\label{sec:interpolation}
@@ -1420,7 +1420,7 @@ We separate the proofs for readability.
   There are two subcases determined by the partition $\langle \GG_0,\GG_1 \rangle$ of $\GG$. 
   Specifically, either $\GG_0$ is an empty list or not.
   \begin{itemize}
-    \item If $\GG_0 = [\ ]$, then the interpolant is $\unit$ and two desired derivations are $\unitr$ and $\unitl (\pass \ f')$.
+    \item If $\GG_0 = [\ ]$, then the interpolant is $\unit$ and the two desired derivations are $\unitr$ and $\unitl (\pass \ f')$.
     The variable condition is satisfied because $\vars{\unit} = \emptyset$.
     \item If $\GG_0 = A, \GG'_0$, then by induction on $f'$ with the partition $\langle \GG'_0, \GG_1 \rangle$ we obtain
     \begin{itemize}
@@ -1429,7 +1429,7 @@ We separate the proofs for readability.
       \item[--] a derivation $h' : D \mid \GG_1 \vd C$, such that
       \item[--] $\vars{D} \subseteq \vars{A, \GG'_0} \cap \vars{\GG_1, C}$.
     \end{itemize}
-    In this case, the interpolant formula for $f$ is $D$, and two desired derivations are $g = \pass \ g'$ and $h = h'$.
+    In this case, the interpolant formula for $f$ is $D$, and the two desired derivations are $g = \pass \ g'$ and $h = h'$.
     The variable condition follows directly from the inductive hypothesis.
   \end{itemize} 
   \underline{Case $f = \tr (f',f'')$.} Let $f' : S \mid \GL \vd A$ and $f'' : {-} \mid \GO \vd B$, so that $\GG = \GL,\GO$. We need to check how the latter splitting of $\GG$ compares to the given partition $\langle \GG_0,\GG_1 \rangle$. 
@@ -1582,7 +1582,7 @@ We separate the proofs for readability.
   \\
   \underline{Case $f  = \ax$.}
   Suppose $f = \ax : A \mid \quad \vd A$, which means that $\GG_0 = \GG_1 = \GG_2 = [\ ]$.
-  In this case, the desired partition of $\GG_1$ is the empty one $\langle [\ ] \rangle$, i.e. $n=0$. The desired lists of formulae $D_i$ and of derivations $h_i$ are also empty. The desired derivation $g$ is $\ax$.
+  In this case, the desired partition of $\GG_1$ is the empty one, i.e. $n=0$. The desired lists of formulae $D_i$ and of derivations $h_i$ are also empty. The desired derivation $g$ is $\ax$.
   \\
   \underline{Case $f = \unitr$.} Similar to the previous one.
   \\
@@ -1807,7 +1807,7 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
   \begin{itemize}
     \item[--] a partition $\langle [X] , [W] \rangle$ of $[X, W]$,
     \item[--] a list of interpolant formulae $[X , W]$, and
-    \item[--] derivations $\pass (\lleft (\pass \ \ax, \tr (\ax , \pass \ \ax))) : {-} \mid X \lolli Y , X, W \vd Y \ot W$, $\pass \ \ax : {-} \mid X \vd X$, and $\pass \ \ax : {-} \mid W \vd W$,
+    \item[--] derivations $g' = \pass (\lleft (\pass \ \ax, \tr (\ax , \pass \ \ax))) : {-} \mid X \lolli Y , X, W \vd Y \ot W$, $h'_1 = \pass \ \ax : {-} \mid X \vd X$, and $h'_2 = \pass \ \ax : {-} \mid W \vd W$,
   \end{itemize}
   satisfying the variable condition.
   Next, we need to apply the \sMIP~procedure on the derivation $\ax : Z \mid \quad \vd Z$ with the partition $\langle [\ ] , [\ ] \rangle$ which produces two derivations $\ax : Z \mid \quad \vd Z$ and $\ax : Z \mid \quad \vd Z$.
@@ -1824,21 +1824,22 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
         \infer[\lright]{(Y \ot W) \lolli Z \mid X \lolli Y \vd X \lolli (W \lolli Z)}{
         \infer[\lright]{(Y \ot W) \lolli Z \mid X \lolli Y , X\vd W \lolli Z}{
         \infer[\lleft]{(Y \ot W) \lolli Z \mid X \lolli Y , X , W \vd Z}{
-        \infer[\pass]{{-} \mid X \lolli Y , X , W\vd Y \ot W}{
-        \infer[\lleft]{X \lolli Y \mid X , W \vd Y \ot W}{
-        \infer[\pass]{{-} \mid X \vd X}{
-        \infer[\ax]{X \mid \quad \vd X}{}
-        }
-        &
-        \infer[\tr]{Y \mid W \vd Y \ot W}{
-        \infer[\ax]{Y \mid \quad \vd Y}{}
-        &
-        \infer[\pass]{{-} \mid W \vd W}{
-        \infer[\ax]{W \mid \quad \vd W}{}
-        }
-        }
-        }
-        }
+        % \infer[\pass]{{-} \mid X \lolli Y , X , W\vd Y \ot W}{
+        % \infer[\lleft]{X \lolli Y \mid X , W \vd Y \ot W}{
+        % \infer[\pass]{{-} \mid X \vd X}{
+        % \infer[\ax]{X \mid \quad \vd X}{}
+        % }
+        % &
+        % \infer[\tr]{Y \mid W \vd Y \ot W}{
+        % \infer[\ax]{Y \mid \quad \vd Y}{}
+        % &
+        % \infer[\pass]{{-} \mid W \vd W}{
+        % \infer[\ax]{W \mid \quad \vd W}{}
+        % }
+        % }
+        % }
+        % }
+        \deduce{{-} \mid X \lolli Y , X , W\vd Y \ot W}{g'}
         &
         \infer[\ax]{Z \mid \quad \vd Z}{}
         }
@@ -1854,14 +1855,16 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
       \quad
       \begin{array}{c}
         \infer[\lleft]{X \lolli (W \lolli Z) \mid X, W \vd Z}{
-        \infer[\pass]{{-} \mid X \vd X}{
-        \infer[\ax]{X \mid \quad \vd X}{}
-        }
+        % \infer[\pass]{{-} \mid X \vd X}{
+        % \infer[\ax]{X \mid \quad \vd X}{}
+        % }
+        \deduce{{-} \mid X \vd X}{h'_1}
         &
         \infer[\lleft]{W \lolli Z \mid W \vd Z}{
-        \infer[\pass]{{-} \mid W \vd W}{
-        \infer[\ax]{W \mid \quad \vd W}{}
-        }
+        % \infer[\pass]{{-} \mid W \vd W}{
+        % \infer[\ax]{W \mid \quad \vd W}{}
+        % }
+        \deduce{{-} \mid W \vd W}{h'_2}
         &
         \infer[\ax]{Z \mid \quad \vd Z}{}
         }
@@ -2019,7 +2022,7 @@ Here we show the same for \SkNMILL: the \sMIP~procedure is a right inverse of $\
   \\
   \underline{Case $f = \unitl \ f'$.} The goal reduces to $\mf{scut} (\unitl \ g', h') \circeq \unitl\ f'$\footnote{Here $g'$ and $h'$ are as in the proof of Theorem \ref{genIntrp}. We follow the same convention for the forthcoming cases too, where name of derivations will match the ones in the proof of Theorem \ref{genIntrp}}. By definition of $\mf{scut}$ we have $\mf{scut} (\unitl \ g', h') = \unitl\ (\mf{scut} (g', h'))$. By inductive hypothesis on $f'$ and congruence (which here allow us to rewrite under $\unitl$), the latter is $\circeq$-related to $\unitl\ f'$.
 %  We show the case of , while the other two are similar.
-%  In this case, the interpolant formula is $D$, and two desired derivations are $g = \unitl \ g'$ and $h = h'$.
+%  In this case, the interpolant formula is $D$, and the two desired derivations are $g = \unitl \ g'$ and $h = h'$.
 %  The derivation $\mf{scut} (\unitl \ g', h')$ is definitionally equal to $\unitl (\mf{scut} (g' , h'))$, then by inductive hypothesis and congruence of $\circeq$, we have $\unitl (\mf{scut} (g' , h')) \circeq \unitl \ f'$.
   \\
   \underline{Cases $f = \tl \ f'$ and $f = \lright \ f'$.} Analogous to the previous case.
@@ -2031,10 +2034,10 @@ Here we show the same for \SkNMILL: the \sMIP~procedure is a right inverse of $\
     \item In the second case, the goal reduces to $\scut{\pass \ g'}{h'} \circeq \pass\ f'$. By definition of $\mf{scut}$ we have
 $\scut{\pass \ g'}{h'} = \pass (\scut{g'}{h'})$. By inductive hypothesis on $f'$ and congruence, the latter is $\circeq$-related to $\pass\ f'$.
 %      we apply induction on $f'$ with the partition $\langle \GG'_0, \GG_1 \rangle$ and then obtain a formula $D$ and two derivations $g' : A \mid \GG'_0 \vd D$ and $h' : D \mid \GG_1 \vd C$.
-%    In this case, the interpolant formula for $f$ is $D$, and two desired derivations are $g = \pass \ g'$ and $h = h'$.
+%    In this case, the interpolant formula for $f$ is $D$, and the two desired derivations are $g = \pass \ g'$ and $h = h'$.
 %    The derivation $\scut{\pass \ g'}{h'} = \pass (\scut{g'}{h'})$ is equivalent to $\pass \ f'$ by inductive hypothesis and congruence.
   \end{itemize} 
-  \underline{Case $f = \tr (f',f'')$.} Two case determined by whether $\GG_0$ is fully contained in the context of the left premise or not.
+  \underline{Case $f = \tr (f',f'')$.} Two cases determined by whether $\GG_0$ is fully contained in the context of the left premise or not.
   \begin{itemize}
     \item In the first case, the goal reduces to $\scut{g'}{\tr (h', f'')} \circeq \tr (f' , f'')$. By Proposition \ref{eq:scut:otr:-or}, we have $\scut{g'}{\tr (h', f'')} \circeq \tr (\scut{g'}{h'} , f'')$. By inductive hypothesis on $f'$ and congruence, the latter is $\circeq$-related to $\tr (f' , f'')$.
     \item In the second case, the goal reduces to showing that the derivation $\mf{scut}(\tr (g,h'),\tl\ (\tr (h',\pass` h'')))$ is $\circeq$-related to $\tr (f',f'')$.
