@@ -1,0 +1,77 @@
+Reviewer #2:
+
+The article "Craig Interpolation for Semi-Substructural Logics"
+explores the Craig interpolation property within the framework of
+SkNMILL, a semi-substructural logic characterized by a directed notion
+of associativity and unitality. The authors highlight that traditional
+methods, such as Maehara's, fail in this context, necessitating
+modifications to recover the interpolation property.
+
+The paper provides two key contributions: (1) an adaptation of
+Maehara's method to prove Craig interpolation for SkNMILL, and (2) a
+proof-relevant version of the interpolation theorem from a
+category-theoretic perspective, where interpolation procedures act as
+right inverses to admissible cut rules. This novel approach reflects
+deeper interactions between logical derivations and categorical
+structures.
+
+Additionally, the work formalizes its findings using the proof
+assistant Agda, offering a robust foundation for further study. The
+results enrich the understanding of substructural logics and open
+avenues for their application in syntax, programming, and
+resource-sensitive computation.
+
+All the proofs are correct and are checked by Agda, which gives
+additional credibility. Of course, I checked them all "by hand". The
+results are interesting and important for further research. The
+following comments are minor typos and suggestions for better reading
+experience.
+
+Page 2
+When we mention Nonassociative Lambek Calculus, it is worth to cite
+the original Lambek paper where he introduced this calculus.
+
+** Added citation to Lambek'61 in first mention of NL
+
+Line 7 from the top: "Substructural logics have **been** proved..."
+
+** Fixed typo
+
+Paragraph 4: It's worth to mention the results for NL, if known.
+
+** The Maehara interpolation property holds also in NL (we have a
+proof of this fact in Agda), but we could not find a reference of this
+result in the literature.  There exist proofs of other interpolation
+theorems for NL, with the variable condition replaced by a certain
+complexity condition (as in Buszkowski "Lambek Calculus with
+Nonlogical Axioms" and other subsequent papers by the same author),
+with the goal of showing that categorial grammars are context-free.
+Since we couldn't find a reference, we prefer to remove the sentence.
+
+Page 6
+The end of last line: "**of** n".
+
+** Fixed typo
+
+Page 8
+I would not treat the paragraph under Proposition 1 as proof. It's
+only the description of the proof. I would delete "Proof" for clarity.
+
+** Removed "Proof"
+
+General note to section 3:
+We have many big figures. I would move them all to the end of the
+section, because now we can have like one or two lines of text on the
+page with a figure, which is unreadable.
+
+** Figures have been repositioned to avoid the "page with big figure + small text" issue
+
+Page 12
+Line 8 in the section 4: "two different **forms** of interpolation"
+
+** Fixed typo
+
+Page 20
+Line 11 from the bottom: "This **is** in fact what..."
+
+** Fixed typo
