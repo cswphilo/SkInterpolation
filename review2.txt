@@ -1,31 +1,3 @@
-Reviewer #2:
-
-The article "Craig Interpolation for Semi-Substructural Logics"
-explores the Craig interpolation property within the framework of
-SkNMILL, a semi-substructural logic characterized by a directed notion
-of associativity and unitality. The authors highlight that traditional
-methods, such as Maehara's, fail in this context, necessitating
-modifications to recover the interpolation property.
-
-The paper provides two key contributions: (1) an adaptation of
-Maehara's method to prove Craig interpolation for SkNMILL, and (2) a
-proof-relevant version of the interpolation theorem from a
-category-theoretic perspective, where interpolation procedures act as
-right inverses to admissible cut rules. This novel approach reflects
-deeper interactions between logical derivations and categorical
-structures.
-
-Additionally, the work formalizes its findings using the proof
-assistant Agda, offering a robust foundation for further study. The
-results enrich the understanding of substructural logics and open
-avenues for their application in syntax, programming, and
-resource-sensitive computation.
-
-All the proofs are correct and are checked by Agda, which gives
-additional credibility. Of course, I checked them all "by hand". The
-results are interesting and important for further research. The
-following comments are minor typos and suggestions for better reading
-experience.
 
 Page 2
 When we mention Nonassociative Lambek Calculus, it is worth to cite

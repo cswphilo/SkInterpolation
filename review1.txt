@@ -1,0 +1,92 @@
+Major
+
+1. More emphasis on Agda formalization
+
+** TODO
+
+2. Proof of multiplicity condition
+
+** TODO
+
+-----------------------
+
+Minor
+
+1. The plural form (“logics”) in the title is a bit misleading, since
+the authors consider only one such logic, SkNMILL.
+
+** TODO
+
+2. The font used for SkNMILL is for some strange reason different from
+the one used to name other logics: FL, LK.
+
+** TODO
+
+3. On p. 2, the lowermost paragraph: “some of its fragment” should be
+“some of its fragments.” Also, here one should more carefully
+formulate the antecedent partition condition in the case when the
+system becomes commutative (i.e., FL_e ). In this case, in order for
+induction to work, Γ should be partitioned into Γ_0 and Γ_1 as a
+multiset (ignoring the order).
+
+** TODO
+
+4. On p. 3: a strange linebreak btw. lines 3 and 4; on line 8, “a
+derivation h i ” should be “derivations.”
+
+** TODO
+
+5. On p. 3, line 12: better replace “conjunction” with “product” or
+“multiplicative conjunction.”
+
+** TODO
+
+6. On p. 3, along with the discussion which direction of associativity
+holds, and which does not, please include similar notes for
+unitality. Also, the terms “semi-associativity” and “semi-unitality”
+should be explained before being used.
+
+** TODO
+
+7. The notation A ( B (p. 5 and further) is a bit misleading, since it
+is the right division, where A stands to the right: B/A. Maybe, B o- A
+would be a better notation. (I do not urge the authors to change the
+notation, as -o was already used before in [12], but a remark would be
+welcome here.)
+
+** TODO
+
+8. On p. 6, the third paragraph (“SkNMILL can be seen...”) is a bit
+hard to understand, please clarify. (In particular, it is unclear why
+one should remove ⊗ and I from the system.)
+
+** TODO
+
+9. On p. 13, line 2: replace ≤ with ⊆; line 3: “in” should be “for”
+and “lays” should be “lies;” lines −8 and −7: better write “Maehara
+interpolation fails because neither the additive not the
+multiplicative conjunction is present.”
+
+** TODO
+
+10. On p. 20, Theorem 6: the definition of what A -o C being provable
+means should be put before the formulation of the theorem, not inside
+its proof.
+
+** TODO
+
+11. There are some issues with the list of references. First, there is
+a standard problem with BibTEX aggressively making letters lowercase,
+even where it is inappropriate: in personal names (Beth, Gentzen,
+Lambek, etc.) and names of calculi (MILL). Second, there are question
+marks instead of some data in some of the references to lecture notes
+volumes (e.g., [12], [17], [20]). In [26], “Alizaseh” should be
+“Alizadeh.”
+
+** TODO
+
+12. I would also like to suggest to add some references, as
+follows. For the proof of interpolation for the Lambek calculus (in a
+strong version, with variable counts), Pentus refers to the
+
+** TODO
