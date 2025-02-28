@@ -299,19 +299,21 @@ The latter property states:
 \begin{description}
   \item[(\MIP~for \FL)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$, and $\vars{D} \subseteq \vars{\GG_0} \cap \vars{\GG_0, \GG_1, C}$
 \end{description}
-Being a partition simply means that the ordered list of formulae $\GG$ is equal to the concatenation of $\GG_0, \GG_1$ and $\GG_2$, i.e. $\GG = \GG_0, \GG_1, \GG_2$. 
+Being a partition simply means that the ordered list of formulae $\GG$ is equal to the concatenation of $\GG_0, \GG_1$ and $\GG_2$, i.e. $\GG = \GG_0, \GG_1, \GG_2$.
+
 % \FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by a  variable condition \cite{roorda1991,moot:categorial:2012}.
 % The property states:
 % \begin{description}
 %   \item[(\MIP~for \FL~with variable condition)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$, and $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{\GG_0, \GG_2 , C}$ for all atomic formulae $X$.
 % \end{description}
 % Above $\gs{A}$ is equal to the number of occurrences of the atomic formula $X$ in $A$.
-Maehara interpolation also holds for the non-associative variant of \FL, for an appropriate reformulation of the principle in which antecedents are trees of formulae instead of lists.
+Maehara interpolation also holds for the commutative ($\FL_{\textbf{e}}$) and non-associative variants of \FL, respectively.
+For the former, $\GG$ is partitioned as two multisets which ignores the order. For the latter, \MIP\ is reformulated where antecedents are trees of formulae instead of lists.
 Notice that Craig interpolation is a property of a logic (with a notion of implication), while Maehara interpolation is a property of a deductive system in which it is possible to appropriately partition antecedents.
 
-Maehara interpolation is a stronger form of the so-called \emph{deductive interpolation property}. A logic $\mc{L}$ has the deductive interpolation property if, for any formulae $A$ and $C$, whenever $A \vd C$ (where $\vd$ is the consequence relation of $\mc{L}$), then there exists a formula $B$ such that $A \vd B$ and $B \vd C$ while also satisfying the usual variable condition. Furthermore, if the sequent calculus of $\mc{L}$ admits the invertibility of implication-right rules (as is the case in \FL\ for both left  and right implication), Craig interpolation follows immediately as a consequence of deductive interpolation.
+Maehara interpolation is a stronger form of the so-called \emph{deductive interpolation property}. A logic $\mc{L}$ has the deductive interpolation property if, for any formulae $A$ and $C$, whenever $A \vd C$ (where $\vd$ is the consequence relation of $\mc{L}$), then there exists a formula $B$ such that $A \vd B$ and $B \vd C$ while also satisfying the usual variable condition. Furthermore, if the sequent calculus of $\mc{L}$ admits the invertibility of implication-right rules (as is the case in \FL\ for both left and right implication), Craig interpolation follows immediately as a consequence of deductive interpolation.
 
-While Maehara's method is often applicable to extensions of \FL, it does not work for some of its fragment, which therefore do not enjoy Maehara interpolation. This is the case for fragments lacking multiplicative and/or additive conjunction, such as the product-free Lambek calculus \cite{Pentus1997} (with only left  and right implications as connectives) and the implicational fragment of intuitionistic logic \cite{Kanazawa2006}. 
+While Maehara's method is often applicable to extensions of \FL, it does not work for some of its fragments, which therefore do not enjoy Maehara interpolation. This is the case for fragments lacking multiplicative and/or additive conjunction, such as the product-free Lambek calculus \cite{Pentus1997} (with only left  and right implications as connectives) and the implicational fragment of intuitionistic logic \cite{Kanazawa2006}. 
 The variant of Maehara interpolation satisfied by the product-free Lambek calculus, which we dub \emph{Maehara multi-interpolation} (\MMIP), is particularly relevant for our work. Here is its statement, which we have slightly modified to better align with our forthcoming discussion:
 \begin{description}
   \item[(\MMIP~for product-free Lambek calculus)]  Given $f: \GG \vd C$ and a partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$, there exist 
@@ -319,22 +321,22 @@ The variant of Maehara interpolation satisfied by the product-free Lambek calcul
     \item[--] a partition $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$,
     \item[--] a list of interpolant formulae $D_1, \dots, D_n$,
     \item[--] a derivation $g: \GG_0, D_1, \dots, D_n, \GG_2 \vd C$,
-    \item[--] a derivation $h_i : \GD_i \vd D_i$ for all $i \in [1, \dots, n]$, such that
+    \item[--] derivations $h_i : \GD_i \vd D_i$ for all $i \in [1, \dots, n]$, such that
     \item[--] $\vars{D_1, \dots, D_n} \subseteq \vars{\GD_1 , \dots , \GD_n} \cap \vars{\GG_0, \GG_2, C}$.
   \end{itemize}
 \end{description}
 % Above $\gs{A}$ is equal to the number of occurrences of the atomic formula $X$ in $A$.
 Differently from Maehara interpolation, in the above property we look for a  list of interpolants instead of a single formula.
-This adjustment allows to overcome the difficulty caused by the absence of conjunction.
+This adjustment allows to overcome the difficulty caused by the absence of multiplicative conjunction.
 %\niccolo{(Are all difficulties actually overcome? Does this property still imply deductive/Craig interpolation?)}.
 
 
 In this paper, we aim at proving Craig interpolation for the \emph{semi-substructural} logic \SkNMILL\ which we recently introduced in collaboration with Tarmo Uustalu \cite{UVW:protsn}.
 In our terminology, a logic is semi-substructural if it is an intermediate logic in between (certain fragments of) non-associative and associative intuitionistic linear logic (or the Lambek calculus).
-Semi-associativity and semi-unitality are encoded as follows.
-Sequents are in the form $S \mid \GG \vdash A$, where the antecedent consists of an optional formula $S$, called stoup, adapted from Girard \cite{girard:constructive:91}, and an ordered list of formulae $\GG$.
+% Semi-associativity and semi-unitality are encoded as follows.
+Sequents in \SkNMILL\ are in the form $S \mid \GG \vdash A$, where the antecedent consists of an optional formula $S$, called stoup, adapted from Girard \cite{girard:constructive:91}, and an ordered list of formulae $\GG$.
 The succedent is a single formula $A$.
-We restrict the application of introduction rules in an appropriate way to allow only one of the directions of associativity and unitality, e.g. only $(A \ot B)\ot C \mid \quad \vd A \ot (B \ot C)$ is provable in \SkNMILL, while its inverse $A \ot (B \ot C) \mid \quad \vd (A \ot B) \ot C$ is not.
+We restrict the application of introduction rules in an appropriate way to allow only one of the directions of associativity and unitality, i.e. only $(A \ot B)\ot C \mid \quad \vd A \ot (B \ot C)$, $\I \ot A \mid \quad \vd A$, and $A \mid \quad \vd A \ot \I$ are provable in \SkNMILL, while their inverses $A \ot (B \ot C) \mid \quad \vd (A \ot B) \ot C$, $A \mid \quad \vd \I \ot A$, and $A \ot \I \mid \quad \vd A$ are not.
 In other words, only directed variants of the structural rules of associativity and unitality are included, while their inverses are generally disallowed.
 
 The introduction of semi-substructural logics was originally motivated by the study of combinatorial properties of certain categorical structures, called \emph{left skew monoidal categories} \cite{szlachanyi:skew-monoidal:2012}.
@@ -2557,7 +2559,7 @@ We do not want to continue our speculations in this conclusive section and leave
 Our first step will be understanding the universal property of interpolants for logics in which the Maehara interpolation property is simpler than in \SkNMILL, e.g. in the associative Lambek calculus. 
 %We plan to start tackling the universal property of interpolants in logics where the Maehara interpolation property is simpler than in \SkNMILL, e.g. in the associative Lambek calculus.
 Another venue of future work would be the  extension of the results of this paper to other semi-substructural logics, e.g. extensions with a notion of skew exchange \cite{veltri:coherence:2021} or additive connectives \cite{VW:2023}.
-In the latter setting we might also ask whether the logic satisfies a uniform interpolation property in the sense of \cite{alizadeh:uniform:2014}.
+In the latter setting we might also ask whether the logic satisfies a uniform interpolation property in the sense of \cite{alizadeh:2014}.
 
 \paragraph{Acknowledgements}
 This work was supported by the Estonian Research Council grant PSG749.
