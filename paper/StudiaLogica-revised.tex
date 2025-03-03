@@ -199,7 +199,7 @@ font={\normalfont},
 
 \begin{document}
 
-\title[Craig Interpolation for Semi-{S}ubstructural Logics]{Craig Interpolation for Semi-{S}ubstructural Logics}
+\title[Craig Interpolation for a Semi-{S}ubstructural Logic]{Craig Interpolation for a Semi-{S}ubstructural Logic}
 
 %%=============================================================%%
 %% GivenName	-> \fnm{Joergen W.}
@@ -397,61 +397,10 @@ We show that the \sMIP~and \cMMIP~procedures of Theorem \ref{genIntrp} are right
 In the above statement, $\mf{ccut}^*$ denotes multiple applications of the admissible $\mf{ccut}$ rule, one for each derivation $h_i$.
 Theorems \ref{genIntrp} and \ref{cutIntrp} together show that \SkNMILL\ satisfies a \emph{proof-relevant} form of Craig interpolation, in the sense  formulated in the early 90s by {\v{C}}ubri{\'c} \cite{Cubric1994} in the setting of intuitionistic propositional logic and recently discussed also by Saurin \cite{Saurin2024} for (extensions of) classical linear logic.
 
-% For example, consider the sequent $W, W\bsls Y, W , W \bsls X , X \bsls (Y \bsls Z) \longrightarrow Z $ with the partition $\langle [\ ] , [W, W\bsls Y, W , W \bsls X], [X \bsls (Y \bsls Z)] \rangle$ in the product-free Lambek calculus.
-% By Maehara's method, the interpolant formula should be $X \cdot Y$, but the calculus does not include $\cdot$ as a connective.
-
-% In both cases above, the formula-version of general interpolation fails because the additive ($\land$) and multiplicative ($\cdot$) conjunction are not present, respectively.
-
-% \emph{Left skew monoidal categories} \cite{szlachanyi:skew-monoidal:2012} are a weaker variant of MacLane's monoidal categories where the structural morphisms of associativity and unitality are not required to be bidirectional, they are natural transformations with a particular orientation.
-% Therefore, they can be seen as \emph{semi-associative} and \emph{semi-unital} variants of monoidal categories. 
-% Left skew monoidal categories arise naturally in the semantics of programming languages \cite{altenkirch:monads:2014}, while the concept of semi-associativity is connected with combinatorial structures like the Tamari lattice and Stasheff associahedra \cite{zeilberger:semiassociative:19}.
-
-% In recent years, in collaboration with Tarmo Uustalu and Noam Zeilberger, we started a research project on \emph{semi-substructural} logics, which is inspired by a series of developments on left skew monoidal categories and related variants by Szlach{\'a}nyi, Street, Bourke, Lack and many others \cite{szlachanyi:skew-monoidal:2012,street:skew-closed:2013,lack:triangulations:2014,bourke:skew:2018,bourke:lack:braided:2020}.
-
-% We call the internal languages of left skew monoidal categories and their variants \emph{semi-substructural} logics, because they are intermediate logics in between (certain fragments of) non-associative and associative intuitionistic linear logic (or Lambek calculus).
-% Semi-associativity and semi-unitality are encoded as follows.
-% Sequents are in the form $S \mid \GG \vdash A$, where the antecedent consists of an optional formula $S$, called stoup, adapted from Girard \cite{girard:constructive:91}, and an ordered list of formulae $\GG$.
-% The succedent is a single formula $A$.
-% We restrict the application of introduction rules in an appropriate way to allow only one of the directions of associativity and unitality.
-% % the one in the definition of skew monoidal category. For example, left introduction rules are allowed to act only on the formula in stoup position, not on formulae in $\GG$.
-
-% This approach has successfully captured internal languages for a variety of categories, including  $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23}, and $(v)$ left distributive skew monoidal categories with finite products and coproducts \cite{VW:2023} through skew variants of the fragments of non-commutative intuitionistic linear logic consisting of combinations of connectives $(\unit,\ot,\lolli,\land,\lor)$.
-% Additionally, discussions have covered partial normality conditions, in which one or more structural morphisms are allowed to have an inverse \cite{uustalu:proof:nodate}, as well as extensions with skew exchange \`a la Bourke and Lack \cite{veltri:coherence:2021,VW:2023}.
-
-% All of the aforementioned calculi with sequents of the form $S \mid \GG \vd A$ are cut-free and therefore, by their rule design, they are decidable.
-% Moreover, they all admit sound and complete subcalculi inspired by Andreoli's focusing \cite{andreoli:logic:1992} in which
-% rules are restricted to be applied in a specific order.
-% A focused calculus provides an algorithm to solve both the proof identity problems for its non-focused calculus and coherence problems for its corresponding variant of left skew monoidal category.
-
-% The variation of Craig interpolation is defined by replacing the variable condition with that given a set of formulae $\GT$, and given a derivation $f:A \vd^{\GT} C$, if all formulae appearing in $f$ are in $\GT$, then there exists a formula $B \in \GT$ and two derivations $f_0: A\vd^{\GT} B$ and $f_1: B \vd^{\GT} C$. 
-% In this paper, we call the former Craig interpolation and the latter weak interpolation.
-
-% In this work, we show that sequent calculi for left skew monoidal (closed) categories enjoy Craig interpolation.
-
 All the proofs presented in this paper have been formalized in the proof assistant Agda. The full formalization is freely available at the following website:
 \begin{center}
   \url{https://github.com/niccoloveltri/code-skewmonclosed/tree/interpolation}.
 \end{center}
-% By reversing all structural morphisms and modifying coherence conditions in left skew monoidal closed categories, right skew monoidal closed categories emerge \cite{uustalu:eilenberg-kelly:2020}.
-% Moreover, skew bi-closed categories are defined by appropriately integrating left and right skew monoidal closed structures.
-% It is natural for us to consider sound sequent calculi for these categories.
-% However, the implication rules are not well-behaved when just modeling right skew monoidal closed categories with sequent calculus {\`a} la Girard.
-
-% In short, both problems stem from the skew structure concealed within the flat antecedent of $S \mid \GG \vd A$.
-% While the antecedent $S \mid \GG$ is defined similarly to an ordered list, it is actually a tree associating to the left.
-
-% In this work, we analyze and solve these two problems with ideas and methods from non-associative Lambek calculus.
-% We start in Section \ref{sec:syntax}, by introducing the sequent calculus {\` a} la Girard (\SkNMILL) for left skew monoidal closed categories from \cite{UVW:protsn} and elaborating its limitation on having interpolation.
-% By generalizing the method in \cite{ono:proof:nonclassical:1998}, we prove interpolation for a cut-free sequent calculus \LSkT, which is inspired by sequent calculus 
-% for non-associative Lambek calculus \cite{bulinska:2009,moot:categorial:2012} and equivalent to \SkNMILL.
-% The antecedents of sequents in \LSkT~are trees, which save us from discussing impossible cases when proving interpolation.
-% Moreover, by the equivalence between \SkNMILL~and \LSkT, we can prove a special form of interpolation for \SkNMILL~via \LSkT.
-
-% In Section \ref{sec:skew:categories}, we introduce definitions of left (right) skew monoidal closed categories and skew bi-closed categories, and normality conditions for skew categories.
-% In Section \ref{sec:calculi:skbic}, we describe two calculi for skew bi-closed categories: one is an axiomatic calculus (\SkBiCA), while the other is a sequent calculus (\SkBiCT) similar to the multimodal non-associative Lambek calculus \cite{moortgat:multimodl:1996}.
-% In Section \ref{sec:algebraic:relational:model}, we introduce the relational semantics for \SkBiCA.
-% We define the relational semantics via a Kripke frame with two ternary relations and show that the partially ordered set which consists of subsets of possible worlds with appropriate operations is a thin skew bi-closed category.
-% Furthermore, by theorem (\ref{thm:main}), we can prove a thin version of main theorems in \cite{uustalu:eilenberg-kelly:2020}.
 
 \section{A Sequent Calculus for \SkNMILL}\label{sec:syntax}
 We start by recalling the sequent calculus for left skew monoidal closed categories that was introduced in \cite{UVW:protsn}, which we name \SkNMILL. This is a ``skew variant'' of non-commutative multiplicative intuitionistic linear logic, in a way that will be made precise later in this section.
@@ -517,7 +466,7 @@ Derivations are generated recursively by the following rules:
   % \infer[\lright]{S \mid \GG \vd A \lolli B}{S \mid \GG , A \vd B}
   % \end{array}
 \end{equation}
-The inference rules in (\ref{eq:seqcalc:skmc:Gir}) are similar to the ones in the sequent calculus for non-commutative multiplicative intuitionistic linear logic (\NMILL) \cite{abrusci:noncommutative:1990}, but with some crucial differences: 
+The inference rules in (\ref{eq:seqcalc:skmc:Gir}) are similar to the ones in the sequent calculus for non-commutative multiplicative intuitionistic linear logic \cite{abrusci:noncommutative:1990}, but with some crucial differences: 
 % $(i)$ The left logical rules $\unitl$, $\tl$ and $\lleft$, read bottom-up, are only allowed to be applied on the formula in the stoup position. $(ii)$ The right tensor rule $\tr$, read bottom-up, splits the antecedent of a sequent $S \mid \GG, \GD \vd A \ot B$ and in the case where $S$ is a formula, $S$ is always moved to the stoup of the left premise, even if $\GG$ is empty.
 % $(iii)$ The presence of the stoup distinguishes two types of antecedents, $A \mid \GG$ and ${-} \mid A, \GG$. The structural rule $\pass$ (for `passivation'), read bottom-up, allows the moving of the leftmost formula in the context to the stoup position whenever the stoup is empty.
 % $(iv)$ The logical connectives of \NMILL\ (and associative Lambek calculus) typically include two ordered implications $\lolli$ and $\illol$, which are two variants of linear implication arising from the removal of the exchange rule from intuitionistic linear logic. In \SkNMILL~only the left implication $\lolli$ (right residuation in Lambek calculus) is present. 
@@ -528,17 +477,15 @@ The inference rules in (\ref{eq:seqcalc:skmc:Gir}) are similar to the ones in th
   \item The right tensor rule $\tr$, read bottom-up, splits the antecedent of a sequent $S \mid \GG, \GD \vd A \ot B$ and in the case where $S$ is a formula, $S$ is always moved to the stoup of the left premise, even if $\GG$ is empty.
   % whereby the formula in the stoup, in case such a formula is present, has to be moved to the stoup of the first premise. In particular, the stoup formula of the conclusion cannot be moved to the antecedent of the second premise even if $\GG$ is chosen to be empty.
   \item The presence of the stoup distinguishes two types of antecedents, $A \mid \GG$ and ${-} \mid A, \GG$. The structural rule $\pass$ (for `passivation'), read bottom-up, allows the moving of the leftmost formula in the context to the stoup position whenever the stoup is empty.
-  \item The logical connectives of \NMILL~typically include two ordered implications $\lolli$ and $\illol$ (often also called residuals), which are two variants of linear implication arising from the removal of the exchange rule from intuitionistic linear logic. In our logic \SkNMILL, only the implication $\lolli$ is present, which Lambek would call right implication/residual.
-  %  \niccolo{Is this left or right implication?}
-  % It is currently not clear to us whether the inclusion of the second implication to our logic is a meaningful addition and whether it corresponds to some particular categorical notion.
+  \item The logical connectives of non-commutative multiplicative intuitionistic linear logic (Lambek calculus) typically include two ordered implications (often also called residuals) $\lolli$ ($\bsls$) and $\illol$ ($\sls$), which are two variants of linear implication arising from the removal of the exchange rule from intuitionistic linear logic.
+  In our logic \SkNMILL, only $\lolli$ is present. We use it to represent the \emph{right} implication/residual, although Lambek originally used the symbol for the left implication/residual.
 \end{enumerate}
-% The restrictions in 1--4 are essential for precisely capturing all the features of skew monoidal closed categories and nothing more, as we discuss in Section \ref{sec:catsem}.
-% Notice also that, similarly to the case of \NMILL, all structural rules of exchange, contraction, and weakening are absent. We give names to derivations and we write $f: S \mid \GG \vdash A$ when $f$ is a particular derivation of the sequent $S \mid \GG \vdash A$.
 
-\SkNMILL~can be seen as an intermediate logic between: $(i)$ the $(\unit,\ot,\lolli)$-fragment of non-commutative intuitionistic linear logic (where $\lolli$ is right residual $\sls$), i.e. the associative Lambek calculus with multiplicative unit, and $(ii)$ the same fragment without $\unit$ and $\ot$, i.e. the product-free Lambek calculus
+% \SkNMILL~can be seen as an intermediate logic between: $(i)$ the $(\unit,\ot,\lolli)$-fragment of non-commutative intuitionistic linear logic (where $\lolli$ is right residual $\sls$), i.e. the associative Lambek calculus with multiplicative unit, and $(ii)$ the same fragment without $\unit$ and $\ot$, i.e. the product-free Lambek calculus
+\SkNMILL, as a semi-substructural logic, can be seen as an intermediate logic between: $(i)$ the $(\unit,\ot,\lolli)$-fragment of non-commutative intuitionistic linear logic (where $\lolli$ is right residual $\sls$), i.e. the associative Lambek calculus with multiplicative unit, and $(ii)$ the non-associative variant of the fragment, i.e. the product-free non-associative Lambek calculus
 without left residual and permitting empty antecedents.\footnote{The Lambek calculus traditionally requires antecedents to be non-empty lists of formulae, which is a restriction motivated by linguistic consideration, plus the lack of multiplicative unit. Here we mean the version the calculus without such restriction on antecedents.}
 In fact, every derivation in \SkNMILL~can be replicated in the Lambek calculus.
-On the other hand, the product-free Lambek calculus without left residual admits a presentation as a semi-substructural logic, corresponding to the fragment of (\ref{eq:seqcalc:skmc:Gir}) with only rules $\ax$, $\pass$, $\lleft$ and $\lright$ \cite{uustalu:deductive:nodate}.
+On the other hand, the \emph{associative} product-free Lambek calculus without left residual admits a presentation as a semi-substructural logic, corresponding to the fragment of (\ref{eq:seqcalc:skmc:Gir}) with only rules $\ax$, $\pass$, $\lleft$ and $\lright$ \cite{uustalu:deductive:nodate}.
 
 
 This calculus is cut-free, in the sense that the following two rules are admissible:
@@ -1904,7 +1851,7 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
   Using the Maehara interpolation procedure defined in \cite{moot:categorial:2012}, the resulting interpolant formula would be ${Z \sls (X \ot W)}$. Again, $X$ and $Y$ can be tensored in the latter formula since the Lambek calculus admits a general left rule for $\ot$.
 \end{example}
 
-We conclude this section showing how Craig interpolation follows from stoup Maehara interpolation.
+We conclude this section by showing how Craig interpolation follows from stoup Maehara interpolation.
 %\begin{lemma}\label{lem:gs:vars:equiv}
 %  For any formula $A$ and an atomic formula $X$, $X \in \vars{A}$ if and only if $1 \leq \gs{A}$.
 %\end{lemma}
@@ -1921,11 +1868,13 @@ We conclude this section showing how Craig interpolation follows from stoup Maeh
 % $X \in \vars{B}$ as well.
 %   Therefore we can conclude that $\vars{A} \subseteq \vars{B}$.
 % \end{proof}
+\begin{definition}
+  A formula $A$  provable in \SkNMILL\ if and only if there is a derivation $f : {-} \mid \quad \vd A$ in \SkNMILL.
+\end{definition}
 \begin{theorem}\label{thm:craig:intrp}
   For any formulae $A$ and $C$, if $A \lolli C$ is provable in \SkNMILL, then there exists a formula $D$ such that both $A \lolli D$ and $D \lolli C$ are provable, and $\vars{D} \subseteq \vars{A} \cap \vars{C}$.
 \end{theorem}
 \begin{proof}
-$A \lolli C$ being provable means that there is a derivation $f : {-} \mid \quad \vd A \lolli C$. 
   By invertibility of the rule $\lright$, we obtain a derivation $f' : {-} \mid A \vd C$.
   Then by running the \sMIP~procedure on $f'$ with the partition $\langle [A ], [\ ]\rangle$, we get  
   \begin{itemize}

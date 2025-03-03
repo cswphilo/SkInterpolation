@@ -15,12 +15,12 @@ Minor
 1. The plural form (“logics”) in the title is a bit misleading, since
 the authors consider only one such logic, SkNMILL.
 
-** TODO
+** Fixed
 
 2. The font used for SkNMILL is for some strange reason different from
 the one used to name other logics: FL, LK.
 
-** TODO
+** The font sticks to the one used in [13]. We could write a sentence about this in the rebuttal letter.
 
 3. On p. 2, the lowermost paragraph: “some of its fragment” should be
 “some of its fragments.” Also, here one should more carefully
@@ -29,24 +29,24 @@ system becomes commutative (i.e., FL_e ). In this case, in order for
 induction to work, Γ should be partitioned into Γ_0 and Γ_1 as a
 multiset (ignoring the order).
 
-** TODO
+** Fixed typo
 
 4. On p. 3: a strange linebreak btw. lines 3 and 4; on line 8, “a
 derivation h i ” should be “derivations.”
 
-** TODO
+** Fixed
 
 5. On p. 3, line 12: better replace “conjunction” with “product” or
 “multiplicative conjunction.”
 
-** TODO
+** Fixed
 
 6. On p. 3, along with the discussion which direction of associativity
 holds, and which does not, please include similar notes for
 unitality. Also, the terms “semi-associativity” and “semi-unitality”
 should be explained before being used.
 
-** TODO
+** notes added and semi-associativity removed
 
 7. The notation A ( B (p. 5 and further) is a bit misleading, since it
 is the right division, where A stands to the right: B/A. Maybe, B o- A
@@ -54,13 +54,13 @@ would be a better notation. (I do not urge the authors to change the
 notation, as -o was already used before in [12], but a remark would be
 welcome here.)
 
-** TODO
+** Clarified
 
 8. On p. 6, the third paragraph (“SkNMILL can be seen...”) is a bit
 hard to understand, please clarify. (In particular, it is unclear why
 one should remove ⊗ and I from the system.)
 
-** TODO
+** Revised, but not sure if the current version meets your original intention
 
 9. On p. 13, line 2: replace ≤ with ⊆; line 3: “in” should be “for”
 and “lays” should be “lies;” lines −8 and −7: better write “Maehara
@@ -73,7 +73,7 @@ multiplicative conjunction is present.”
 means should be put before the formulation of the theorem, not inside
 its proof.
 
-** TODO
+** Definition added
 
 11. There are some issues with the list of references. First, there is
 a standard problem with BibTEX aggressively making letters lowercase,
