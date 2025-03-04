@@ -1868,13 +1868,14 @@ We conclude this section by showing how Craig interpolation follows from stoup M
 % $X \in \vars{B}$ as well.
 %   Therefore we can conclude that $\vars{A} \subseteq \vars{B}$.
 % \end{proof}
-\begin{definition}
+\begin{definition}\label{def:provable}
   A formula $A$  provable in \SkNMILL\ if and only if there is a derivation $f : {-} \mid \quad \vd A$ in \SkNMILL.
 \end{definition}
 \begin{theorem}\label{thm:craig:intrp}
   For any formulae $A$ and $C$, if $A \lolli C$ is provable in \SkNMILL, then there exists a formula $D$ such that both $A \lolli D$ and $D \lolli C$ are provable, and $\vars{D} \subseteq \vars{A} \cap \vars{C}$.
 \end{theorem}
 \begin{proof}
+  Suppose that $A \lolli C$ is provable, then by Definition~\ref{def:provable}, there is a derivation $f : {-} \mid \quad \vd A \lolli C$.
   By invertibility of the rule $\lright$, we obtain a derivation $f' : {-} \mid A \vd C$.
   Then by running the \sMIP~procedure on $f'$ with the partition $\langle [A ], [\ ]\rangle$, we get  
   \begin{itemize}
