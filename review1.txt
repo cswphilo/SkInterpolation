@@ -87,6 +87,13 @@ volumes (e.g., [12], [17], [20]). In [26], “Alizaseh” should be
 
 12. I would also like to suggest to add some references, as
 follows. For the proof of interpolation for the Lambek calculus (in a
-strong version, with variable counts), Pentus refers to the
+strong version, with variable counts), Pentus refers to the following
+thesis by Roorda: D. Roorda. Resource Logics: Proof-theoretical
+Investigations.  PhD thesis, Fac. Math. and Comp. Sc., University of
+Amsterdam, 1991. This reference would be appropriate in the present
+article too. For a more global perspective, the authors could also
+consult the following recent article: A. A. Tabatabai,
+R. Jalali. Universal proof theory: Semi-analytic rules and Craig
+interpolation. Ann. Pure Appl. Logic, 176(1), 103509, 2025
 
 ** TODO
