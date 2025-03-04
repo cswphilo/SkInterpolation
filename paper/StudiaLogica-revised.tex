@@ -148,7 +148,8 @@
 \newcommand{\mbb}[1]{\mathbb{#1}}
 \newcommand{\gs}[1]{\sigma_{X} (#1)}
 \newcommand{\vars}[1]{\mf{var} (#1)}
-\newcommand{\FL}{\textbf{FL}}
+\newcommand{\FL}{$\mathtt{FL}$}
+\newcommand{\FLe}{$\mathtt{FL_e}$}
 \newcommand{\scut}[2]{\mf{scut} (#1 , #2)}
 \newcommand{\iccut}[2]{\mf{ccut}^* (#1 , #2)}
 \newcommand{\MIP}{\textsf{MIP}}
@@ -290,11 +291,11 @@ Substructural logics have been proved useful for modelling various phenomena in 
 
 Craig interpolation for substructural logics has been extensively studied, using either algebraic or proof-theoretic techniques. 
 
-For substructural logics that lack a cut-free sequent calculus, such as arbitrary extensions of the full Lambek calculus with exchange ($\FL_{\textbf{e}}$), Craig interpolation is established using algebraic methods such as amalgamation.
+For substructural logics that lack a cut-free sequent calculus, such as arbitrary extensions of the full Lambek calculus with exchange (\FLe), Craig interpolation is established using algebraic methods such as amalgamation.
 For further details on this approach, see~\cite{Fussner2024} and for the relationship between amalgamation and interpolation properties in substructural logics, see~\cite{Kihara2009}.
 % \niccolo{Pick a better reference where algebraic proofs of amalgamation are actually given. Keep the Kihara2009 reference saying that this studies the relationship between various interpolation properties and amalgamation properties.}
 
-For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven by adapting Maehara's method \cite{maehara1961}, which originally aimed to prove interpolation for $\mathbf{LK}$, a sequent calculus for classical logic.
+For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven by adapting Maehara's method \cite{maehara1961,ono:proof:nonclassical:1998,roorda1991}, which originally aimed to prove interpolation for $\mathtt{LK}$, a sequent calculus for classical logic.
 This includes the full Lambek calculus (\FL) and its extensions that incorporate various combinations of weakening, exchange, and contraction.
 In the case of \FL, for instance, the proof starts by establishing a stronger form of interpolation which we call \emph{Maehara interpolation property} (\MIP) \cite{ono:proof:nonclassical:1998}. 
 The latter property states:
@@ -302,7 +303,7 @@ The latter property states:
   \item[(\MIP~for \FL)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$, and $\vars{D} \subseteq \vars{\GG_0} \cap \vars{\GG_0, \GG_1, C}$
 \end{description}
 Being a partition simply means that the ordered list of formulae $\GG$ is equal to the concatenation of $\GG_0, \GG_1$ and $\GG_2$, i.e. $\GG = \GG_0, \GG_1, \GG_2$.
-Maehara interpolation also holds for the commutative variant of \FL, called $\FL_{\textbf{e}}$.
+Maehara interpolation also holds for the commutative variant of \FL, called \FLe.
 In the latter case, $\GG$ is an unordered list of formulae, i.e. a finite multiset, and it is partitioned as a pair of multisets instead of a triple of lists.
 This simplification is allowed by the fact that the order of formulae in the antecedent is irrelevant, and therefore $\GG_0$ and $\GG_2$ can be combined together into a single multiset.
 %For the latter, \MIP\ is reformulated where antecedents are trees of formulae instead of lists.
@@ -1244,7 +1245,7 @@ The Maehara interpolation property in \SkNMILL~would then consist of two stateme
 %   \end{itemize}
 % \end{itemize}
 
-However, this property is not provable in \SkNMILL. The problem lays in the validity of the second statement \cMIP. An attempt to prove this would proceed by induction on the height of the derivation $f : S \mid \GG \vdash C$ and then inspecting what is the last rule applied in $f$. The rules $\tr$ and $\lleft$ split the context, so one should be careful to consider all possible ways in which these splittings relate to the given partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$.
+However, this property is not provable for \SkNMILL. The problem lies in the validity of the second statement \cMIP. An attempt to prove this would proceed by induction on the height of the derivation $f : S \mid \GG \vdash C$ and then inspecting what is the last rule applied in $f$. The rules $\tr$ and $\lleft$ split the context, so one should be careful to consider all possible ways in which these splittings relate to the given partition $\langle \GG_0,\GG_1, \GG_2 \rangle$ of $\GG$.
 
 The critical case is $f = \tr (f',f'')$ with the partition $\langle \GG_0, (\GG'_1, \GG''_1), \GG_2\rangle$ and two derivations $f' : S \mid \GG_0 , \GG'_1 \vd A$ and $f'' : {-} \mid \GG''_1 , \GG_2 \vd B$. So this is the case when the $\tr$ rule splits $\GG_1$ in two parts $\GG'_1,\GG''_1$.
 By induction on $f'$ and the partition $\langle \GG_0 , \GG'_1, [\ ] \rangle$, we would be given a formula $D$ and derivations $g' : {-} \mid \GG'_1 \vd D$, and $h': S \mid \GG_0 , D \vd A$. By applying the inductive hypothesis on $f''$ and the partition $\langle [\ ], \GG''_1, \GG_2\rangle$, we would be given a formula $E$ and derivations $g'' : {-} \mid \GG''_1 \vd E$ and $h'': {-} \mid E, \GG_2 \vd B$.
@@ -1304,7 +1305,8 @@ The variable condition of Maehara interpolation and the existence of the derivat
 %\\
 
 This situation is reminiscent of proving interpolation in the product-free Lambek calculus \cite{Pentus1997} and in the implicational fragment of intuitionistic logic \cite{Kanazawa2006}.
-In both these cases, Maehara interpolation fails because none of the additive ($\land$) and multiplicative ($\ot$) conjunction is present.
+In both cases, Maehara
+interpolation fails because neither the additive~($\land$) nor the multiplicative ($\ot$) conjunction is present.
 A concrete counterexample in the product-free Lambek calculus (adapted from Kanazawa \cite{Kanazawa2006}) is given by the derivable sequent $W, W\bsls Y, W , W \bsls X , X \bsls (Y \bsls Z) \vd Z$ with the partition $\langle [\ ] , [W, W\bsls Y, W , W \bsls X], [X \bsls (Y \bsls Z)] \rangle$. This can be shown to not satisfy Maehara interpolation property. In the presence of $\ot$,  Maehara's method would produce the interpolant formula $X \ot Y$. The situation of \SkNMILL~ is somewhere inbetween: we have a multiplicative conjunction $\ot$ but we cannot do much with it if a formula $A \ot B$ is in context instead of the stoup position, since the rule $\tl$ cannot be applied arbitrarily in the antecedent.
 The counterexample to \MIP~in product-free Lambek calculus can, when appropriately modified, also works as a counterexample to \cMIP~in \SkNMILL: consider the derivable sequent  $X \lolli (Y \lolli Z) \mid W \lolli X, W , W \lolli Y, W \vd Z$ with the partition $\langle [\ ] , [W \lolli X, W , W \lolli Y, W], [\ ] \rangle$.
 %This is an instance of a sequent calculus failing to have the formula-version of Maehara interpolation for a different reason.
@@ -2517,6 +2519,8 @@ The reason for this omission comes again from that fact that we do not yet know 
 
 We do not want to continue our speculations in this conclusive section and leave further investigations on this topic to future work.
 Our first step will be understanding the universal property of interpolants for logics in which the Maehara interpolation property is simpler than in \SkNMILL, e.g. in the associative Lambek calculus. 
+This approach could be seen as a step to the universal proof theory for semi-substructural logics in the sense of \cite{Tabatabai2025}.
+
 %We plan to start tackling the universal property of interpolants in logics where the Maehara interpolation property is simpler than in \SkNMILL, e.g. in the associative Lambek calculus.
 Another venue of future work would be the  extension of the results of this paper to other semi-substructural logics, e.g. extensions with a notion of skew exchange \cite{veltri:coherence:2024} or additive connectives \cite{VW:2023}.
 In the latter setting we might also ask whether the logic satisfies a uniform interpolation property in the sense of \cite{alizadeh:2014}.

@@ -67,7 +67,7 @@ and “lays” should be “lies;” lines −8 and −7: better write “Maehar
 interpolation fails because neither the additive not the
 multiplicative conjunction is present.”
 
-** TODO
+** Fixed
 
 10. On p. 20, Theorem 6: the definition of what A -o C being provable
 means should be put before the formulation of the theorem, not inside
@@ -96,4 +96,4 @@ consult the following recent article: A. A. Tabatabai,
 R. Jalali. Universal proof theory: Semi-analytic rules and Craig
 interpolation. Ann. Pure Appl. Logic, 176(1), 103509, 2025
 
-** TODO
+** Added
