@@ -83,7 +83,7 @@ marks instead of some data in some of the references to lecture notes
 volumes (e.g., [12], [17], [20]). In [26], “Alizaseh” should be
 “Alizadeh.”
 
-** Fixed. In particular, the question marks are fixed by removing location information in the bbl file. However, I didn't see any MILL was in lowercase.
+** Fixed.
 
 12. I would also like to suggest to add some references, as
 follows. For the proof of interpolation for the Lambek calculus (in a
