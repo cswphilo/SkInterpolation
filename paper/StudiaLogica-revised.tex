@@ -325,13 +325,14 @@ In the latter case, $\GG$ is an unordered list of formulae, i.e. a finite multis
 This simplification is allowed by the fact that the order of formulae in the antecedent is irrelevant, and therefore $\GG_0$ and $\GG_2$ can be combined together into a single multiset.
 %For the latter, \MIP\ is reformulated where antecedents are trees of formulae instead of lists.
 
-\FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by a multiplicity condition \cite{roorda1991,moot:categorial:2012}.
-The property states:
+\FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by a variable \emph{multiplicity} condition \cite{roorda1991,moot:categorial:2012}.
+Let $\gs{A}$ be the number of occurrences of the atomic formula $X$ in the formula $A$, and $\gs{\GG}$ be the number of occurrences of $X$ in the list of formulae $\GG$.
+The stronger variant of Maehara interpolation states:
 \begin{description}
   \item[(\MIP~for \FL~with multiplicity condition)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$, and $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{\GG_0, \GG_2 , C}$ for all atomic formulae $X$.
 \end{description}
-The $\gs{A}$ above is a function to count the number of occurrences of the atomic formula $X$ in $A$, which can be extended to count the number of occurrences of the atomic formula $X$ in a list of formulae. 
-Maehara interpolation also holds for the non-associative variant of \FL, for an appropriate reformulation of the principle in which antecedents are trees of formulae instead of lists.
+%The $\gs{A}$ above is a function to count the number of occurrences of the atomic formula $X$ in $A$, which can be extended to count the number of occurrences of the atomic formula $X$ in a list of formulae. 
+%Maehara interpolation also holds for the non-associative variant of \FL, for an appropriate reformulation of the principle in which antecedents are trees of formulae instead of lists.
 Notice that Craig interpolation is a property of a logic (with a notion of implication), while Maehara interpolation is a property of a deductive system in which it is possible to appropriately partition antecedents.
 
 Maehara interpolation is a stronger form of the so-called \emph{deductive interpolation property}. A logic $\mc{L}$ has the deductive interpolation property if, for any formulae $A$ and $C$, whenever $A \vd C$ (where $\vd$ is the consequence relation of $\mc{L}$), then there exists a formula $B$ such that $A \vd B$ and $B \vd C$ while also satisfying the usual variable condition. Furthermore, if the sequent calculus of $\mc{L}$ admits the invertibility of implication-right rules (as is the case in \FL\ for both left and right implication), Craig interpolation follows immediately as a consequence of deductive interpolation.
@@ -1286,7 +1287,7 @@ For a simple concrete counterexample, consider the derivation
   }
 \end{equation*}
 and the partition $\langle [\ ], (Y,Z), [\ ]\rangle$. Suppose by contradiction that Maehara interpolation holds, so we would have a formula $D$ and two derivations $g: {-} \mid Y, Z \vd D$ and $h : X \mid D \vd (X\ot Y)\ot Z$.
-The multiplicity condition of Maehara interpolation and the existence of the derivation $g$ ensure that $D$ does not contain atomic formulae other than $Y$ and $Z$, and the latter must have a unique occurrence in $D$. Nevertheless, the existence of derivation $h$ is absurd. Since $X$ is atomic, $h$ can only be of the form: $(i)$ $f = \tr(f_1,f_2)$ for some derivations $f_1 : X \mid D \vd X \ot Y$ and $f_2 : {-} \mid \quad \vd Z$, or $(ii)$ $f = \tr(f'_1,f'_2)$ for some derivations $f'_1 : X \mid \quad \vd X \ot Y$ and $f'_2 : {-} \mid D \vd Z$. Case $(i)$ is impossible since there is no such $f_2$, while case $(ii)$ is impossible since there is no such $f'_1$.
+The variable multiplicity condition of Maehara interpolation and the existence of the derivation $g$ ensure that $D$ does not contain atomic formulae other than $Y$ and $Z$, and the latter must have a unique occurrence in $D$. Nevertheless, the existence of derivation $h$ is absurd. Since $X$ is atomic, $h$ can only be of the form: $(i)$ $f = \tr(f_1,f_2)$ for some derivations $f_1 : X \mid D \vd X \ot Y$ and $f_2 : {-} \mid \quad \vd Z$, or $(ii)$ $f = \tr(f'_1,f'_2)$ for some derivations $f'_1 : X \mid \quad \vd X \ot Y$ and $f'_2 : {-} \mid D \vd Z$. Case $(i)$ is impossible since there is no such $f_2$, while case $(ii)$ is impossible since there is no such $f'_1$.
 % , and no other  are atomic, the only possibility is that $D = Y \ot Z$, however, the sequent $X \mid Y \ot Z \vd (X \ot Y) \ot Z$ does not have a proof in \SkNMILL.
 % \begin{equation*}\label{example:ccut:failure}
 %   \begin{array}{c}
@@ -1377,10 +1378,10 @@ We separate the proofs for readability.
   We proceed by induction on the structure of $f$. 
   \\
   \underline{Case $f = \ax$.} Suppose $f = \ax : A \mid \quad \vd A$, which forces $\GG_0 = \GG_1 = [\ ]$.
-  In this case, the interpolant formula is $A$ and $g = h = \ax : A \mid \quad \vd A$, where the multiplicity condition is automatically satisfied.
+  In this case, the interpolant formula is $A$ and $g = h = \ax : A \mid \quad \vd A$, where the variable multiplicity condition is automatically satisfied.
   \\
   \underline{Case $f = \unitr$.} Since $f : {-} \mid \quad \vd \unit$, this forces again $\GG_0$ and $\GG_1$ to be empty lists.
-  In this case, the interpolant formula is $\unit$ and $g =  \unitr : {-} \mid \quad \vd \unit$ and $h = \unitl (\unitr) : \unit \mid \quad \vd \unit$, where the multiplicity condition is vacuously satisfied.
+  In this case, the interpolant formula is $\unit$ and $g =  \unitr : {-} \mid \quad \vd \unit$ and $h = \unitl (\unitr) : \unit \mid \quad \vd \unit$, where the variable multiplicity condition is vacuously satisfied.
   \\
   \underline{Case $f = \unitl \ f'$.}
   Given a derivation $f' : {-} \mid \GG \vd C$, by induction on $f'$ with the same partition $\langle \GG_0, \GG_1 \rangle$ of $\GG$ we obtain  
@@ -1391,7 +1392,7 @@ We separate the proofs for readability.
     \item[--] $\gs{D} \leq \gs{\GG_0}$ and $\gs{\GG_1 , C}$ for all atomic formulae $X$.
   \end{itemize}
   In this case, the interpolant formula for $f$ is $D$ and the two desired derivations are $g = \unitl \ g'$ and $h = h'$.
-  The multiplicity condition is automatically satisfied.
+  The variable multiplicity condition is automatically satisfied.
   \\
   \underline{Cases $f = \tl \ f'$ and $f = \lright \ f'$.} Analogous to the previous case.
   \\
@@ -1400,7 +1401,7 @@ We separate the proofs for readability.
   Specifically, either $\GG_0$ is an empty list or not.
   \begin{itemize}
     \item If $\GG_0 = [\ ]$, then the interpolant is $\unit$ and the two desired derivations are $\unitr$ and $\unitl (\pass \ f')$.
-    The multiplicity condition is satisfied because $\vars{\unit} = \emptyset$.
+    The variable multiplicity condition is satisfied because $\vars{\unit} = \emptyset$.
     \item If $\GG_0 = A, \GG'_0$, then by induction on $f'$ with the partition $\langle \GG'_0, \GG_1 \rangle$ we obtain
     \begin{itemize}
       \item[--] a formula $D$,
@@ -1409,7 +1410,7 @@ We separate the proofs for readability.
       \item[--] $\gs{D} \leq \gs{A, \GG'_0} $ and $\gs{D} \leq \gs{\GG_1, C}$ for all atomic formulae $X$.
     \end{itemize}
     In this case, the interpolant formula for $f$ is $D$, and the two desired derivations are $g = \pass \ g'$ and $h = h'$.
-    The multiplicity condition follows directly from the inductive hypothesis.
+    The variable multiplicity condition follows directly from the inductive hypothesis.
   \end{itemize} 
   \underline{Case $f = \tr (f',f'')$.} Let $f' : S \mid \GL \vd A$ and $f'' : {-} \mid \GO \vd B$, so that $\GG = \GL,\GO$. We need to check how the latter splitting of $\GG$ compares to the given partition $\langle \GG_0,\GG_1 \rangle$. 
   There are two possibilities:
@@ -1425,7 +1426,7 @@ We separate the proofs for readability.
       \item[--] $\gs{D} \leq \gs{S, \GG_0} $ and $\gs{D} \leq \gs{\GG'_1 , A}$ for all atomic formulae $X$.
     \end{itemize}
     The desired interpolant formula is $D$ and the desired derivations are $g = g'$ and $h = \tr (h' , f'') : D \mid \GG'_1 , \GO \vd A \ot B$.
-    The multiplicity condition is satisfied because $\gs{D} \leq \gs{\GG'_1 , A} \leq \gs{\GG'_1 , \GO , A \ot B}$ for all atomic formulae $X$.
+    The variable multiplicity condition is satisfied because $\gs{D} \leq \gs{\GG'_1 , A} \leq \gs{\GG'_1 , \GO , A \ot B}$ for all atomic formulae $X$.
     \item  $\GG_0$ splits between $\GL$ and $\GO$. 
     This means that $\GG_0 = \GL,\GG'_0$ and $\GO = \GG'_0,\GG_1$, and $\GG'_0$ is non-empty.
     Then $f' : S \mid \GL \vd A$ and $f'': {-} \mid \GG'_0, \GG_1 \vd B$.
@@ -1465,7 +1466,7 @@ We separate the proofs for readability.
         \end{array}
       \end{array}
     \end{displaymath}
-    The multiplicity condition is satisfied because $\gs{E \ot F} = \gs{E} + \gs{F} \leq \gs{S , \GL} + \gs{\GG'_0} = \gs{S, \GL , \GG'_0}$ and $\gs{E \ot F} = \gs{E} + \gs{F} \leq \gs{A} + \gs{\GG_1 , B} = \gs{A, \GG_1 , B} = \gs{\GG_1, A \ot B}$.
+    The variable multiplicity condition is satisfied because $\gs{E \ot F} = \gs{E} + \gs{F} \leq \gs{S , \GL} + \gs{\GG'_0} = \gs{S, \GL , \GG'_0}$ and $\gs{E \ot F} = \gs{E} + \gs{F} \leq \gs{A} + \gs{\GG_1 , B} = \gs{A, \GG_1 , B} = \gs{\GG_1, A \ot B}$.
   \end{itemize}
   \underline{Case $f = \lleft(f',f'')$.}
   Let $f' : {-} \mid \GL \vd A$ and $f'' : B \mid \GO \vd C$, so that $\GG = \GL,\GO$. 
@@ -1483,7 +1484,7 @@ We separate the proofs for readability.
       \item[--] $\gs{D} \leq \gs{B , \GG'_0} $ and $\gs{D} \leq \gs{\GG_1 , C}$ for all atomic formulae $X$.
     \end{itemize}
     The desired interpolant formula is $D$ and the desired derivations are $g = \lleft (f' , g'') : A \lolli B \mid \GL , \GG'_0 \vd D$ and $h = h''$.
-    The multiplicity condition is satisfied because $\gs{D} \leq \gs{B , \GG'_0} \leq \gs{A \lolli B , \GL , \GG'_0}$.
+    The variable multiplicity condition is satisfied because $\gs{D} \leq \gs{B , \GG'_0} \leq \gs{A \lolli B , \GL , \GG'_0}$.
     
     \item $\GG_1$ splits between $\GL$ and $\GO$. 
     This means that $\GL = \GG_0,\GG'_1$ and $\GG_1 = \GG'_1,\GO$, and $\GG'_1$ is non-empty.
@@ -1552,7 +1553,7 @@ We separate the proofs for readability.
         }
       \end{array}
     \end{displaymath}
-    Notice that $\GG'_1 = \GD_1, \dots, \GD_n$, so the multiplicity condition is easy to check.
+    Notice that $\GG'_1 = \GD_1, \dots, \GD_n$, so the variable multiplicity condition is easy to check.
   \end{itemize}
 \end{proof}
 
@@ -1577,7 +1578,7 @@ We separate the proofs for readability.
   \end{itemize}
   The desired partition of $\GG_1$ is $\langle \GD_0, \dots , \GD_n \rangle$, the desired list of interpolant formulae is $D_1,\dots,D_n$.
   The desired derivations are $g = \unitl \ g'$ and $h_i = h'_i$ for $i \in [1,\dots , n]$.
-  The multiplicity condition is automatically satisfied.
+  The variable multiplicity condition is automatically satisfied.
   \\
   \underline{Cases $f = \tl \ f'$ and $f = \lright \ f'$.} Analogous to the previous case.
   \\
@@ -1594,7 +1595,7 @@ We separate the proofs for readability.
   The desired partition of $A,\GG'_1$ is the singleton context $[A,\GG'_1]$, i.e. $n = 1$.
   The desired list of interpolant formulae is the singleton $[D]$.
   The desired derivation $g$ is $\pass \ g' : {-} \mid A , \GG'_1 \vd D$ and the desired list of derivations $h_i$ is the singleton consisting only of $\pass \ h' : {-} \mid D, \GG_2 \vd C$.
-  The multiplicity condition follows from the inductive hypothesis.
+  The variable multiplicity condition follows from the inductive hypothesis.
   \\
   \underline{Case $f = \tr (f' , f'')$.}
   Let $f' : S \mid \GL \vd A$ and $f'' : {-} \mid \GO \vd B$, so that $\GG = \GL,\GO$.
@@ -1614,7 +1615,7 @@ We separate the proofs for readability.
     \end{itemize}
     The desired partition of $\GG_1$ is $\langle \GD_0, \dots , \GD_n \rangle$. The desired list of interpolant formulae is $D_1,\dots,D_n$.
     The desired derivation $g$ is $\tr (f' , g'')$ and the desired derivation $h_i$ is  $h''_i$ for $i \in [1,\dots , n]$.
-    The multiplicity condition is satisfied because $\gs{D_i} \leq \gs{ \GG'_0 , \GG_2 , B} \leq \gs{S, \GL, \GG'_0 , \GG_2 , A \ot B}$ for $i \in [1, \dots, n]$ and any $X$.
+    The variable multiplicity condition is satisfied because $\gs{D_i} \leq \gs{ \GG'_0 , \GG_2 , B} \leq \gs{S, \GL, \GG'_0 , \GG_2 , A \ot B}$ for $i \in [1, \dots, n]$ and any $X$.
     \item $\GG_1$ is fully contained in $\GL$. This case is analogous to the one above, but now we have to induct on the derivation $f'$ instead of $f''$.
     \item $\GG_1$ splits between $\GL$ and $\GO$.
     This means that $\GG_1 = \GG'_1 , \GG''_1$ and $\GL = \GG_0 , \GG'_1$ and $\GO = \GG''_1 , \GG_2$, and $\GG''_1$ is non-empty.
@@ -1640,7 +1641,7 @@ We separate the proofs for readability.
     \end{displaymath}
     while the desired derivation $h_i$ is $h'_i$ for $i \in [1,\dots,m]$.
     %  We abbreviate $D'_1 , \dots , D'_n$ as $[D']$, $\GD'_1, \dots , \GD'_n$ as $[\GD']$, $D''_{n+1} , \dots , D''_{n+m}$ as $[D'']$, and $\GD''_{n+1}, \dots , \GD''_{n+m}$ as $[\GD'']$. 
-    For the multiplicity condition, we have
+    For the variable multiplicity condition, we have
     $\gs{D_i} \leq \gs{S, \GG_0 , A , \GG_2 , B} = \gs{S , \GG_0 , \GG_2 , A \ot B}$ for $i \in [1 , \dots, m]$ and any $X$.
     %%   \begin{itemize}
     %%   \item[--] by inductive hypothesis, we know that $\gs{[D']} \leq \gs{[\GD']}$ and $\gs{[D'']} \leq \gs{[\GD'']}$;
@@ -1788,7 +1789,7 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
     \item[--] a list of interpolant formulae $[X , W]$, and
     \item[--] derivations $g' = \pass (\lleft (\pass \ \ax, \tr (\ax , \pass \ \ax))) : {-} \mid X \lolli Y , X, W \vd Y \ot W$, $h'_1 = \pass \ \ax : {-} \mid X \vd X$, and $h'_2 = \pass \ \ax : {-} \mid W \vd W$,
   \end{itemize}
-  satisfying the multiplicity condition.
+  satisfying the variable multiplicity condition.
   Next, we need to apply the \sMIP~procedure on the derivation $\ax : Z \mid \quad \vd Z$ with the partition $\langle [\ ] , [\ ] \rangle$ which produces two derivations $\ax : Z \mid \quad \vd Z$ and $\ax : Z \mid \quad \vd Z$.
   Then we obtain the desired interpolant formula $X \lolli (W \lolli Z)$ and the desired derivations 
   \begin{displaymath}
@@ -2590,7 +2591,7 @@ The reason for this omission comes again from that fact that we do not yet know 
 
 We do not want to continue our speculations in this conclusive section and leave further investigations on this topic to future work.
 Our first step will be understanding the universal property of interpolants for logics in which the Maehara interpolation property is simpler than in \SkNMILL, e.g. in the associative Lambek calculus. 
-This approach could be seen as a step to the universal proof theory for semi-substructural logics in the sense of \cite{Tabatabai2025}.
+This approach could be seen as a step towards the universal proof theory for semi-substructural logics in the sense of \cite{Tabatabai2025}.
 
 %We plan to start tackling the universal property of interpolants in logics where the Maehara interpolation property is simpler than in \SkNMILL, e.g. in the associative Lambek calculus.
 Another venue of future work would be the  extension of the results of this paper to other semi-substructural logics, e.g. extensions with a notion of skew exchange \cite{veltri:coherence:2024} or additive connectives \cite{VW:2023}.
