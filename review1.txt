@@ -4,7 +4,13 @@ Major
 
 ** TODO
 
-2. Proof of multiplicity condition
+2. Some of the motivations for SkNMILL from [12] could also be
+imported into the Introduction of the present article, to make it more
+self-contained.
+
+** TODO
+
+3. Proof of multiplicity condition
 
 ** TODO
 
