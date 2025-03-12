@@ -1,13 +1,33 @@
 
+We thank the reviewers for carefully reading our paper and providing
+valuable feedback. In the new version of the paper, we implemented
+their suggestions and made the two following main changes:
+
+1. We added a new Section 7, where we describe some details of the
+Agda formalization. In particular, we discuss the datatypes employed
+for the representation of formulae, sequents and equivalence of
+derivations, and explain how the results presented in the paper
+translate to Agda types and terms.
+
+2. We prove a stronger version of interpolation, where the condition
+on variables involves the count of variable occurrences. The associated
+formal proof has also been added to the Agda formalization.
+
+Below we comment on more specific remarks made by each reviewer.
+
+-----------------------
+
+Reviewer 1
+
 1. The plural form (“logics”) in the title is a bit misleading, since
 the authors consider only one such logic, SkNMILL.
 
-** Fixed
+** Fixed.
 
 2. The font used for SkNMILL is for some strange reason different from
 the one used to name other logics: FL, LK.
 
-** The font sticks to the one used in [13]. We could write a sentence about this in the rebuttal letter.
+** We changed the font of the other logics, now the font is uniform.
 
 3. On p. 2, the lowermost paragraph: “some of its fragment” should be
 “some of its fragments.” Also, here one should more carefully
@@ -16,24 +36,25 @@ system becomes commutative (i.e., FL_e ). In this case, in order for
 induction to work, Γ should be partitioned into Γ_0 and Γ_1 as a
 multiset (ignoring the order).
 
-** Fixed typo
+** Fixed typo.
 
 4. On p. 3: a strange linebreak btw. lines 3 and 4; on line 8, “a
 derivation h i ” should be “derivations.”
 
-** Fixed
+** Fixed.
 
 5. On p. 3, line 12: better replace “conjunction” with “product” or
 “multiplicative conjunction.”
 
-** Fixed
+** Fixed.
 
 6. On p. 3, along with the discussion which direction of associativity
 holds, and which does not, please include similar notes for
 unitality. Also, the terms “semi-associativity” and “semi-unitality”
 should be explained before being used.
 
-** notes added and semi-associativity removed
+** We added notes for unitality and removed the terms
+"semi-associativity" and "semi-unitality" here.
 
 7. The notation A ( B (p. 5 and further) is a bit misleading, since it
 is the right division, where A stands to the right: B/A. Maybe, B o- A
@@ -41,26 +62,28 @@ would be a better notation. (I do not urge the authors to change the
 notation, as -o was already used before in [12], but a remark would be
 welcome here.)
 
-** Clarified
+** We added a clarification on the notation in the end of item 4 at
+page 6.
 
 8. On p. 6, the third paragraph (“SkNMILL can be seen...”) is a bit
 hard to understand, please clarify. (In particular, it is unclear why
 one should remove ⊗ and I from the system.)
 
-** Revised, but not sure if the current version meets your original intention
+** You are right, there is no reason to remove ⊗ and I. We have
+revised the sentence.
 
 9. On p. 13, line 2: replace ≤ with ⊆; line 3: “in” should be “for”
 and “lays” should be “lies;” lines −8 and −7: better write “Maehara
 interpolation fails because neither the additive not the
 multiplicative conjunction is present.”
 
-** Fixed
+** Fixed.
 
 10. On p. 20, Theorem 6: the definition of what A -o C being provable
 means should be put before the formulation of the theorem, not inside
 its proof.
 
-** Definition added
+** We added the definition.
 
 11. There are some issues with the list of references. First, there is
 a standard problem with BibTEX aggressively making letters lowercase,
@@ -83,4 +106,61 @@ consult the following recent article: A. A. Tabatabai,
 R. Jalali. Universal proof theory: Semi-analytic rules and Craig
 interpolation. Ann. Pure Appl. Logic, 176(1), 103509, 2025
 
-** Added
+** Thanks for pointing out these relevant references, we have added
+them in appropriate places.
+
+-----------------------
+
+Reviewer 2
+
+Page 2
+When we mention Nonassociative Lambek Calculus, it is worth to cite
+the original Lambek paper where he introduced this calculus.
+
+** We added a citation to Lambek'61 when we first mention NL.
+
+Line 7 from the top: "Substructural logics have **been** proved..."
+
+** Fixed typo.
+
+Paragraph 4: It's worth to mention the results for NL, if known.
+
+** The Maehara interpolation property holds also in NL (we have a
+proof of this fact in Agda), but we could not find a reference of this
+result in the literature...  There exist proofs of other interpolation
+theorems for NL, with the variable condition replaced by a certain
+complexity condition (as e.g. in Buszkowski "Lambek Calculus with
+Nonlogical Axioms" and other papers by the same author),with the goal
+of showing that categorial grammars are context-free.  Since we
+couldn't find a reference, we prefer to remove the sentence
+altogether.
+
+Page 6
+The end of last line: "**of** n".
+
+** Fixed typo.
+
+Page 8
+I would not treat the paragraph under Proposition 1 as proof. It's
+only the description of the proof. I would delete "Proof" for clarity.
+
+** Removed "Proof"
+
+General note to section 3:
+We have many big figures. I would move them all to the end of the
+section, because now we can have like one or two lines of text on the
+page with a figure, which is unreadable.
+
+** Figures have been re-positioned to avoid the "page with big figure +
+small text" issue.
+
+Page 12
+Line 8 in the section 4: "two different **forms** of interpolation"
+
+** Fixed typo.
+
+Page 20
+Line 11 from the bottom: "This **is** in fact what..."
+
+** Fixed typo.
+
