@@ -345,8 +345,8 @@ The variant of Maehara interpolation satisfied by the product-free Lambek calcul
   \begin{itemize}
     \item[--] a partition $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$,
     \item[--] a list of interpolant formulae $D_1, \dots, D_n$,
-    \item[--] a derivation $g: \GG_0, D_1, \dots, D_n, \GG_2 \vd C$,
-    \item[--] derivations $h_i : \GD_i \vd D_i$ for all $i \in [1, \dots, n]$, such that
+    \item[--] derivations $g_i : \GD_i \vd D_i$ for all $i \in [1, \dots, n]$, 
+    \item[--] a derivation $h : \GG_0, D_1, \dots, D_n, \GG_2 \vd C$, such that
     \item[--] $\gs{D_i} \leq \gs{\GD_i} $ and $\gs{D_i} \leq \gs{\GG_0, \GG_2, C}$ for $i \in [1, \dots, n]$ for all atomic formulae $X$.
   \end{itemize}
 \end{description}
@@ -392,8 +392,8 @@ This modification is required due to issues similar to those encountered in the 
     \begin{itemize}
       \item[--] a partition $\langle \GD_1, \dots, \GD_n \rangle$ of $\GG_1$,
       \item[--] a list of interpolant formulae $D_1, \dots, D_n$,
-      \item[--] $g: S \mid \GG_0, D_1, \dots, D_n, \GG_2 \vd C$,
-      \item[--] $h_i : {-} \mid \GD_i \vd D_i$ for  all $i \in [1, \dots, n]$, such that
+      \item[--] $g_i : {-} \mid \GD_i \vd D_i$ for  all $i \in [1, \dots, n]$,
+      \item[--] $h : S \mid \GG_0, D_1, \dots, D_n, \GG_2 \vd C$, such that
       % \item[--] $\vars{D_i} \leq \vars{\GD_i}$ for all $i \in [1,\dots , n]$ and atomic formulae $X$, and
       \item[--] $\gs{D_i} \leq \gs{\GD_i} $ and $\gs{D_i} \leq \gs{S, \GG_0, \GG_2, C}$ for $i \in [1, \dots, n]$, for all atomic formulae $X$.
       % for all $i \in [1,\dots , n]$ and atomic formulae $X$.
@@ -411,7 +411,7 @@ We show that the \sMIP~and \cMMIP~procedures of Theorem \ref{genIntrp} are right
   ~
   \begin{enumerate}[label=(\roman*)]
     \item Let $g : S \mid \GG_0 \vd D$ and $h : D \mid \GG_1 \vd C$ be the derivations obtained by applying the \sMIP~procedure on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 \rangle$. Then $\mf{scut}(g, h) \circeq f$.
-    \item Let $g : S \mid \GG_0 , D_1 , \dots, D_n, \GG_2 \vd C$ and $h_i : {-} \mid \GD_i \vd D_i$ for $i \in [1,\dots , n]$ be derivations obtained by applying the \cMMIP~procedure on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 , \GG_2 \rangle$. Then $\mf{ccut}^*([h_i] , g) \circeq f$.
+    \item Let $g_i : {-} \mid \GD_i \vd D_i$ for $i \in [1,\dots , n]$ and $h : S \mid \GG_0 , D_1 , \dots, D_n, \GG_2 \vd C$ be derivations obtained by applying the \cMMIP~procedure on a derivation $f: S \mid \GG \vd C$ with the partition $\langle \GG_0 , \GG_1 , \GG_2 \rangle$. Then $\mf{ccut}^*([g_i] , h) \circeq f$.
   \end{enumerate}
 \end{restatable*}
 
@@ -1506,8 +1506,8 @@ We separate the proofs for readability.
     \begin{itemize}
       \item[--]  a partition $\langle \GD_1, \dots , \GD_n \rangle$ of $\GG'_1$,
       \item[--] a list of formulae $D_1 , \dots , D_n$,
-      \item[--] a derivation $g': {-} \mid \GG_0 , D_1, \dots, D_n \vd A$,
-      \item[--] a list of derivations $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1, \dots, n]$, such that
+      \item[--] a list of derivations $g'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1, \dots, n]$,
+      \item[--] a derivation $h': {-} \mid \GG_0 , D_1, \dots, D_n \vd A$, such that
       % \item[--] $\vars{D_i} \leq \vars{\GD_i}$ for all $i \in [1, \dots, n]$ and $X$,
       \item[--] $\gs{D_i} \leq \gs{D_i} $ and $ \gs{D_i} \leq \gs{\GG_0 , A}$ for $i \in [1, \dots, n]$, for all atomic formulae $X$.
     \end{itemize}
@@ -1520,7 +1520,7 @@ We separate the proofs for readability.
         \proofbox{
         \infer[\lright^*]{A\lolli B \mid \GG_0 \vd D_1 \lolli (\dots (D_n \lolli E)\dots)}{
         \infer[\lleft]{A \lolli B \mid \GG_0 , D_1, \dots, D_n \vd E}{
-        \deduce{{-} \mid \GG_0 , D_1, \dots, D_n \vd A}{g'}
+        \deduce{{-} \mid \GG_0 , D_1, \dots, D_n \vd A}{h'}
         &
         \deduce{B \mid \quad \vd E}{g''}
         }
@@ -1543,7 +1543,7 @@ We separate the proofs for readability.
         &=&
         \proofbox{
         \infer[\lleft^*]{D_1 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_1, \dots, \GD_n, \GO \vd C}{
-        \deduce{[{-} \mid \GD_i \vd D_i]_i}{[h'_i]}
+        \deduce{[{-} \mid \GD_i \vd D_i]_i}{[g'_i]}
         &
         %      \deduce{D_2 \lolli (\dots (D_n \lolli E)\dots) \mid \GD_2, \dots, \GD_n, \GD' \vd C}{
         %        \deduce{\vdots}{
@@ -1567,7 +1567,7 @@ We separate the proofs for readability.
   \\
   \underline{Case $f  = \ax$.}
   Suppose $f = \ax : A \mid \quad \vd A$, which means that $\GG_0 = \GG_1 = \GG_2 = [\ ]$.
-  In this case, the desired partition of $\GG_1$ is the empty one, i.e. $n=0$. The desired lists of formulae $D_i$ and of derivations $h_i$ are also empty. The desired derivation $g$ is $\ax$.
+  In this case, the desired partition of $\GG_1$ is the empty one, i.e. $n=0$. The desired lists of formulae $D_i$ and of derivations $g_i$ are also empty. The desired derivation $h$ is $\ax$.
   \\
   \underline{Case $f = \unitr$.} Similar to the previous one.
   \\
@@ -1576,13 +1576,13 @@ We separate the proofs for readability.
   \begin{itemize}
     \item[--] a partition $\langle \GD_0, \dots , \GD_n \rangle$ of $\GG_1$, 
     \item[--] a list of interpolant formulae $D_1, \dots , D_n$,
-    \item[--] a derivation $g' : {-} \mid \GG_0 , D_1 , \dots , D_n , \GG_2 \vd C$,
-    \item[--] derivations $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1,\dots , n]$, such that
+    \item[--] derivations $g'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1,\dots , n]$,
+    \item[--] a derivation $h' : {-} \mid \GG_0 , D_1 , \dots , D_n , \GG_2 \vd C$, such that
     \item[--]  $\gs{D_i} \leq \gs{\GD_i}$ and $\gs{D_i} \leq \gs{\GG_0, \GG_2, C}$ for all $i \in [1,\dots , n]$ and $X$.
     % \item[--] $\vars{D_1, \dots, D_n} \subseteq \vars{\GD_1 , \dots , \GD_n} \cap \vars{S, \GG_0, \GG_2, C}$ for all  $X$.
   \end{itemize}
   The desired partition of $\GG_1$ is $\langle \GD_0, \dots , \GD_n \rangle$, the desired list of interpolant formulae is $D_1,\dots,D_n$.
-  The desired derivations are $g = \unitl \ g'$ and $h_i = h'_i$ for $i \in [1,\dots , n]$.
+  The desired derivations are $g_i = g'_i$ for $i \in [1,\dots , n]$ and $h = \unitl \ h'$.
   The variable multiplicity condition is automatically satisfied.
   \\
   \underline{Cases $f = \tl \ f'$ and $f = \lright \ f'$.} Analogous to the previous case.
@@ -1599,7 +1599,7 @@ We separate the proofs for readability.
   \end{itemize}
   The desired partition of $A,\GG'_1$ is the singleton context $[A,\GG'_1]$, i.e. $n = 1$.
   The desired list of interpolant formulae is the singleton $[D]$.
-  The desired derivation $g$ is $\pass \ g' : {-} \mid A , \GG'_1 \vd D$ and the desired list of derivations $h_i$ is the singleton consisting only of $\pass \ h' : {-} \mid D, \GG_2 \vd C$.
+  The desired list of derivations $g_i$ is the singleton list consisting only of $\pass \ g' : {-} \mid A , \GG'_1 \vd D$ and the desired derivation $h$ is $\pass \ h' : {-} \mid D, \GG_2 \vd C$.
   The variable multiplicity condition follows from the inductive hypothesis.
   \\
   \underline{Case $f = \tr (f' , f'')$.}
@@ -1614,12 +1614,12 @@ We separate the proofs for readability.
     \begin{itemize}
       \item[--] a partition $\langle \GD_0, \dots , \GD_n \rangle$ of $\GG_1$,
       \item[--] a list of interpolant formulae $D_1, \dots , D_n$,
-      \item[--] a derivation $g'' : {-} \mid \GG'_0 , D_1 , \dots , D_n , \GG_2 \vd B$,
-      \item[--] derivations $h''_i : {-} \mid \GD_i \vd D_i$, for $i \in [1,\dots , n]$, such that
+      \item[--] derivations $g''_i : {-} \mid \GD_i \vd D_i$, for $i \in [1,\dots , n]$,
+      \item[--] a derivation $h'' : {-} \mid \GG'_0 , D_1 , \dots , D_n , \GG_2 \vd B$, such that
       \item[--] $\gs{D_i} \leq \gs{\GD_i}$ and $\vars{D_i} \leq \gs{\GG'_0 , \GG_2 , B}$ for any $X$.
     \end{itemize}
     The desired partition of $\GG_1$ is $\langle \GD_0, \dots , \GD_n \rangle$. The desired list of interpolant formulae is $D_1,\dots,D_n$.
-    The desired derivation $g$ is $\tr (f' , g'')$ and the desired derivation $h_i$ is  $h''_i$ for $i \in [1,\dots , n]$.
+    The desired derivation $g_i$ is $g''_i$ for $i \in [1,\dots , n]$ and the desired derivation $h$ is $\tr (f' , h'')$.
     The variable multiplicity condition is satisfied because $\gs{D_i} \leq \gs{ \GG'_0 , \GG_2 , B} \leq \gs{S, \GL, \GG'_0 , \GG_2 , A \ot B}$ for $i \in [1, \dots, n]$ and any $X$.
     \item $\GG_1$ is fully contained in $\GL$. This case is analogous to the one above, but now we have to induct on the derivation $f'$ instead of $f''$.
     \item $\GG_1$ splits between $\GL$ and $\GO$.
@@ -1629,8 +1629,8 @@ We separate the proofs for readability.
     \begin{itemize}
       \item[--] a partition $\langle \GD_0, \dots , \GD_n \rangle$ of $\GG'_1$ and a partition $\langle \GD_{n+1}, \dots , \GD_m \rangle$ of $\GG''_1$,
       \item[--] two lists of interpolant formulae $D_1, \dots , D_n$ and $D_{n+1}, \dots , D_m$,
-      \item[--] derivations $g' : S \mid \GG_0 , D_1 , \dots , D_n \vd A$ and $g'' : {-} \mid D_{n+1} , \dots , D_{m} , \GG_2 \vd B$,
-      \item[--] derivations $h'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1,\dots , n]$, and derivations $h'_j : {-} \mid \GD_j \vd D_j$, for $j \in [n+1,\dots , m]$, such that
+      \item[--] derivations $g'_i : {-} \mid \GD_i \vd D_i$, for $i \in [1,\dots , n]$, and derivations $g'_j : {-} \mid \GD_j \vd D_j$, for $j \in [n+1,\dots , m]$,
+      \item[--] derivations $h' : S \mid \GG_0 , D_1 , \dots , D_n \vd A$ and $h'' : {-} \mid D_{n+1} , \dots , D_{m} , \GG_2 \vd B$, such that
       \item[--] $\gs{D_i} \leq \gs{\GD_i}$ and $\gs{D_i} \leq \gs{ S, \GG_0 , A}$ for $i \in [1,\dots , n]$, and  
       \item[--] $\gs{D_{j}} \leq \gs{\GD_{j}}$ and $\gs{D_j} \leq \gs{\GG_2 , B}$ for $j \in [n+1,\dots , m]$ and any $X$.
     \end{itemize}
@@ -1639,12 +1639,12 @@ We separate the proofs for readability.
     The desired derivation $g$ is
     \begin{displaymath}
       \infer[\tr]{S \mid \GG_0 , D_1 , \dots , D_n , D_{n+1} , \dots , D_{m}, \GG_2 \vd A \ot B}{
-      \deduce{S \mid \GG_0 , D_1 , \dots , D_n \vd A}{g'}
+      \deduce{S \mid \GG_0 , D_1 , \dots , D_n \vd A}{h'}
       &
-      \deduce{{-} \mid D_{n+1} , \dots , D_{m}, \GG_2 \vd B}{g''}
+      \deduce{{-} \mid D_{n+1} , \dots , D_{m}, \GG_2 \vd B}{h''}
       }
     \end{displaymath}
-    while the desired derivation $h_i$ is $h'_i$ for $i \in [1,\dots,m]$.
+    while the desired derivation $g_i$ is $g'_i$ for $i \in [1,\dots,m]$.
     %  We abbreviate $D'_1 , \dots , D'_n$ as $[D']$, $\GD'_1, \dots , \GD'_n$ as $[\GD']$, $D''_{n+1} , \dots , D''_{n+m}$ as $[D'']$, and $\GD''_{n+1}, \dots , \GD''_{n+m}$ as $[\GD'']$. 
     For the variable multiplicity condition, we have
     $\gs{D_i} \leq \gs{S, \GG_0 , A , \GG_2 , B} = \gs{S , \GG_0 , \GG_2 , A \ot B}$ for $i \in [1 , \dots, m]$ and any $X$.
@@ -1792,7 +1792,7 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
   \begin{itemize}
     \item[--] a partition $\langle [X] , [W] \rangle$ of $[X, W]$,
     \item[--] a list of interpolant formulae $[X , W]$, and
-    \item[--] derivations $g' = \pass (\lleft (\pass \ \ax, \tr (\ax , \pass \ \ax))) : {-} \mid X \lolli Y , X, W \vd Y \ot W$, $h'_1 = \pass \ \ax : {-} \mid X \vd X$, and $h'_2 = \pass \ \ax : {-} \mid W \vd W$,
+    \item[--] derivations $g'_1 = \pass \ \ax : {-} \mid X \vd X$, and $g'_2 = \pass \ \ax : {-} \mid W \vd W$, and $h' = \pass (\lleft (\pass \ \ax, \tr (\ax , \pass \ \ax))) : {-} \mid X \lolli Y , X, W \vd Y \ot W$
   \end{itemize}
   satisfying the variable multiplicity condition.
   Next, we need to apply the \sMIP~procedure on the derivation $\ax : Z \mid \quad \vd Z$ with the partition $\langle [\ ] , [\ ] \rangle$ which produces two derivations $\ax : Z \mid \quad \vd Z$ and $\ax : Z \mid \quad \vd Z$.
@@ -1824,7 +1824,7 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
         % }
         % }
         % }
-        \deduce{{-} \mid X \lolli Y , X , W\vd Y \ot W}{g'}
+        \deduce{{-} \mid X \lolli Y , X , W\vd Y \ot W}{h'}
         &
         \infer[\ax]{Z \mid \quad \vd Z}{}
         }
@@ -1843,13 +1843,13 @@ This behaviour is further confirmed in our Agda formalization, where the inducti
         % \infer[\pass]{{-} \mid X \vd X}{
         % \infer[\ax]{X \mid \quad \vd X}{}
         % }
-        \deduce{{-} \mid X \vd X}{h'_1}
+        \deduce{{-} \mid X \vd X}{g'_1}
         &
         \infer[\lleft]{W \lolli Z \mid W \vd Z}{
         % \infer[\pass]{{-} \mid W \vd W}{
         % \infer[\ax]{W \mid \quad \vd W}{}
         % }
-        \deduce{{-} \mid W \vd W}{h'_2}
+        \deduce{{-} \mid W \vd W}{g'_2}
         &
         \infer[\ax]{Z \mid \quad \vd Z}{}
         }
@@ -2046,13 +2046,13 @@ $\scut{\pass \ g'}{h'} = \pass (\scut{g'}{h'})$. By inductive hypothesis on $f'$
   \underline{Case $f = \lleft (f',f'')$.} Two case determined by whether $\GG_1$ is fully contained in the context of the right premise or not.
   \begin{itemize}
     \item In the first case, the goal reduces to $\scut{\lleft(f',g'')}{h''} \circeq \lleft (f' , f'')$. By definition of $\mf{scut}$, we have $\scut{\lleft(f',g'')}{h''} = \lleft(f', (\scut{g''}{h''})$. By inductive hypothesis on $f''$ and congruence, the latter is $\circeq$-related to $\lleft (f' , f'')$.
-    \item In the second case, the goal reduces to showing that the derivation $\mf{scut}(\lright^* (\lleft(g',g'')),\lleft^*([h'_i],h''))$ is $\circeq$-related to $\lleft (f',f'')$. This is witnessed by the following sequence of equivalences:
+    \item In the second case, the goal reduces to showing that the derivation $\mf{scut}(\lright^* (\lleft(h',g'')),\lleft^*([g'_i],h''))$ is $\circeq$-related to $\lleft (f',f'')$. This is witnessed by the following sequence of equivalences:
   \[\arraycolsep=10pt    
       \begin{array}{lr}
-        \mf{scut}(\lright^* (\lleft(g',g'')),\lleft^*([h'_i],h'')) \\
-        \qquad \circeq \mf{scut}(\mf{ccut^*}([h'_i],\lleft(g',g'')),h'')
+        \mf{scut}(\lright^* (\lleft(h',g'')),\lleft^*([g'_i],h'')) \\
+        \qquad \circeq \mf{scut}(\mf{ccut^*}([g'_i],\lleft(h',g'')),h'')
         & \text{(by Proposition \ref{scut-or-ols})} \\
-        \qquad = \lleft(\mf{ccut^*}([h'_i],g'),\mf{scut}(h'',g''))
+        \qquad = \lleft(\mf{ccut^*}([g'_i],h'),\mf{scut}(h'',g''))
         & \text{(by definition of $\mf{scut}$ and $\mf{ccut^*}$)} \\
         \qquad \circeq \lleft (f',f'')
         & \text{(by ind. hyp. on $f'$ and $f''$}\\
