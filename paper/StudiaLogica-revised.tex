@@ -250,6 +250,7 @@ font={\normalfont},
   In this setting, Craig interpolation cannot be proved by directly employing standard proof-theoretic methods, such as Maehara's method, a situation that \SkNMILL~shares with other logical systems such as the product-free Lambek calculus and the implicational fragment of intuitionistic logic.
   We show how to overcome this issue and appropriately modify Maehara's method for recovering Craig interpolation.
   We take one step further and, following the category-theoretic perspective of {\v{C}}ubri{\'c}, we produce a proof-relevant version of the interpolation theorem, in which we show that our interpolation procedures are right inverses of the admissible cut rules.
+  All our results have been formalized in the proof assistant Agda.
 }
 
 %\abstract{This work studies Craig interpolation for   the sequent calculus of skew monoidal closed categories.
@@ -271,7 +272,7 @@ font={\normalfont},
 % 
 % \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
 
-\keywords{Craig interpolation, semi-substructural logic, Maehara's method, proof-relevant interpolation}
+\keywords{Craig interpolation, semi-substructural logic, Maehara's method, proof-relevant interpolation, Agda}
 
 %%\pacs[JEL Classification]{D8, H51}
 
@@ -417,10 +418,14 @@ We show that the \sMIP~and \cMMIP~procedures of Theorem \ref{genIntrp} are right
 In the above statement, $\mf{ccut}^*$ denotes multiple applications of the admissible $\mf{ccut}$ rule, one for each derivation $h_i$.
 Theorems \ref{genIntrp} and \ref{cutIntrp} together show that \SkNMILL\ satisfies a \emph{proof-relevant} form of Craig interpolation, in the sense  formulated in the early 90s by {\v{C}}ubri{\'c} \cite{Cubric1994} in the setting of intuitionistic propositional logic and recently discussed also by Saurin \cite{Saurin2024} for (extensions of) classical linear logic.
 
-All the proofs presented in this paper have been formalized in the proof assistant Agda. The full formalization is freely available at the following website:
+All the proofs presented in this paper have been formalized in the proof assistant Agda.
+In Section \ref{sec:agda} we showcase some aspects of the formalization.
+We discuss the datatypes employed for the representation of formulae, sequents and equivalence of derivations, and explain how the results presented in the paper translate to Agda types and terms.
+The full formalization is freely available at the following website:
 \begin{center}
   \url{https://github.com/niccoloveltri/code-skewmonclosed/tree/interpolation}.
 \end{center}
+
 
 \section{A Sequent Calculus for \SkNMILL}\label{sec:syntax}
 We start by recalling the sequent calculus for left skew monoidal closed categories that was introduced in \cite{UVW:protsn}, which we name \SkNMILL. This is a ``skew variant'' of non-commutative multiplicative intuitionistic linear logic, in a way that will be made precise later in this section.
@@ -2501,7 +2506,7 @@ We write $xs +\!\!+ ys : \List ~A$ for the concatenation of $xs, ys : \List ~A$,
 The universe of types is called $\Set$, so given a type $A : \Set$ we also have $\Maybe ~A : \Set$ and $\List ~A : \Set$.
 
 Given $x,y : A$, their definitional equality is denoted $x = y$ and their propositional equality is $x \equiv y$.
-For example, given lists $xs,ys,zs : \List ~A$, we have the definitional equality $[~] \append xs = xs$ (since $\append$ is defined by recursion on the first argument) and the propositional equalities $xs \append [~] \equiv xs$ and $(xs \append ys) \append zs \equiv xs \append (ys \append zs)$, witnessing right unitality and associativity of $\append$.
+For example, given lists $xs,ys,zs : \List ~A$, we have the definitional equality $[~] \append~ xs = xs$ (since $\append$ is defined by recursion on the first argument) and the propositional equalities $xs \append ~[~] \equiv xs$ and $(xs \append ~ys) \append ~zs \equiv xs \append ~(ys \append ~zs)$, witnessing right unitality and associativity of $\append$.
 Agda currently allows the extension of its evaluation relation with new computation rules using the flag \verb+--rewriting+.
 This enabled us to turn the two latter propositional equalities into definitional ones. Notice that this is only used to \emph{simplify} the statements and proofs of cut admissibility (and its properties) and Maehara interpolation, but all the results that we  formalized are also valid with right unitality and associativity of $\append$ being propositional instead of definitional.
 
@@ -2522,23 +2527,23 @@ Underscores are used to represent infix operators, i.e. $A \ot B$ and $A \lolli 
 The type of stoups is $\Stp = \Maybe ~\Fma$ and the type of contexts is $\Cxt = \List ~\Fma$.
 
 \noindent\textbf{Sequents.} %The entailment relation $\_{\mid}\_{\vdash}\_ : \Stp \to \Cxt \to \Fma \to \Set$ is defined as an inductive type family.
-Given a stoup $S : \Stp$, a context $\Gamma : \Cxt$ and a formula $C : \Fma$, the type $S \mid \Gamma \vdash C$ consists of all the possible proofs of the corrisponding sequent.
+Given a stoup $S : \Stp$, a context $\Gamma : \Cxt$ and a formula $C : \Fma$, the type $S \mid \Gamma \vdash C$ consists of all the possible proofs of the corresponding sequent.
 This type is inductively generated by the rules in Equation (\ref{eq:seqcalc:skmc:Gir}), i.e. there is a constructor associated to each of the 8 rules.
 For example, the inference rule $\lleft$ is implemented as a constructor
 \[
 \begin{array}{rcl}
 \lleft & : & \{\Gamma ~ \Delta : \Cxt \} ~ \{A ~ B ~ C : \Fma\} \\
 &\to&(f : \nothing \mid \GG \vd A) ~ (g : \just ~B \mid \GD \vd C) \\
-&\to& \just ~(A \lolli B) \mid \GG \append \GD \vd C
+&\to& \just ~(A \lolli B) \mid \GG \append ~\GD \vd C
 \end{array}
 \]
-Curly brackets are used in Agda to denote implicit arguments. Therefore $\lleft ~f ~g$ is a term of type $\just ~(A \lolli B) \mid \GG \append \GD \vd C$, whenever we are give terms $f : \nothing \mid \GG \vd A$ and $g : \just ~B \mid \GD \vd C$. 
+Curly brackets are used in Agda to denote implicit arguments. Therefore $\lleft ~f ~g$ is a term of type $\just ~(A \lolli B) \mid \GG \append~ \GD \vd C$, whenever we are give terms $f : \nothing \mid \GG \vd A$ and $g : \just ~B \mid \GD \vd C$. 
 
 \noindent\textbf{Equivalence of derivations.}
 Given two derivations of the same sequent $f,g : S \mid \Gamma \vdash C$, the type $f \circeq g$ consists of all possible ways to identify $f$ and $g$ using: $(i)$ the generating equations in Figures \ref{fig:circeq-perm} and \ref{fig:circeqeta}, $(ii)$ equations establishing that $\circeq$ is an equivalence relation and $(iii)$ equations establishing that $\circeq$ is a congruence. 
 Therefore $\circeq$ is implemented as inductive type family indexed over pairs of derivations.
 In the Agda definition of $\circeq$, there is: $(i)$ a constructor for each equation in Figures \ref{fig:circeq-perm} and \ref{fig:circeqeta}, $(ii)$  constructors for reflexivity, symmetry and transitivity of $\circeq$, and  $(iii)$ constructors evidencing the compatibility of $\circeq$ with the inference rules of \SkNMILL.
-We present three indicative examples, one for each class of equational generators: the constructor $\tr\pass$ associated to the first permutative conversion in Figure  \ref{fig:circeq-perm}; the constructor $\mathsf{sym}{\circeq}$ associated to symmetry of $\circeq$; the constructor $\mathsf{cong}\lleft$ associated to the compatibility of $\circeq$ wrt. $\lleft$. In the types of the constructors below, and further in this section, we omit some of the implicit arguments to shorted the types and improve readibility.
+We present three indicative examples, one for each class of equational generators: the constructor $\tr\pass$ associated to the first permutative conversion in Figure  \ref{fig:circeq-perm}; the constructor $\mathsf{sym}{\circeq}$ associated to symmetry of $\circeq$; the constructor $\mathsf{cong}\lleft$ associated to the compatibility of $\circeq$ wrt. $\lleft$. In the types of the constructors below, and further in this section, we omit some of the implicit arguments to shorted the types and improve readability.
 \[
 \begin{array}{rcl}
 \tr\pass &:&  (f : \just ~A' \mid \GG \vd A) ~(g : \nothing \mid \mid \GD \vd B) \\
@@ -2553,17 +2558,17 @@ We present three indicative examples, one for each class of equational generator
 In Agda, the two admissible cut rules in (\ref{eq:cut}) becomes two definable terms:
 \[
 \begin{array}{l}
-  \mathsf{scut} : (f : S \mid \GG \vd A) ~(g : \just ~A \mid \GD \vd C) \to S \mid \GG \append \GD \vd C \\[2pt]
-  \mathsf{ccut} : (f : \nothing \mid \GG \vd A) ~(g : S \mid \GD_0 \append A :: \GD_1 \vd C)
-  \to S \mid \GD_0 \append \GG \append \GD_1 \vd C
+  \mathsf{scut} : (f : S \mid \GG \vd A) ~(g : \just ~A \mid \GD \vd C) \to S \mid \GG \append ~\GD \vd C \\[2pt]
+  \mathsf{ccut} : (f : \nothing \mid \GG \vd A) ~(g : S \mid \GD_0 \append ~A :: \GD_1 \vd C)
+  \to S \mid \GD_0 \append ~\GG \append ~\GD_1 \vd C
 \end{array}
 \]
 The construction of $\mathsf{scut} ~f ~g$ proceeds by pattern-matching (i.e. structural recursion) on the first argument $f$ and, when $f$ begins with the application of a right introduction rule, continues by pattern-matching on the second argument $g$.
-The construction of $\mathsf{ccut} ~f ~g$ should proceed by pattern-matching on the second argument $g$, but Agda forbids us from doing this since it is unable to unify the context $\GD_0 \append A :: \GD_1$ with the ones appearing in the conclusion of inference rules. This issue is easily fixable by relaxing the context in the type of derivation $g$ to be an arbitrary context $\GD$, which we subsequently equate to $\GD_0 \append A :: \GD_1$, as follows:
+The construction of $\mathsf{ccut} ~f ~g$ should proceed by pattern-matching on the second argument $g$, but Agda forbids us from doing this since it is unable to unify the context $\GD_0 \append ~A :: \GD_1$ with the ones appearing in the conclusion of inference rules. This issue is easily fixable by relaxing the context in the type of derivation $g$ to be an arbitrary context $\GD$, which we subsequently equate to $\GD_0 \append ~A :: \GD_1$, as follows:
 \[
 \begin{array}{rcl}
-  \mathsf{ccut'} &:& (f : \nothing \mid \GG \vd A) ~(g : S \mid \GD \vd C) ~(eq : \GD \equiv \GD_0 \append A :: \GD_1) \\
-  &\to& S \mid \GD_0 \append \GG \append \GD_1 \vd C
+  \mathsf{ccut'} &:& (f : \nothing \mid \GG \vd A) ~(g : S \mid \GD \vd C) ~(eq : \GD \equiv \GD_0 \append ~A :: \GD_1) \\
+  &\to& S \mid \GD_0 \append ~\GG \append ~\GD_1 \vd C
 \end{array}
 \]
 The construction of $\mathsf{ccut'} ~f ~g ~eq$ proceeds by pattern-matching on the second argument $g$ and, when $g$ begins with the application of a left introduction rule, continues by pattern-matching on the first argument $f$.
@@ -2582,12 +2587,12 @@ The interpolations properties \sMIP~ and \cMMIP, not including the variable mult
   \multicolumn{2}{l}{\record \:\:  \cMMIP ~(S : \Stp) ~(\GG_0 ~\GG_1 ~ \GG_2: \Cxt) ~(C : \Fma) : \Set \:\: \where} \\
   \;\; \field \\
   \;\; Ds &: \List ~\Fma \\
-  \;\; g &: S \mid \GG_0 \append Ds \append \GG_2 \vdash D \\
-  \;\; hs &: \GG_1 \vdash^* Ds
+  \;\; gs &: \GG_1 \vdash^* Ds \\
+  \;\; h &: S \mid \GG_0 \append ~Ds \append ~\GG_2 \vdash D
 \end{array}
 \]
 Therefore elements of type $\sMIP ~S ~\GG_0 ~\GG_1 ~C$ are triples consisting of a formula $D$ and two derivations $g$ and $h$.
-Elements of $\cMMIP ~S ~\GG_0 ~\GG_1 ~\GG_2 ~C$ are also triples, but consisting of a list of formulae $Ds$ (the interpolant formulae $D_1,\dots,D_n$ in Theorem \ref{genIntrp}), a derivation $g$ and a sequence of derivations $hs$ (the derivations $h_1,\dots,h_n$ in Theorem \ref{genIntrp}).
+Elements of $\cMMIP ~S ~\GG_0 ~\GG_1 ~\GG_2 ~C$ are also triples, but consisting of a list of formulae $Ds$ (the interpolant formulae $D_1,\dots,D_n$ in Theorem \ref{genIntrp}), a sequence of derivations $gs$ (the derivations $g_1,\dots,g_n$ in Theorem \ref{genIntrp}) and a derivation $h$.
 Given a context $\Delta$ and list of formulae $As$, the type $\Delta \vdash^* As$ is inductively defined by two constructors $[~]^*$ and $\_ ::^*\!\!\!\_$ below:
 \[
 \begin{array}{rcl}
@@ -2595,27 +2600,27 @@ Given a context $\Delta$ and list of formulae $As$, the type $\Delta \vdash^* As
   \_ ::^*\!\!\!\_ &:&
   (f : \nothing \mid \Delta_0 \vdash A)
   ~ (fs : \Delta_1 \vdash^* As)
-  \to \Delta_0 \append \Delta_1 \vdash^* A :: As
+  \to \Delta_0 \append ~\Delta_1 \vdash^* A :: As
 \end{array}
 \]
 In other words, an element of type $\Delta \vdash^* As$, with $As$ being the list of formulae $A_1,\dots,A_n$, consists in a partition of $\Delta$ in $n$ parts $\Delta_1,\dots,\Delta_n$ and a sequence of derivations of type $\Delta_i \vdash A_i$, one for each $1 \le i \le n$.
-This implies that in our implementation of \cMMIP~ in Agda, the partition of $\GG_1$ and the derivations $h_i$ in the statement of \cMMIP~ in Theorem \ref{genIntrp} are both collected in the last field $hs : \GG_1 \vdash^* Ds$.
+This implies that in our implementation of \cMMIP~ in Agda, the partition of $\GG_1$ and the derivations $g_i$ in the statement of \cMMIP~ in Theorem \ref{genIntrp} are both collected in the last field $gs : \GG_1 \vdash^* Ds$.
 
 The proof of Theorem \ref{genIntrp} in Agda becomes the construction of the two following functions, defined mutually by pattern matching on their first argument $f$:
 \[
 \begin{array}{rcl}
 \mathsf{smip} & : & (f : S \mid \Gamma \vdash C)
-~(eq : \Gamma \equiv \Gamma_0 \append \Gamma_1)
+~(eq : \Gamma \equiv \Gamma_0 \append ~\Gamma_1)
 \to \sMIP ~S~\Gamma_0~\Gamma_1~C
 \\[2pt]
 \mathsf{cmmip} & : & (f : S \mid \Gamma \vdash C)
-~(eq : \Gamma \equiv \Gamma_0 \append \Gamma_1 \append \Gamma_2)
+~(eq : \Gamma \equiv \Gamma_0 \append ~\Gamma_1 \append ~\Gamma_2)
 \to \cMMIP ~S~\Gamma_0~\Gamma_1~\Gamma_2~C
 \end{array}
 \]
 
 \noindent\textbf{Variable multiplicity condition.}
-For each formula we define a function collecting the atomic formulae appearing in it, defined by recusion on the input formula:
+For each formula we define a function collecting the atomic formulae appearing in it, defined by recursion on the input formula:
 \[
 \begin{array}{lcl}
   \multicolumn{3}{l}{\mathsf{atom} : \Fma \to \List ~\At} \\
@@ -2636,29 +2641,62 @@ The variable conditions of the interpolation properties \sMIP~ and \cMMIP~ are i
   \;\;\;\; \;\; \mathsf{varh} : (X : \At) \to (X \in \mathsf{atom}~D) \hookrightarrow (X \in \mathsf{atomC} ~\GG_1 \append ~\mathsf{atom} ~C) \\ \\
   \record \:\:  \mathsf{cVar} ~(S : \Stp) ~(\GG_0 ~\GG_1 ~\GG_2: \Cxt) ~(C ~Ds : \Fma) : \Set \:\: \where \\
   \;\;\;\; \field \\
-  \;\;\;\; \;\; \mathsf{varg} : (X : \At) \\
-  \;\;\;\; \;\; \;\;\;\;\;\,\to (X \in \mathsf{atomC}~Ds) \hookrightarrow (X \in \mathsf{atomS} ~S \append~ \mathsf{atomC} ~(\GG_0 \append~ \GG_2) \append~ \mathsf{atom} ~C)  \\
-  \;\;\;\; \;\; \mathsf{varhs} : (X : \At) \to (X \in \mathsf{atomC}~Ds) \hookrightarrow (X \in \mathsf{atomC} ~\GG_1)  
+  \;\;\;\; \;\; \mathsf{vargs} : (X : \At) \to (X \in \mathsf{atomC}~Ds) \hookrightarrow (X \in \mathsf{atomC} ~\GG_1)  \\
+  \;\;\;\;\; \;\; \mathsf{varh} : (X : \At) \\
+  \;\;\;\; \;\; \;\;\;\;\;\,\to (X \in \mathsf{atomC}~Ds) \hookrightarrow (X \in \mathsf{atomS} ~S \append~ \mathsf{atomC} ~(\GG_0 \append~ \GG_2) \append~ \mathsf{atom} ~C)
 \end{array}
 \]
-The projection $\mathsf{varg}$ is an injective function that assigns to each occurrence of an atomic formula $X$ in $D$ an occurrence of $X$ in $S,\Gamma_0$, i.e. it is a faithfull implementation of the condition $\gs{D} \leq \gs{S , \GG_0}$. The other projections of types $\mathsf{sVar}$ and $\mathsf{cVar}$ appropriately represent the variable multiplicity conditions of \sMIP~ and \cMMIP.
+The projection $\mathsf{varg}$ is an injective function that assigns to each occurrence of an atomic formula $X$ in $D$ an occurrence of $X$ in $S,\Gamma_0$, i.e. it is a faithful implementation of the condition $\gs{D} \leq \gs{S , \GG_0}$. The other projections of types $\mathsf{sVar}$ and $\mathsf{cVar}$ appropriately represent the variable multiplicity conditions of \sMIP~ and \cMMIP.
 The variable conditions are established by constructing the following pair of functions, defined recursively on the argument $f$.
-In the types below, the formula $\sMIP.D~(\mathsf{smip}~f~eq)$ is the interpolant computed by the stoup Maehara interpolation procedure on input $f$. Simialrly, $\sMIP.Ds~(\mathsf{cmmip}~f~eq)$ is the sequence of interpolant formulae produced by the context
+In the types below, the formula $\sMIP.D~(\mathsf{smip}~f~eq)$ is the interpolant computed by the stoup Maehara interpolation procedure on input $f$. Similarly, $\sMIP.Ds~(\mathsf{cmmip}~f~eq)$ is the sequence of interpolant formulae produced by the context
 Maehara multi-interpolation procedure on input $f$.
 \[
 \begin{array}{rcl}
 \mathsf{svar} & : & (f : S \mid \Gamma \vdash C)
-~(eq : \Gamma \equiv \Gamma_0 \append \Gamma_1) \\
+~(eq : \Gamma \equiv \Gamma_0 \append ~\Gamma_1) \\
 &\to& \mathsf{sVar} ~S~\Gamma_0~\Gamma_1~C~(\sMIP.D~(\mathsf{smip}~f~eq))
 \\[4pt]
 \mathsf{cvar} & : & (f : S \mid \Gamma \vdash C)
-~(eq : \Gamma \equiv \Gamma_0 \append \Gamma_1 \append \Gamma_2) \\
+~(eq : \Gamma \equiv \Gamma_0 \append ~\Gamma_1 \append ~\Gamma_2) \\
 & \to&  \mathsf{cVar} ~S~\Gamma_0~\Gamma_1~C~(\sMIP.Ds~(\mathsf{cmmip}~f~eq))
 \end{array}
 \]
 
-\noindent\textbf{Proof-relevant interpolation}
+\noindent\textbf{Proof-relevant interpolation.}
+Given a derivation $f : S \mid \GG \vdash C$ and an equality proof $eq : \GG \equiv \GG_0 \append~\GG_1$, evidencing the partition of context $\GG$ in two parts $\GG_0$ and $\GG_1$, we first apply the stoup Maehara interpolation procedure $\mathsf{smip}$ on them, obtaining an interpolant formula and two derivations $\sMIP.g ~(\mathsf{smip} ~f ~eq)$ and $\sMIP.h ~(\mathsf{smip} ~f ~eq)$ (the $g$ and $h$ in the statement of \sMIP~ in Theorem \ref{genIntrp}). Then we apply the stoup cut procedure $\mathsf{scut}$ on these, resulting in a derivation which is $\circeq$-related to the original $f$. In Agda, proving proof-relevant stoup interpolation translates to the construction of a term $\mathsf{scutsmip}$ with the following type:
+\[
+\begin{array}{rcl}
+\mathsf{scutsmip} & : & (f : S \mid \GG \vdash C)
+ (eq : \GG \equiv \GG_0 \append~\GG_1) \\
+&\to &  \mathsf{scut} ~(\sMIP.g ~(\mathsf{smip} ~f ~eq)) ~(\sMIP.h ~(\mathsf{smip} ~f ~eq)) \\
+&& \circeq \\
+&&\mathsf{subst} ~(\lambda x.~S \mid x \vdash C) ~eq ~f
+\end{array}
+\]
+Notice that $f : S \mid \GG \vdash C$ while the derivation on the left hand side of $\circeq$ has type $S : \GG_0 \append ~\GG_1 \vdash C$. So in order to state that the two derivations are $\circeq$-related we need to substitute in the type of $f$ using the equality proof $eq : \GG \equiv \GG_0 \append~\GG_1$.
+The definition of $\mathsf{scutsmip}$ proceeds by pattern-matching on the argument $f$.
 
+Proving the analogous property for context Maehara multi-interpolation requires a bit of preparation.
+We define a context multi-cut rule, which is an iterated version of $\mathsf{ccut}$ taking a sequence of derivations $fs : \GG \vd^* As$ in input instead of a single derivation.
+This is constructed by pattern-matching on the first argument $fs$.
+\[
+\begin{array}{rcl}
+  \mathsf{ccut^*} &:& (fs : \GG \vd^* As)
+  ~(g : S \mid \GD \vd C)
+  ~(eq : \GD \equiv \GD_0 \append ~As \append ~\GD_1) \\
+  &\to& S \mid \GD_0 \append ~\GG \append ~\GD_1 \vd C
+\end{array}
+\]
+In Agda, proof-relevant context interpolation translates to the construction of a term $\mathsf{ccutcmmip}$ with the following type, defined by pattern-matching on the argument $f$:
+\[
+\begin{array}{rcl}
+\mathsf{ccutccmip} & : & (f : S \mid \GG \vdash C)
+ (eq : \GG \equiv \GG_0 \append~\GG_1 \append~\GG_2) \\
+&\to &  \mathsf{ccut^*} ~(\cMMIP.gs ~(\mathsf{cmmip} ~f ~eq)) ~(\cMMIP.h ~(\mathsf{cmmip} ~f ~eq)) \\
+&& \circeq \\
+&&\mathsf{subst} ~(\lambda x.~S \mid x \vdash C) ~eq ~f
+\end{array}
+\]
 
 \section{Conclusions and Future Work}
 
