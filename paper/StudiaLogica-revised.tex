@@ -246,7 +246,7 @@ font={\normalfont},
 %% Sample for unstructured abstract %%
 %%==================================%%
 
-\abstract{This work studies Craig interpolation for the logic \SkNMILL, a substructural logic admitting only a directed notion of associativity and unitality.
+\abstract{This work studies Craig interpolation for the logic \SkNMILL, a substructural logic supporting only directed versions of the structural rules of associativity and unitality.
   In this setting, Craig interpolation cannot be proved by directly employing standard proof-theoretic methods, such as Maehara's method, a situation that \SkNMILL~shares with other logical systems such as the product-free Lambek calculus and the implicational fragment of intuitionistic logic.
   We show how to overcome this issue and appropriately modify Maehara's method for recovering Craig interpolation.
   We take one step further and, following the category-theoretic perspective of {\v{C}}ubri{\'c}, we produce a proof-relevant version of the interpolation theorem, in which we show that our interpolation procedures are right inverses of the admissible cut rules.
@@ -301,28 +301,29 @@ A logic $\mc{L}$ has the \emph{Craig interpolation property} if, for any formula
 Craig interpolation has been mostly employed to prove model-theoretical results, including Beth's definability theorem \cite{Beth1953}, but more recently it has found applications in other areas, e.g. in model checking \cite{Henzinger2004}.
 
 From the viewpoint of sequent calculus, substructural logics are defined by the absence of at least one structural rule.
-A notable instance is Joachim Lambek's syntactic calculus \cite{lambek:mathematics:58}, which forbids weakening, contraction and exchange.
+A notable instance is Lambek's syntactic calculus \cite{lambek:mathematics:58}, which forbids weakening, contraction and exchange.
 Its non-associative variant, also introduced by Lambek \cite{Lambek1961},
 %which has been extensively studied \cite{moot:categorial:2012},
-disallows associativity as well. Another significant example is linear logic, introduced by Jean-Yves Girard \cite{girard:linear:87}, where weakening and contraction are disallowed but can be recovered for specific formulas through modalities.
+disallows associativity as well. Another significant example is linear logic, introduced by Girard \cite{girard:linear:87}, where weakening and contraction are disallowed but can be recovered for specific formulae through modalities.
 Substructural logics have been proved useful for modelling various phenomena in different research areas, from the computational analysis of natural language syntax to the development of programming languages sensitive to resource management.
 
 Craig interpolation for substructural logics has been extensively studied, using either algebraic or proof-theoretic techniques. 
 
 For substructural logics that lack a cut-free sequent calculus, such as arbitrary extensions of the full Lambek calculus with exchange (\FLe), Craig interpolation is established using algebraic methods such as amalgamation.
-For further details on this approach, see~\cite{Fussner2024} and for the relationship between amalgamation and interpolation properties in substructural logics, see~\cite{Kihara2009}.
+For further details on this approach, we refer the reader to a recent paper by Fussner and Santschi~\cite{Fussner2024}.
+For the relationship between amalgamation and interpolation properties in substructural logics we refer to a paper by Kihara and Ono~\cite{Kihara2009}.
 % \niccolo{Pick a better reference where algebraic proofs of amalgamation are actually given. Keep the Kihara2009 reference saying that this studies the relationship between various interpolation properties and amalgamation properties.}
 
-For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven by adapting Maehara's method \cite{maehara1961}, which originally aimed to prove interpolation for $\mathtt{LK}$, a sequent calculus for classical logic.
-This includes the full Lambek calculus (\FL) and its extensions that incorporate various combinations of weakening, exchange, and contraction.
+For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven using an adaptation of Maehara's method \cite{maehara1961}, which Maehara originally applied to the sequent calclulus $\mathtt{LK}$ for classical logic.
+This class of substructural logics includes the full Lambek calculus (\FL) and its extensions that incorporate various combinations of weakening, exchange, and contraction.
 In the case of \FL, for instance, the proof starts by establishing a stronger form of interpolation which we call \emph{Maehara interpolation property} (\MIP) \cite{ono:proof:nonclassical:1998}. 
-The latter property states:
+The property states:
 \begin{description}
-  \item[(\MIP~for \FL)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$, and $\vars{D} \subseteq \vars{\GG_0} \cap \vars{\GG_0, \GG_1, C}$
+  \item[(\MIP~for \FL)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$ such that $\vars{D} \subseteq \vars{\GG_0} \cap \vars{\GG_0, \GG_1, C}$
 \end{description}
 Being a partition simply means that the ordered list of formulae $\GG$ is equal to the concatenation of $\GG_0, \GG_1$ and $\GG_2$, i.e. $\GG = \GG_0, \GG_1, \GG_2$.
 Maehara interpolation also holds for the commutative variant of \FL, called \FLe.
-In the latter case, $\GG$ is an unordered list of formulae, i.e. a finite multiset, and it is partitioned as a pair of multisets instead of a triple of lists.
+In the commutative case, $\GG$ is an unordered list of formulae, i.e. a finite multiset, and it is partitioned as a pair of multisets instead of a triple of lists.
 This simplification is allowed by the fact that the order of formulae in the antecedent is irrelevant, and therefore $\GG_0$ and $\GG_2$ can be combined together into a single multiset.
 %For the latter, \MIP\ is reformulated where antecedents are trees of formulae instead of lists.
 
@@ -330,7 +331,7 @@ This simplification is allowed by the fact that the order of formulae in the ant
 Let $\gs{A}$ be the number of occurrences of the atomic formula $X$ in the formula $A$, and $\gs{\GG}$ be the number of occurrences of $X$ in the list of formulae $\GG$.
 The stronger variant of Maehara interpolation states:
 \begin{description}
-  \item[(\MIP~for \FL~with multiplicity condition)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$, and $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{\GG_0, \GG_2 , C}$ for all atomic formulae $X$.
+  \item[(\MIP~for \FL~with multiplicity condition)] Given $f : \GG \vdash C$ and a partition $\langle \GG_0, \GG_1, \GG_2 \rangle$ of $\GG$, there exist a formula $D$ and two derivations $g : \GG_1 \vdash D$ and $h : \GG_0, D, \GG_2 \vdash C$ such that $\gs{D} \leq \gs{\GG_1}$ and $\gs{D} \leq \gs{\GG_0, \GG_2 , C}$ for all atomic $X$.
 \end{description}
 %The $\gs{A}$ above is a function to count the number of occurrences of the atomic formula $X$ in $A$, which can be extended to count the number of occurrences of the atomic formula $X$ in a list of formulae. 
 %Maehara interpolation also holds for the non-associative variant of \FL, for an appropriate reformulation of the principle in which antecedents are trees of formulae instead of lists.
@@ -360,7 +361,7 @@ In this paper, we aim at proving Craig interpolation for the \emph{semi-substruc
 In our terminology, a logic is semi-substructural if it is an intermediate logic in between (certain fragments of) non-associative and associative intuitionistic linear logic (or the Lambek calculus).
 Sequents in \SkNMILL\ are in the form $S \mid \GG \vdash A$, where the antecedent consists of an optional formula $S$, called stoup, adapted from Girard \cite{girard:constructive:91}, and an ordered list of formulae $\GG$.
 The succedent is a single formula $A$.
-We restrict the application of introduction rules in an appropriate way to allow only one of the directions of associativity and unitality, i.e. only the sequents $(A \ot B)\ot C \mid \quad \vd A \ot (B \ot C)$, $\I \ot A \mid \quad \vd A$, and $A \mid \quad \vd A \ot \I$ are provable in \SkNMILL, while their inverses $A \ot (B \ot C) \mid \quad \vd (A \ot B) \ot C$, $A \mid \quad \vd \I \ot A$, and $A \ot \I \mid \quad \vd A$ are not.
+We restrict the application of introduction rules in an appropriate way to allow only one of the directions of associativity and unitality, i.e. only the sequents $(A \ot B)\ot C \mid \quad \vd A \ot (B \ot C)$, $\I \ot A \mid \quad \vd A$, and $A \mid \quad \vd A \ot \I$ are provable in \SkNMILL, while their inverses $A \ot (B \ot C) \mid \quad \vd (A \ot B) \ot C$, $A \mid \quad \vd \I \ot A$, and $A \ot \I \mid \quad \vd A$ are not generally provable.
 In other words, only directed variants of the structural rules of associativity and unitality are included, while their inverses are generally disallowed.
 
 The introduction of semi-substructural logics was originally motivated by the study of combinatorial properties of certain categorical structures, called \emph{left skew monoidal categories} \cite{szlachanyi:skew-monoidal:2012}.
@@ -369,8 +370,8 @@ In left skew monoidal categories, the structural morphisms of associativity and 
 For this reason, left skew monoidal categories can be seen as \emph{semi-associative} and \emph{semi-unital} variants of monoidal categories. 
 
 Different variants of left skew monoidal categories have led to the development of their corresponding semi-substructural logic.
-These include $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23,wan2024}, and $(v)$ left distributive skew monoidal categories with finite products and coproducts \cite{VW:2023}.
-Each of these logics admits a cut-free sequent calculus. Moreover, they admit a subcalculus of ``proofs in normal form'', which is inspired by Jean-Marc Andreoli's focusing method \cite{andreoli:logic:1992} and as such provides a way to make root-first proof search more deterministic.
+These include $(i)$ left skew semigroup \cite{zeilberger:semiassociative:19}, $(ii)$ left skew monoidal \cite{uustalu:sequent:2021}, $(iii)$ left skew (prounital) closed \cite{uustalu:deductive:nodate}, $(iv)$ left skew monoidal closed categories \cite{UVW:protsn,veltri:multifocus:23,wan2024}, and $(v)$ left distributive skew monoidal categories with binary products and coproducts \cite{VW:2023}.
+Each of these logics admits a cut-free sequent calculus. Moreover, they admit a subcalculus of ``proofs in normal form'', which is inspired by Andreoli's focusing method \cite{andreoli:logic:1992} and as such provides a way to steer root-first proof search and make it more deterministic.
 Practically, the focusing method is employed for solving the coherence problem for the corresponding variants of left skew monoidal categories. In the case of left skew monoidal closed categories, a solution to the coherence (or word) problem consists of a procedure for deciding equality of parallel morphisms in the free left skew monoidal closed category on a given set $\mathsf{At}$.
 In previous work, we showed that the focused subcalculus for \SkNMILL\ is a concrete presentation of such free category, so a solution to the coherence problem is obtained by checking whether two morphisms are represented by the same derivation in the focused subcalculus.
 
@@ -2690,7 +2691,7 @@ This is constructed by pattern-matching on the first argument $fs$.
 In Agda, proof-relevant context interpolation translates to the construction of a term $\mathsf{ccutcmmip}$ with the following type, defined by pattern-matching on the argument $f$:
 \[
 \begin{array}{rcl}
-\mathsf{ccutccmip} & : & (f : S \mid \GG \vdash C)
+\mathsf{ccutcmmip} & : & (f : S \mid \GG \vdash C)
  (eq : \GG \equiv \GG_0 \append~\GG_1 \append~\GG_2) \\
 &\to &  \mathsf{ccut^*} ~(\cMMIP.gs ~(\mathsf{cmmip} ~f ~eq)) ~(\cMMIP.h ~(\mathsf{cmmip} ~f ~eq)) \\
 && \circeq \\
