@@ -1,7 +1,7 @@
 
 We thank the reviewers for carefully reading our paper and providing
 valuable feedback. In the new version of the paper, we implemented
-their suggestions and made the two following main changes:
+their suggestions and made the following main changes:
 
 1. We added a new Section 7, where we describe some details of the
 Agda formalization. In particular, we discuss the datatypes employed
@@ -9,7 +9,12 @@ for the representation of formulae, sequents and equivalence of
 derivations, and explain how the results presented in the paper
 translate to Agda types and terms.
 
-2. We prove a stronger version of interpolation, where the condition
+2. We made the paper more self-contained, by adding in Section 2
+(after the description of the inference rule of the sequent calculus)
+a few sentences explaining why SkNMILL is a "semi-associative and
+semi-unital" logic.
+
+3. We prove a stronger version of interpolation, where the condition
 on variables involves the count of variable occurrences. The associated
 formal proof has also been added to the Agda formalization.
 
