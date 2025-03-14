@@ -314,7 +314,7 @@ For further details on this approach, we refer the reader to a recent paper by F
 For the relationship between amalgamation and interpolation properties in substructural logics we refer to a paper by Kihara and Ono~\cite{Kihara2009}.
 % \niccolo{Pick a better reference where algebraic proofs of amalgamation are actually given. Keep the Kihara2009 reference saying that this studies the relationship between various interpolation properties and amalgamation properties.}
 
-For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven using an adaptation of Maehara's method \cite{maehara1961}, which Maehara originally applied to the sequent calclulus $\mathtt{LK}$ for classical logic.
+For substructural logics that admit a cut-free sequent calculus, Craig interpolation is typically proven using an adaptation of Maehara's method \cite{maehara1961}, which Maehara originally applied to the sequent calculus $\mathtt{LK}$ for classical logic.
 This class of substructural logics includes the full Lambek calculus (\FL) and its extensions that incorporate various combinations of weakening, exchange, and contraction.
 In the case of \FL, for instance, the proof starts by establishing a stronger form of interpolation which we call \emph{Maehara interpolation property} (\MIP) \cite{ono:proof:nonclassical:1998}. 
 The property states:
@@ -1393,7 +1393,7 @@ The variable multiplicity condition of Maehara interpolation and the existence o
 This situation is reminiscent of the failure of interpolation in the product-free Lambek calculus \cite{Pentus1997} and in the implicational fragment of intuitionistic logic \cite{Kanazawa2006}.
 In both cases, Maehara
 interpolation fails because neither the additive~($\land$) nor the multiplicative ($\ot$) conjunction is present.
-A concrete counterexample in the product-free Lambek calculus (adapted from Kanazawa \cite{Kanazawa2006}) is given by the derivable sequent $W, W\bsls Y, W , W \bsls X , X \bsls (Y \bsls Z) \vd Z$ with the partition $\langle [\ ] , [W, W\bsls Y, W , W \bsls X], [X \bsls (Y \bsls Z)] \rangle$. This can be shown to not satisfy the Maehara interpolation property. In the presence of $\ot$,  Maehara's method would produce the interpolant formula $X \ot Y$. The situation of \SkNMILL~ is somewhere inbetween: we have a multiplicative conjunction $\ot$ but we cannot do much with it if a formula $A \ot B$ is in context instead of the stoup position, since the rule $\tl$ cannot be applied arbitrarily in the antecedent.
+A concrete counterexample in the product-free Lambek calculus (adapted from Kanazawa \cite{Kanazawa2006}) is given by the derivable sequent $W, W\bsls Y, W , W \bsls X , X \bsls (Y \bsls Z) \vd Z$ with the partition $\langle [\ ] , [W, W\bsls Y, W , W \bsls X], [X \bsls (Y \bsls Z)] \rangle$. This can be shown to not satisfy the Maehara interpolation property. In the presence of $\ot$,  Maehara's method would produce the interpolant formula $X \ot Y$. The situation of \SkNMILL~ is somewhere in-between: we have a multiplicative conjunction $\ot$ but we cannot do much with it if a formula $A \ot B$ is in context instead of the stoup position, since the rule $\tl$ cannot be applied arbitrarily in the antecedent.
 The counterexample to \MIP~in product-free Lambek calculus, when appropriately modified, also works as a counterexample to \cMIP~in \SkNMILL: consider the derivable sequent  $X \lolli (Y \lolli Z) \mid W \lolli X, W , W \lolli Y, W \vd Z$ with the partition $\langle [\ ] , [W \lolli X, W , W \lolli Y, W], [\ ] \rangle$.
 %This is an instance of a sequent calculus failing to have the formula-version of Maehara interpolation for a different reason.
 
@@ -2818,7 +2818,7 @@ This approach could be seen as a step towards the universal proof theory for sub
 Another venue of future work would be the  extension of the results of this paper to other semi-substructural logics, e.g. extensions with a notion of skew exchange \cite{veltri:coherence:2024} or additive connectives \cite{VW:2023}.
 In the latter setting we might also ask whether the logic satisfies a uniform interpolation property in the sense of \cite{alizadeh:2014}.
 
-\paragraph{Acknowledgements}
+\paragraph{Acknowledgments}
 This work was supported by the Estonian Research Council grant PSG749.
 
 \bibliography{StudiaLogica}
