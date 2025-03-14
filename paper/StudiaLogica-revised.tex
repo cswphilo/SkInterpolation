@@ -1985,8 +1985,8 @@ A natural question arises: what happens when we compose derivations $g$ and $h$ 
 Intuition suggests that we should get back the original derivation $f$, at least modulo $\eta$-conversions and permutative conversions.
 This is in fact what happens, and this section is dedicated to proving this result.
 
-Analogously, the \cMMIP~procedure splits a derivation $f : S \mid \GG_0,\GG_1,\GG_2 \vd C$ in a tuple of derivations $[h_i : {-} \mid \GD_i \vd D_i]_i$ and $g : S \mid \GG_0,D_1,\dots,D_n,\GG_2 \vd C$, with $D_1,\dots,D_n$ satisfying an appropriate multiplicity condition.
-If we compose $[h_i]$ and $g$ using the admissible $\mathsf{ccut^*}$ rule, we get back the original derivation modulo $\circeq$.
+Analogously, the \cMMIP~procedure splits a derivation $f : S \mid \GG_0,\GG_1,\GG_2 \vd C$ in a tuple of derivations $[g_i : {-} \mid \GD_i \vd D_i]_i$ and $h : S \mid \GG_0,D_1,\dots,D_n,\GG_2 \vd C$, with $D_1,\dots,D_n$ satisfying an appropriate multiplicity condition.
+If we compose $[g_i]$ and $h$ using the admissible $\mathsf{ccut^*}$ rule, we get back the original derivation modulo $\circeq$.
 
 Similar questions have been considered by {\v{C}}ubri{\'c} \cite{Cubric1994} in the setting of intuitionistic propositional logic and by Saurin \cite{Saurin2024} for (extensions) of classical linear logic.
 They call \emph{proof-relevant interpolation} the study of interpolation procedures in relationship to cut rules and equivalence of proofs, like our $\circeq$.
