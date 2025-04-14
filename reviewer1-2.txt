@@ -1,0 +1,11 @@
+Reviewer #1: The authors have correctly implemented all the suggestions from my previous review. I recommend acceptance.
+
+Two small remarks:
+
+1. Some more comments would be welcome to emphasize the difference between Maehara interpolation (which fails for SkNMILL) and Craig interpolation (which holds). The reason is (probably) that for Maehara's interpolation one may try to interpolate a sequence of formulae, which is, in the absence of multiplicative conjunction, not reducible to one formula. In other words, without multiplicative conjunction the sequent language is indeed more expressive than the formula one. Thus, the first fails to enjoy interpolation (in Maehara's sense), while the second enjoys it, in Craig's formulation.
+
+** DONE
+
+2. (optional) In the works of Roorda and Pentus, the interpolation statement is even stronger: it respects not only numbers of occurrences of atoms, but also their _polarity_. The question whether this holds for SkNMILL also looks an interesting question for further study. (Or, if it is easy, it could as well be added to the present article.)
+
+** TODO
