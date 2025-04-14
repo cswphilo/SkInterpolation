@@ -1354,7 +1354,7 @@ We obtain $\tr (g',g'') : {-} \mid \GG'_1, \GG''_1 \vd D \ot E$, but we are unab
   }
   }
 \end{equation*}
-and the partition $\langle [\ ], (Y,Z), [\ ]\rangle$. Suppose by contradiction that Maehara interpolation holds, so we would have a formula $D$ and two derivations $g: {-} \mid Y, Z \vd D$ and $h : X \mid D \vd (X\ot Y)\ot Z$.
+and the partition $\langle [\ ], [Y,Z], [\ ]\rangle$. Suppose by contradiction that Maehara interpolation holds, so we would have a formula $D$ and two derivations $g: {-} \mid Y, Z \vd D$ and $h : X \mid D \vd (X\ot Y)\ot Z$.
 The variable multiplicity condition of Maehara interpolation and the existence of the derivation $g$ ensure that $D$ does not contain atomic formulae other than $Y$ and $Z$, and the latter must have a unique occurrence in $D$. Nevertheless, the existence of derivation $h$ is absurd. Since $X$ is atomic, $h$ can only be of the form: $(i)$ $f = \tr(f_1,f_2)$ for some derivations $f_1 : X \mid D \vd X \ot Y$ and $f_2 : {-} \mid \quad \vd Z$, or $(ii)$ $f = \tr(f'_1,f'_2)$ for some derivations $f'_1 : X \mid \quad \vd X \ot Y$ and $f'_2 : {-} \mid D \vd Z$. Case $(i)$ is impossible since there is no such $f_2$, while case $(ii)$ is impossible since there is no such $f'_1$.
 \end{counterexample}
 % , and no other  are atomic, the only possibility is that $D = Y \ot Z$, however, the sequent $X \mid Y \ot Z \vd (X \ot Y) \ot Z$ does not have a proof in \SkNMILL.
@@ -1984,7 +1984,7 @@ Given the partition $\langle [\ ], (Y,Z),[\ ]\rangle$, \cMIP\ would require iden
 
 On the other hand, considering the derivation
 \begin{equation*}
-  \infer[\tr]{X \mid Y, Z \vd (X\ot Y)\ot Z}{
+  \infer[\tr]{X \mid Y, Z \vd X \ot (Y \ot Z)}{
   \infer[\ax]{X \mid \quad \vd X}{}
   &
   \infer[\pass]{{-} \mid Y , Z \vd Y \ot Z}{
@@ -1998,11 +1998,12 @@ On the other hand, considering the derivation
   }
   }
 \end{equation*}
-and the partition $\langle [\ ], (Y,Z), [\ ]\rangle$, we can find the interpolant formula $Y \ot Z$ and two derivations $g: {-} \mid Y, Z \vd Y \ot Z$ and $h : X \mid Y \ot Z \vd X\ot (Y \ot Z)$ because the tree $(Y , Z)$ has appeared in the derivation.
+and the partition $\langle [\ ], [Y,Z], [\ ]\rangle$, we can find the interpolant formula $Y \ot Z$ and two derivations $g: {-} \mid Y, Z \vd Y \ot Z$ and $h : X \mid Y \ot Z \vd X\ot (Y \ot Z)$ because the tree $(Y , Z)$ has appeared in the derivation.
 Thus, while \cMIP\ might hold in specific, carefully chosen instances depending on the full derivation context, it does not hold generally.
 
 Therefore, in \cMMIP, we relax the condition by allowing interpolants to be a list of formulae so that we can prove Craig interpolation for \SkNMILL.
 
+For \sMIP, the interpolant tree always exists. For any derivation $f : S \mid \GG_0 , \GG_1 \vd C$ and any partition $\langle \GG_0, \GG_1 \rangle$, $((S , \GG_0) , \GG_1)$ is a tree associated to the left where the interpolant tree $(S , \GG_0)$ has appeared.  For example, consider the derivation above and the partition $\langle [Y] , [Z]\rangle$. The interpolant tree $(X, Y)$ has appeared in the endsequent.
 \section{Proof-Relevant Interpolation}\label{sec:proof-rel} 
 
 So far we have established a procedure \sMIP~for effectively splitting a derivation $f : S \mid \GG_1 , \GG_2 \vd C$ in two derivations $g : S \mid \GG_1 \vd D$ and $h : {-} \mid \GG_2 \vd C$, with $D$ being ``minimal'' in the sense of satisfying an appropriate multiplicity condition.
