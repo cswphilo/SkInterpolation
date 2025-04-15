@@ -328,7 +328,7 @@ In the commutative case, $\GG$ is an unordered list of formulae, i.e. a finite m
 This simplification is allowed by the fact that the order of formulae in the antecedent is irrelevant, and therefore $\GG_0$ and $\GG_2$ can be combined together into a single multiset.
 %For the latter, \MIP\ is reformulated where antecedents are trees of formulae instead of lists.
 
-\FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by a variable \emph{multiplicity} condition \cite{roorda1991,moot:categorial:2012}.
+\FL~without additive connectives enjoys a stronger variant of Maehara interpolation where the variable condition is replaced by a variable \emph{multiplicity} condition \cite{moot:categorial:2012}.
 Let $\gs{A}$ be the number of occurrences of the atomic formula $X$ in the formula $A$, and $\gs{\GG}$ be the number of occurrences of $X$ in the list of formulae $\GG$.
 The stronger variant of Maehara interpolation states:
 \begin{description}
@@ -1820,6 +1820,10 @@ Notice that \cMMIP~is invoked in the proof of \sMIP, in the case $f = \lleft(f',
 The proof of Theorem \ref{genIntrp} describes an effective procedure for building interpolant formulae and derivations.
 This procedure is terminating, since each recursive call happens on a derivation with height strictly smaller than the one of the derivation in input.
 This behaviour is further confirmed in our Agda formalization, where the inductive proof of \sMIP/\cMMIP~is accepted by the proof assistant as terminating.
+
+In his PhD thesis \cite{roorda1991}, Roorda considered a stronger variable multiplicity condition, characterizing the \emph{positive and negative} occurrences of atomic formulae in interpolants. Let $\mathsf{At}_{+}(A)$ be the multiset of positive occurrences of atomic formulae in $A$, and let $\mathsf{At}_{-}(A)$ be the multiset of negative occurrences of atomic formulae in $A$. These notions can be straightforwardly extended to stoups and contexts. We can prove that the \sMIP~procedure satisfies the following stronger variable condition: given $p \in \{ +,-\}$, there is an injective function from $\mathsf{At}_p(D)$ to $\mathsf{At}_p(S,\Gamma_0)$, and an injective function from $\mathsf{At}_p(D)$ to the multiset union of $\mathsf{At}_{\neg p}(\Gamma_1)$ and $\mathsf{At}_p(C)$. Here $\neg p$ denotes the opposite polarity of $p$, i.e. $\neg + = -$ and $\neg - = +$. We can also prove that the \cMMIP~procedure satisfies the following stronger variable condition: given $p \in \{ +,-\}$, there is an injective function from $\mathsf{At}_p(D_1,\dots,D_n)$ to $\mathsf{At}_p(\Gamma_1)$ and  and an injective function from $\mathsf{At}_p(D_1,\dots,D_n)$ to the multiset union of $\mathsf{At}_{\neg p}(S,\Gamma_0,\Gamma_2)$ and $\mathsf{At}_p(C)$.
+We refer to our Agda formalization for more details on how to establish these stronger variable conditions.
+
 
 \begin{example}
   Let us illustrate the interpolation procedure on a simple example.
