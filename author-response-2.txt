@@ -1,0 +1,7 @@
+We thank the reviewers for carefully reading our paper and providing
+valuable feedback. In the new version of the paper, we implemented
+their suggestions and made the following changes:
+
+1. In the end of Section 5, we added a paragraph for a more detailed explanation of why interpolating a sequence of formulae is not reducible to one formula.
+
+2. After the proof of Theorem 5 (in the middle of page 20), we added a short comment about the valuable multiplcity condition with polarities.

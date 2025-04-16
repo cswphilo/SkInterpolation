@@ -8,4 +8,4 @@ Two small remarks:
 
 2. (optional) In the works of Roorda and Pentus, the interpolation statement is even stronger: it respects not only numbers of occurrences of atoms, but also their _polarity_. The question whether this holds for SkNMILL also looks an interesting question for further study. (Or, if it is easy, it could as well be added to the present article.)
 
-** TODO
+** DONE
