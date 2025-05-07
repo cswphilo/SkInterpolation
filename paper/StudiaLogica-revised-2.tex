@@ -2631,7 +2631,7 @@ For example, the inference rule $\lleft$ is implemented as a constructor
 &\to& \just ~(A \lolli B) \mid \GG \append ~\GD \vd C
 \end{array}
 \]
-Curly brackets are used in Agda to denote implicit arguments. Therefore $\lleft ~f ~g$ is a term of type $\just ~(A \lolli B) \mid \GG \append~ \GD \vd C$, whenever we are give terms $f : \nothing \mid \GG \vd A$ and $g : \just ~B \mid \GD \vd C$. 
+Curly brackets are used in Agda to denote implicit arguments. Therefore $\lleft ~f ~g$ is a term of type $\just ~(A \lolli B) \mid \GG \append~ \GD \vd C$, whenever we are given terms $f : \nothing \mid \GG \vd A$ and $g : \just ~B \mid \GD \vd C$. 
 
 \noindent\textbf{Equivalence of derivations.}
 Given two derivations of the same sequent $f,g : S \mid \Gamma \vdash C$, the type $f \circeq g$ consists of all possible ways to identify $f$ and $g$ using: $(i)$ the generating equations in Figures \ref{fig:circeq-perm} and \ref{fig:circeqeta}, $(ii)$ equations establishing that $\circeq$ is an equivalence relation and $(iii)$ equations establishing that $\circeq$ is a congruence. 
